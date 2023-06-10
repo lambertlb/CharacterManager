@@ -1,11 +1,12 @@
 import json
 from unittest import TestCase
+import unittest
 
 from JsonUtils import JsonUtils
 from Property import Property
 
 
-class TestCharacterManager(TestCase):
+class TestProperties(TestCase):
 	@classmethod
 	def setUpClass(cls):
 		pass
@@ -14,7 +15,7 @@ class TestCharacterManager(TestCase):
 	def tearDownClass(cls):
 		pass
 
-	def testLoadPropertyWithNoAttributes(self):
+	def test_LoadPropertyWithNoAttributes(self):
 		definition = {"Name": "Text"}
 		jsonPropertyData = {"Name": "Fred FlintStone"}
 		testProperty = Property()
@@ -31,3 +32,5 @@ class TestCharacterManager(TestCase):
 		assert definitionAsStr == savedDefinitionAsStr
 		assert not testProperty.attributes
 
+if __name__ == '__main__':
+    unittest.main()

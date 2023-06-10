@@ -1,5 +1,6 @@
 import os
 from unittest import TestCase
+import unittest
 
 from ConfigurationManager import ConfigurationManager
 
@@ -34,3 +35,6 @@ class TestConfigurationManager(TestCase):
 	def tearDownClass(cls):
 		if os.path.exists(TestConfigurationManager.testIni):
 			os.remove(TestConfigurationManager.testIni)
+
+if __name__ == '__main__':
+    unittest.main()

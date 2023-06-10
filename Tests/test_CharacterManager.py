@@ -1,10 +1,11 @@
 import os
 from unittest import TestCase
+import unittest
 
 from ConfigurationManager import ConfigurationManager
 from Services import Services
-from Tests.TestLogger import TestLogger
 from main import CharacterManager
+from TestLogger import TestLogger
 
 
 class TestCharacterManager(TestCase):
@@ -18,7 +19,7 @@ class TestCharacterManager(TestCase):
 		config = ConfigurationManager(TestCharacterManager.testIni)
 		Services.setConfigurationManager(config)
 		config.setValue(ConfigurationManager.saveCharacterKey, ConfigurationManager.saveCharacterDirectoryKey,
-						'./TestSavedCharacters')
+						'./Tests/TestSavedCharacters')
 
 	@classmethod
 	def tearDownClass(cls):
@@ -27,5 +28,8 @@ class TestCharacterManager(TestCase):
 		pass
 
 	def testLoadCharacter(self):
-		cm = CharacterManager('../CharacterTemplates')
+		cm = CharacterManager('./CharacterTemplates')
 		cm.loadCharacter('Character 1')
+
+if __name__ == '__main__':
+    unittest.main()
