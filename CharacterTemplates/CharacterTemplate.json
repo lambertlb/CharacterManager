@@ -1,0 +1,12 @@
+{
+	"PersonalInformation": {
+		"Type": "Collection",
+		"Contains": "Property",
+		"DataDefinitions": [
+			{ "Name" : "Text", "Attributes" : {"Required" : "True"} },
+			{ "Age" : "Numeric",  "Attributes" : {"Required" : "False"}},
+			{ "Sex" : "Text",  "Attributes" : {"Required" : "True"}}
+		],
+		"Attributes" : {"AllowAddWithoutDefinition":  "True"}
+	}
+}
