@@ -1,0 +1,16 @@
+{
+    "python.testing.pytestArgs": [
+        "--cov=.",
+        "--cov-report=html:htmlcov",
+        "./test"
+    ],
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./test",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false
+}
