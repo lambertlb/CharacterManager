@@ -2,6 +2,7 @@ class BaseItem:
 	def __init__(self):
 		self._attributes: dict | None = None
 		self._definition: dict | None = None
+		self._properties: dict | None = None
 
 	@property
 	def definition(self):
@@ -19,5 +20,13 @@ class BaseItem:
 	def attributes(self, value):
 		self._attributes = value
 
+	@property
+	def properties(self):
+		return self._properties
+
+	@properties.setter
+	def properties(self, new_properties):
+		self._properties = new_properties
+  
 	def loadData(self, propertyData: dict, propertyDefinitions: dict):
-		raise Exception("Child Class must implement loadData Method")
+		pass

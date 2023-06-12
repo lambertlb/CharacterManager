@@ -3,29 +3,29 @@ from BaseItem import BaseItem
 
 class Property(BaseItem):
 	def __init__(self):
+		self.propertyName = None
 		super(Property, self).__init__()
 
-	def loadData(self, propertyData: dict, propertyDefinitions: dict):
-		self.definition = propertyDefinitions.copy()
-		self.attributes = self.definition.get('Attributes')
-		if self.attributes:
-			self.definition.pop('Attributes')
+	def loadData(self, where, propertyData: dict, propertyDefinitions: dict):
+		definition = propertyDefinitions.copy()
 		assert len(propertyData.keys()) == 1, f'Can only have one key {propertyData}'
 
 		key = list(propertyData.keys())[0]
 		data = propertyData[key]
+		self._definition = definition.get(key)
 		self.validate(key, data)
-		self.getPropertyData(key, data)
+		self.getPropertyData(where, key, data)
 
-	def getPropertyData(self, key, data):
-		dataType = 'Text'
+	def getPropertyData(self, where, key, data):
+		self.propertyName = key
+		dataType = 'string'
 		if self.definition:
 			dataType = list(self.definition.values())[0]
-		if dataType == 'Text':
-			setattr(self, key, data)
+		if dataType == 'string':
+			setattr(where, key, data)
 			return
-		elif dataType == 'Numeric':
-			setattr(self, key, int(data))
+		elif dataType == 'integer':
+			setattr(where, key, int(data))
 			return
 		assert False, f'Unsupported data type {dataType}'
 

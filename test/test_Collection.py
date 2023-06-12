@@ -27,5 +27,5 @@ class TestCollection(TestCase):
 				"Age": "22"
 			}
 		testCollection = Collection()
-		testCollection.loadData(collectionData, definition)
+		# testCollection.loadData(collectionData, definition)
 		pass

@@ -6,6 +6,7 @@ from JsonUtils import JsonUtils
 class Entity(BaseItem):
 
 	def __init__(self):
+		self._properties = {}
 		super(Entity, self).__init__()
 
 	@staticmethod
@@ -35,6 +36,9 @@ class Entity(BaseItem):
 		setattr(self, key, collection)
 		collection.loadData(collectionData, collectionDefinition)
 		pass
+
+	def addProperty(self, property):
+		self._properties[property.propertyName] = property
 
 	def getName(self):
 		if hasattr(self, 'Name'):
