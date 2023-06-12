@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "PersonalInformation": {
+            "type": "object",
+            "properties": {
+                "Name": {
+                    "type": "string"
+                },
+                "Age": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Age",
+                "Name"
+            ]
+        },
+        "Skills": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "Hide": {
+                        "type": "integer"
+                    },
+                    "attributes": {
+                        "type": "object",
+                        "properties": {
+                            "AffectedByLight": {
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "AffectedByLight"
+                        ]
+                    },
+                    "Sneak": {
+                        "type": "integer"
+                    },
+                    "Athletics": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "PersonalInformation",
+        "Skills"
+    ]
+}

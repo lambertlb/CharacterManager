@@ -20,7 +20,7 @@ class Collection(BaseItem):
 
 	def buildCollection(self, collectionData, dataDefinition):
 		definitions = dataDefinition.copy()
-		for infor in collectionData:
+		for infor in collectionData.values():
 			contained = self.getCollectionInstance()
 			contained.loadData(infor, definitions)
 			self.collectionData[contained.getName()] = contained

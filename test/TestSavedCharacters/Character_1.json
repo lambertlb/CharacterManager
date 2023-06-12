@@ -1,6 +1,13 @@
 {
-	"PersonalInformation": [
-		{"Name": "Fred FlintStone"},
-		{"Age": "22"}
-	]
+	"PersonalInformation": {
+		"Name": "Fred FlintStone",
+		"Age": "22"
+	},
+	"Skills": [
+		{"Hide": 10, "attributes": {
+			"AffectedByLight" : true
+		}},
+		{"Sneak": 11},
+		{"Athletics": 10}
+	] 
 }
