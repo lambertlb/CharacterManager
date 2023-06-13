@@ -15,6 +15,10 @@
     "python.testing.unittestEnabled": false,
     "[python]": {
         "editor.insertSpaces": false,
-        "editor.tabSize": 4  
-      }
+        "editor.tabSize": 4
+    },
+    "[json]": {
+        "editor.insertSpaces": false,
+        "editor.tabSize": 4
+    }
 }

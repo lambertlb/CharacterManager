@@ -13,10 +13,8 @@ class Property:
 		'object': type({})
 	}
 	@staticmethod
-	def loadData(where: Entity, propertyData: dict):
-		assert len(propertyData.keys()) == 1, f'Can only have one key {propertyData}'
-		propertyName = list(propertyData.keys())[0]
-		data = propertyData[propertyName]
+	def loadData(where: Entity, propertyData):
+		propertyName , data = propertyData
 		Property.validate(where, propertyName, data)
 		Property.getPropertyData(where, propertyName, data)
 
@@ -46,6 +44,12 @@ class Property:
 			setattr(where, propertyName, array)
 			Property.addArrayData(array, definition, data)
 			return
+		if dataType == 'object':
+			dataObject = Entity()
+			dataObject.loadData(data, definition)
+			setattr(where, propertyName, dataObject)
+			return
+
 		assert False, f'Unsupported data type {dataType}'
 
 	@staticmethod

@@ -10,30 +10,15 @@ class Entity(BaseItem):
 	@staticmethod
 	def loadJsonFile(path, template):
 		data = JsonUtils.loadJsonFile(path)
-		entity = Entity()
-		entity.readJsonData(data, template)
+		# entity = Entity()
+		# entity.readJsonData(data, template)
 		pass
 
-	# def readJsonData(self, data: dict, template: dict):
-	# 	for key in template.keys():
-	# 		self.addProperty(data, key, template[key])
-
-	# def addProperty(self, data, key, propertyDefinition):
-	# 	if key not in data:
-	# 		raise Exception(f'Missing key in data key={key}')
-	# 	dataForKey = data[key]
-	# 	if 'Type' not in propertyDefinition:
-	# 		raise Exception(f'Definition missing type {propertyDefinition}')
-	# 	propertyType = propertyDefinition['Type']
-	# 	if propertyType == 'Collection':
-	# 		self.addCollectionData(key, dataForKey, propertyDefinition)
-	# 	pass
-
-	# def addCollectionData(self, key, collectionData, collectionDefinition):
-	# 	collection = Collection()
-	# 	setattr(self, key, collection)
-	# 	collection.loadData(collectionData, collectionDefinition)
-	# 	pass
+	def loadData(self, entityData, dataDefinition):
+		self.definition = dataDefinition
+		for parameter in list(entityData.items()):
+			from Property import Property
+			Property.loadData(self, parameter)
 
 	def getPropertyDefinition(self, propertyName):
 		if self._definition:
