@@ -1,1 +1,0 @@
-{"$schema": "http://json-schema.org/schema#", "type": "object", "properties": {"PersonalInformation": {"type": "object", "properties": {"Name": {"type": "string"}, "Age": {"type": "string"}}, "required": ["Age", "Name"]}}, "required": ["PersonalInformation"]}

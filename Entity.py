@@ -10,9 +10,10 @@ class Entity(BaseItem):
 	@staticmethod
 	def loadJsonFile(path, template):
 		data = JsonUtils.loadJsonFile(path)
-		# entity = Entity()
-		# entity.readJsonData(data, template)
-		pass
+		entity = Entity()
+		entity.definition = template
+		entity.loadData(data, template)
+		return entity
 
 	def loadData(self, entityData, dataDefinition):
 		self.definition = dataDefinition

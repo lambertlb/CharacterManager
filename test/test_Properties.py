@@ -10,7 +10,7 @@ class TestProperties(TestCase):
 	testSchema = None
 	@classmethod
 	def setUpClass(cls):
-		TestProperties.testSchema = JsonUtils.loadJsonFile('./test/TestSavedCharacters/CharacterSchema.json')
+		TestProperties.testSchema = JsonUtils.loadJsonFile('./test/TestSavedCharacters/CharacterTemplate.json')
 		pass
 
 	@classmethod

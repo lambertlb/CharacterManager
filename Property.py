@@ -58,6 +58,8 @@ class Property:
 			return
 		if definition and definition.get('items'):
 			types = definition['items'].get('type')
+			if not isinstance(types, list):
+				types = [types]
 		for element in data:
 			assert Property.isAllowArrayType(types, element)
 			array.append(element)
