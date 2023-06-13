@@ -1,34 +1,77 @@
 from BaseItem import BaseItem
+from Entity import Entity
 
 
-class Property(BaseItem):
-	def __init__(self):
-		self.propertyName = None
-		super(Property, self).__init__()
-
-	def loadData(self, where, propertyData: dict, propertyDefinitions: dict):
-		definition = propertyDefinitions.copy()
+class Property:
+	typeMap = {
+		'string': type(''),
+		'integer': type(int(0)),
+		'number': type(float(1.1)),
+		'boolean': type(True),
+		'null': type(None),
+		'array': type([]),
+		'object': type({})
+	}
+	@staticmethod
+	def loadData(where: Entity, propertyData: dict):
 		assert len(propertyData.keys()) == 1, f'Can only have one key {propertyData}'
+		propertyName = list(propertyData.keys())[0]
+		data = propertyData[propertyName]
+		Property.validate(where, propertyName, data)
+		Property.getPropertyData(where, propertyName, data)
 
-		key = list(propertyData.keys())[0]
-		data = propertyData[key]
-		self._definition = definition.get(key)
-		self.validate(key, data)
-		self.getPropertyData(where, key, data)
-
-	def getPropertyData(self, where, key, data):
-		self.propertyName = key
+	@staticmethod
+	def getPropertyData(where, propertyName, data):
+		definition = where.getPropertyDefinition(propertyName)
 		dataType = 'string'
-		if self.definition:
-			dataType = list(self.definition.values())[0]
+		if definition:
+			dataType = list(definition.values())[0]
 		if dataType == 'string':
-			setattr(where, key, data)
+			setattr(where, propertyName, data)
 			return
-		elif dataType == 'integer':
-			setattr(where, key, int(data))
+		if dataType == 'integer':
+			setattr(where, propertyName, int(data))
+			return
+		if dataType == 'number':
+			setattr(where, propertyName, float(data))
+			return
+		if dataType == 'boolean':
+			setattr(where, propertyName, data)
+			return
+		if dataType == 'null':
+			setattr(where, propertyName, None)
+			return
+		if dataType == 'array':
+			array = []
+			setattr(where, propertyName, array)
+			Property.addArrayData(array, definition, data)
 			return
 		assert False, f'Unsupported data type {dataType}'
 
-	def validate(self, key, data):
+	@staticmethod
+	def	addArrayData(array: list, definition: dict, data):
+		if not data:
+			return
+		if definition and definition.get('items'):
+			types = definition['items'].get('type')
+		for element in data:
+			assert Property.isAllowArrayType(types, element)
+			array.append(element)
+
+	@staticmethod
+	def isAllowArrayType(types, element):
+		if not types:
+			return True
+		typeOfElement = type(element)
+		for allowedType in types:
+			at = Property.typeMap.get(allowedType)
+			if typeOfElement == at:
+				return True
+			if typeOfElement == type(int(0)) and at == type(float(0)):
+				return True
+		return False
+
+	@staticmethod
+	def validate(where, key, data):
 		# add validation code
 		pass

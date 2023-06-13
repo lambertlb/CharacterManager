@@ -1,8 +1,18 @@
 {
-	"PersonalInformation": {
+	"ParameterData": {
 		"Name": "Fred FlintStone",
-		"Age": "22"
+		"Age": 22,
+		"Dead": false,
+		"NullType": null,
+		"Weight": 110.5
 	},
+	"MixedArray": [
+		"a String",
+		33,
+		44.4,
+		null,
+		true
+	],
 	"Skills": [
 		{"Hide": 10, "attributes": {
 			"AffectedByLight" : true

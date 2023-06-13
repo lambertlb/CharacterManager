@@ -2,20 +2,43 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "PersonalInformation": {
+        "ParameterData": {
             "type": "object",
             "properties": {
                 "Name": {
                     "type": "string"
                 },
                 "Age": {
-                    "type": "string"
+                    "type": "integer"
+                },
+                "Dead": {
+                    "type": "boolean"
+                },
+                "NullType": {
+                    "type": "null"
+                },
+                "Weight": {
+                    "type": "number"
                 }
             },
             "required": [
                 "Age",
-                "Name"
+                "Dead",
+                "Name",
+                "NullType",
+                "Weight"
             ]
+        },
+        "MixedArray": {
+            "type": "array",
+            "items": {
+                "type": [
+                    "boolean",
+                    "null",
+                    "number",
+                    "string"
+                ]
+            }
         },
         "Skills": {
             "type": "array",
@@ -47,7 +70,8 @@
         }
     },
     "required": [
-        "PersonalInformation",
+        "MixedArray",
+        "ParameterData",
         "Skills"
     ]
 }
