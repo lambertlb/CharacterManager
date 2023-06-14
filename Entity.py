@@ -1,11 +1,34 @@
-from BaseItem import BaseItem
 from JsonUtils import JsonUtils
+from Property import Property
 
 
-class Entity(BaseItem):
-
+class Entity:
+	"""
+	This class manages a configuration object.
+	It contains properties.
+		These properties mirror the ones in json schema meaning they can be as follows.
+			string,
+			integer,
+			number,
+			boolean,
+			null,
+			array,
+			object
+	It will also contain the definitions for the properties. This serves multiple
+	purposes.
+	1) The definitions are used to validate the data at load time.
+	2) The definitions can also be used as part of a GUI to validate input at runtime.
+	"""
 	def __init__(self):
-		super(Entity, self).__init__()
+		self._definition: dict | None = None
+
+	@property
+	def definition(self):
+		return self._definition
+
+	@definition.setter
+	def definition(self, value):
+		self._definition = value
 
 	@staticmethod
 	def loadJsonFile(path, template):
@@ -18,7 +41,6 @@ class Entity(BaseItem):
 	def loadData(self, entityData, dataDefinition):
 		self.definition = dataDefinition
 		for parameter in list(entityData.items()):
-			from Property import Property
 			Property.loadData(self, parameter)
 
 	def getPropertyDefinition(self, propertyName):

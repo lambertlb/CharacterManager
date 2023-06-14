@@ -6,16 +6,25 @@
         "NullType": null,
         "Weight": 110.5
     },
-    "MixedArray": ["a String", 33, 44.4, null, true],
-    "Skills": [{
+    "MixedArray": [
+        "a String",
+        33,
+        44.4,
+        null,
+        true
+    ],
+    "Skills": [
+        {
             "Hide": 10,
             "attributes": {
                 "AffectedByLight": true
             }
-        }, {
+        },
+        {
             "Sneak": 11
-        }, {
-            "Athletics": 10
+        },
+        {
+            "Athletics": 12
         }
     ]
 }

@@ -1,8 +1,12 @@
-from BaseItem import BaseItem
-from Entity import Entity
-
-
 class Property:
+	"""
+	Class to handle parsing properties on an object in json format
+	and adding them to an entity
+	"""
+
+	"""
+	map json data types to python types
+	"""
 	typeMap = {
 		'string': type(''),
 		'integer': type(int(0)),
@@ -12,18 +16,34 @@ class Property:
 		'array': type([]),
 		'object': type({})
 	}
+
 	@staticmethod
-	def loadData(where: Entity, propertyData):
-		propertyName , data = propertyData
-		Property.validate(where, propertyName, data)
+	def loadData(where, propertyData):
+		"""
+		Load the property defined in propertyData onto the
+		Entity specified in where
+		Args:
+			where (Entity): where to place property
+			propertyData (tuple): contains key and data for property
+		"""
+		propertyName, data = propertyData
 		Property.getPropertyData(where, propertyName, data)
 
 	@staticmethod
 	def getPropertyData(where, propertyName, data):
+		"""
+		Get data for property
+		Args:
+			where (Entity): where to place property
+			propertyName (string): name of property
+			data (Any): data for the property
+		"""
 		definition = where.getPropertyDefinition(propertyName)
 		dataType = 'string'
 		if definition:
+			# if there is a definition then use it for validation
 			dataType = list(definition.values())[0]
+			Property.validate(dataType, data)
 		if dataType == 'string':
 			setattr(where, propertyName, data)
 			return
@@ -45,15 +65,28 @@ class Property:
 			Property.addArrayData(array, definition, data)
 			return
 		if dataType == 'object':
-			dataObject = Entity()
-			dataObject.loadData(data, definition)
+			dataObject = Property.createEntity(data, definition)
 			setattr(where, propertyName, dataObject)
 			return
 
 		assert False, f'Unsupported data type {dataType}'
 
 	@staticmethod
-	def	addArrayData(array: list, definition: dict, data):
+	def createEntity(data, definition):
+		from Entity import Entity
+		dataObject = Entity()
+		dataObject.loadData(data, definition)
+		return dataObject
+		
+	@staticmethod
+	def addArrayData(array: list, definition: dict, data):
+		"""
+		Add data to array if it exists
+		Args:
+			array (list): destination for data
+			definition (dict): used for validation
+			data (Any): data to add to array
+		"""
 		if not data:
 			return
 		if definition and definition.get('items'):
@@ -61,23 +94,36 @@ class Property:
 			if not isinstance(types, list):
 				types = [types]
 		for element in data:
-			assert Property.isAllowArrayType(types, element)
-			array.append(element)
+			assert Property.isValidType(types, element)
+			if isinstance(element, dict):
+				dataObject = Property.createEntity(element, definition['items'])
+				array.append(dataObject)
+			else:
+				array.append(element)
 
 	@staticmethod
-	def isAllowArrayType(types, element):
+	def isValidType(types, data):
+		"""
+		Is this valid data for property or array
+		Args:
+			types (array): valid json types
+			element (data): data to test and add
+
+		Returns:
+			boolean: True if valid type
+		"""
 		if not types:
-			return True
-		typeOfElement = type(element)
-		for allowedType in types:
-			at = Property.typeMap.get(allowedType)
-			if typeOfElement == at:
+			return True	# default to true if no definition
+		typeOfElement = type(data)
+		for typeToCheck in types:
+			allowedType = Property.typeMap.get(typeToCheck)
+			if typeOfElement == allowedType:
 				return True
-			if typeOfElement == type(int(0)) and at == type(float(0)):
+			# integer is ok if number is also allowed
+			if typeOfElement == type(int(0)) and allowedType == type(float(0)):
 				return True
 		return False
 
 	@staticmethod
-	def validate(where, key, data):
-		# add validation code
-		pass
+	def validate(dataType, data):
+		assert Property.isValidType([dataType], data)

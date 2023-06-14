@@ -4,6 +4,7 @@ import unittest
 from Entity import Entity
 
 from JsonUtils import JsonUtils
+from Property import Property
 
 
 class TestProperties(TestCase):
@@ -21,7 +22,6 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("Name", "Fred FlintStone")
 		entity = Entity()
 		entity._definition = TestProperties.testSchema['properties']['ParameterData']
-		from Property import Property
 		Property.loadData(entity,jsonPropertyData)
 		assert hasattr(entity, 'Name')
 		assert entity.Name == 'Fred FlintStone'
@@ -30,7 +30,6 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("Age", 22)
 		entity = Entity()
 		entity._definition = TestProperties.testSchema['properties']['ParameterData']
-		from Property import Property
 		Property.loadData(entity,jsonPropertyData)
 		assert hasattr(entity, 'Age')
 		assert entity.Age
@@ -39,7 +38,6 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("Weight", 110.5)
 		entity = Entity()
 		entity._definition = TestProperties.testSchema['properties']['ParameterData']
-		from Property import Property
 		Property.loadData(entity,jsonPropertyData)
 		assert hasattr(entity, 'Weight')
 		assert entity.Weight == 110.5
@@ -48,7 +46,6 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("Dead", False)
 		entity = Entity()
 		entity._definition = TestProperties.testSchema['properties']['ParameterData']
-		from Property import Property
 		Property.loadData(entity,jsonPropertyData)
 		assert hasattr(entity, 'Dead')
 		assert entity.Dead == False
@@ -57,7 +54,6 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("NullType", None)
 		entity = Entity()
 		entity._definition = TestProperties.testSchema['properties']['ParameterData']
-		from Property import Property
 		Property.loadData(entity,jsonPropertyData)
 		assert hasattr(entity, 'NullType')
 		assert entity.NullType == None
@@ -75,7 +71,6 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("MixedArray", data)
 		entity = Entity()
 		entity._definition = TestProperties.testSchema
-		from Property import Property
 		Property.loadData(entity,jsonPropertyData)
 		assert hasattr(entity, 'MixedArray')
 		assert isinstance(entity.MixedArray, list)
@@ -96,7 +91,6 @@ class TestProperties(TestCase):
 			})
 		entity = Entity()
 		entity._definition = TestProperties.testSchema
-		from Property import Property
 		Property.loadData(entity,jsonPropertyData)
 		assert hasattr(entity, 'ParameterData')
 		assert isinstance(entity.ParameterData, Entity)
