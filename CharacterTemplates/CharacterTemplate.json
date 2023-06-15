@@ -2,76 +2,189 @@
 	"$schema": "http://json-schema.org/schema#",
 	"type": "object",
 	"properties": {
-		"ParameterData": {
+		"PersonalInformation": {
 			"type": "object",
 			"properties": {
 				"Name": {
 					"type": "string"
 				},
+				"Race": {
+					"type": "string"
+				},
 				"Age": {
 					"type": "integer"
 				},
-				"Dead": {
-					"type": "boolean"
+				"Alignment": {
+					"type": "string"
 				},
-				"NullType": {
-					"type": "null"
+				"Deity": {
+					"type": "string"
 				},
 				"Weight": {
 					"type": "number"
+				},
+				"Experience": {
+					"type": "integer"
+				},
+				"Gender": {
+					"type": "string"
+				},
+				"Money": {
+					"type": "object",
+					"properties": {
+						"Platinum": {
+							"type": "integer"
+						},
+						"Gold": {
+							"type": "integer"
+						},
+						"Electrum": {
+							"type": "integer"
+						},
+						"Silver": {
+							"type": "integer"
+						},
+						"Copper": {
+							"type": "integer"
+						}
+					},
+					"required": [
+						"Copper",
+						"Electrum",
+						"Gold",
+						"Platinum",
+						"Silver"
+					]
 				}
 			},
 			"required": [
 				"Age",
-				"Dead",
+				"Alignment",
+				"Deity",
+				"Experience",
+				"Gender",
+				"Money",
 				"Name",
-				"NullType",
+				"Race",
 				"Weight"
 			]
 		},
-		"MixedArray": {
+		"Health": {
+			"type": "object",
+			"properties": {
+				"TotalHp": {
+					"type": "integer"
+				},
+				"CurrentHp": {
+					"type": "integer"
+				},
+				"TemporaryHp": {
+					"type": "integer"
+				}
+			},
+			"required": [
+				"CurrentHp",
+				"TemporaryHp",
+				"TotalHp"
+			]
+		},
+		"Defense": {
 			"type": "array",
 			"items": {
-				"type": [
-					"boolean",
-					"null",
-					"number",
-					"string"
-				]
+				"type": "string"
+			}
+		},
+		"Offense": {
+			"type": "array",
+			"items": {
+				"type": "string"
 			}
 		},
 		"Skills": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"Hide": {
-						"type": "integer"
-					},
-					"attributes": {
-						"type": "object",
-						"properties": {
-							"AffectedByLight": {
-								"type": "boolean"
-							}
-						},
-						"required": [
-							"AffectedByLight"
-						]
-					},
-					"Sneak": {
-						"type": "integer"
-					},
-					"Athletics": {
-						"type": "integer"
-					}
+			"type": "object",
+			"properties": {
+				"Acrobatics": {
+					"type": "integer"
+				},
+				"AnimalHandling": {
+					"type": "integer"
+				},
+				"Arcana": {
+					"type": "integer"
+				},
+				"Athletics": {
+					"type": "integer"
+				},
+				"Deception": {
+					"type": "integer"
+				},
+				"History": {
+					"type": "integer"
+				},
+				"Insight": {
+					"type": "integer"
+				},
+				"Intimidation": {
+					"type": "integer"
+				},
+				"Investigation": {
+					"type": "integer"
+				},
+				"Medicine": {
+					"type": "integer"
+				},
+				"Nature": {
+					"type": "integer"
+				},
+				"Perception": {
+					"type": "integer"
+				},
+				"Performance": {
+					"type": "integer"
+				},
+				"Persuasion": {
+					"type": "integer"
+				},
+				"Religion": {
+					"type": "integer"
+				},
+				"SleightofHand": {
+					"type": "integer"
+				},
+				"Stealth": {
+					"type": "integer"
+				},
+				"Survival": {
+					"type": "integer"
 				}
-			}
+			},
+			"required": [
+				"Acrobatics",
+				"AnimalHandling",
+				"Arcana",
+				"Athletics",
+				"Deception",
+				"History",
+				"Insight",
+				"Intimidation",
+				"Investigation",
+				"Medicine",
+				"Nature",
+				"Perception",
+				"Performance",
+				"Persuasion",
+				"Religion",
+				"SleightofHand",
+				"Stealth",
+				"Survival"
+			]
 		}
 	},
 	"required": [
-		"MixedArray",
-		"ParameterData",
+		"Defense",
+		"Health",
+		"Offense",
+		"PersonalInformation",
 		"Skills"
 	]
 }
