@@ -1,4 +1,4 @@
-from types import FunctionType
+from types import FunctionType, MethodType
 from ConfigurationManager import ConfigurationManager
 from JsonUtils import JsonUtils
 from Property import Property
@@ -59,8 +59,8 @@ class Entity:
 			codeString = JsonUtils.loadScript(path)
 			code = compile(codeString, "<string>", "exec")
 			newFunction = FunctionType(code.co_consts[0], globals(), "update")
-			self.update = newFunction
-			self.update(self, "arg")
+			self.update = MethodType(newFunction, self)
+			self.update("Survival", 20)
 			pass
 	
 	def getPropertyDefinition(self, propertyName):
