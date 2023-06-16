@@ -101,7 +101,7 @@
 			}
 		},
 		"Skills": {
-			"$ref": "file:///Workspace/CharacterManager/CharacterTemplates/Skills.json#/properties/Skills"
+			"$ref": "Skills.json#/properties/Skills"
 		}
 	},
 	"required": [

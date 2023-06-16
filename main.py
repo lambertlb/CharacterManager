@@ -6,6 +6,8 @@ from Entity import Entity
 from JsonUtils import JsonUtils
 from Logger import Logger
 from Services import Services
+from pathlib import Path
+import jsonref
 
 
 class CharacterManager:
@@ -14,6 +16,7 @@ class CharacterManager:
 		self.character = None
 		self.templatePath = templatePath
 		self.characterTemplate = self.loadTemplate()
+		pass
 
 	def loadCharacter(self, name):
 		path = Services.getConfigurationManager().getValue(ConfigurationManager.saveCharacterKey,
@@ -29,7 +32,10 @@ class CharacterManager:
 
 	# noinspection PyMethodMayBeStatic
 	def loadTemplate(self):
-		return JsonUtils.loadJsonFile(self.templatePath + '/CharacterTemplate.json')
+		file_a_path = Path(self.templatePath + '/CharacterTemplate.json').absolute()
+		with file_a_path.open() as file_a:
+			result = jsonref.load(file_a, base_uri=file_a_path.as_uri())
+		return result
 
 	def saveCharacter(self, name):
 		path = Services.getConfigurationManager().getValue(ConfigurationManager.saveCharacterKey,
@@ -49,5 +55,5 @@ if __name__ == "__main__":
 	Services.setLogger(Logger())
 	characterManager = CharacterManager('./CharacterTemplates')
 	characterManager.loadCharacter('Fred')
-	characterManager.saveCharacter('Fred Save')
+	# characterManager.saveCharacter('Fred Save')
 	pass
