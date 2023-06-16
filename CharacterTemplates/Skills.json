@@ -58,7 +58,8 @@
 				},
 				"Survival": {
 					"type": "integer"
-				}
+				},
+				"$script": "skills.py"
 			},
 			"required": [
 				"Acrobatics",

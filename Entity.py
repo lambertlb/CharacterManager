@@ -1,5 +1,8 @@
+from types import FunctionType
+from ConfigurationManager import ConfigurationManager
 from JsonUtils import JsonUtils
 from Property import Property
+from Services import Services
 
 
 class Entity:
@@ -42,7 +45,24 @@ class Entity:
 		self.definition = dataDefinition
 		for parameter in list(entityData.items()):
 			Property.loadData(self, parameter)
+		self.loadScripts()
 
+	def loadScripts(self):
+		properties = self.definition.get('properties')
+		if not properties:
+			return
+		script = properties.get('$script')
+		if script:
+			path = Services.getConfigurationManager().getValue(ConfigurationManager.scriptsKey,
+								ConfigurationManager.scriptsDirectoryKey)
+			path = path + '/' + script
+			codeString = JsonUtils.loadScript(path)
+			code = compile(codeString, "<string>", "exec")
+			newFunction = FunctionType(code.co_consts[0], globals(), "update")
+			self.update = newFunction
+			self.update(self, "arg")
+			pass
+	
 	def getPropertyDefinition(self, propertyName):
 		if self._definition:
 			properties = self._definition.get('properties')

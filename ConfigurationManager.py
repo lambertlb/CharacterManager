@@ -12,6 +12,8 @@ class ConfigurationManager:
 	characterTemplateDirectoryKey = 'CharacterTemplates'
 	saveCharacterKey = 'SavedCharacters'
 	saveCharacterDirectoryKey = 'SaveCharacterDirectory'
+	scriptsKey = 'Scripts'
+	scriptsDirectoryKey = 'ScriptsDirectory'
 
 	def __init__(self, configFile=iniFile):
 		self.filePath = configFile
@@ -26,6 +28,8 @@ class ConfigurationManager:
 			self.config.set(self.sourcesKey, self.characterTemplateDirectoryKey, './CharacterTemplates')
 			self.config.add_section(ConfigurationManager.saveCharacterKey)
 			self.config.set(self.saveCharacterKey, self.saveCharacterDirectoryKey, './SavedCharacters')
+			self.config.add_section(ConfigurationManager.scriptsKey)
+			self.config.set(self.scriptsKey, self.scriptsDirectoryKey, './CharacterTemplates/scripts')
 			self.saveConfiguration()
 
 	def saveConfiguration(self):

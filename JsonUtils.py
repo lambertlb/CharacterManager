@@ -25,6 +25,11 @@ class JsonUtils:
 		with open(path, "wb") as f:
 			f.write(data.encode())
 
+	def loadScript(path):
+		with open(path) as f:
+			data = f.read()
+		return data
+	
 	@staticmethod
 	def convertToJson(item):
 		return json.dumps(item, cls=CustomEncoder)

@@ -1,4 +1,3 @@
-import json
 from unittest import TestCase
 import unittest
 from Entity import Entity
