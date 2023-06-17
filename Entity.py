@@ -1,7 +1,10 @@
+import importlib
+import inspect
 from types import FunctionType, MethodType
 from ConfigurationManager import ConfigurationManager
 from JsonUtils import JsonUtils
 from Property import Property
+from ScriptBase import ScriptBase
 from Services import Services
 
 
@@ -24,6 +27,7 @@ class Entity:
 	"""
 	def __init__(self):
 		self._definition: dict | None = None
+		self._script = ScriptBase()
 
 	@property
 	def definition(self):
@@ -53,15 +57,17 @@ class Entity:
 			return
 		script = properties.get('$script')
 		if script:
-			path = Services.getConfigurationManager().getValue(ConfigurationManager.scriptsKey,
-								ConfigurationManager.scriptsDirectoryKey)
-			path = path + '/' + script
-			codeString = JsonUtils.loadScript(path)
-			code = compile(codeString, "<string>", "exec")
-			newFunction = FunctionType(code.co_consts[0], globals(), "update")
-			self.update = MethodType(newFunction, self)
-			self.update("Survival", 20)
-			pass
+			module = importlib.import_module(script)
+			members = inspect.getmembers(module)
+			for member in members:
+				name , item = member
+				if inspect.isclass(item):
+					if name != 'ScriptBase':
+						klazz = getattr(module, name)
+						alias = name + "Alias"
+						self._script = eval(alias + '()', { alias: klazz})
+						self._script.register()
+						break
 	
 	def getPropertyDefinition(self, propertyName):
 		if self._definition:

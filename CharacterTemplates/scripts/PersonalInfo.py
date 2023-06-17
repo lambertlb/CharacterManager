@@ -1,10 +1,8 @@
 from ScriptBase import ScriptBase
 
 
-class SkillsScript(ScriptBase):
+class PersonalInfo(ScriptBase):
     def register(self):
-        print('I am registered')
         pass
     def update(self):
-        print('I am updated')
         pass

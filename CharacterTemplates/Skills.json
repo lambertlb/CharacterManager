@@ -59,7 +59,7 @@
 				"Survival": {
 					"type": "integer"
 				},
-				"$script": "skills.py"
+				"$script": "CharacterTemplates.scripts.Skills"
 			},
 			"required": [
 				"Acrobatics",
