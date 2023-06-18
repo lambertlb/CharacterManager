@@ -7,7 +7,6 @@ from JsonUtils import JsonUtils
 from Logger import Logger
 from Services import Services
 from pathlib import Path
-import jsonref
 
 
 class CharacterManager:
@@ -32,9 +31,7 @@ class CharacterManager:
 
 	# noinspection PyMethodMayBeStatic
 	def loadTemplate(self):
-		file_a_path = Path(self.templatePath + '/CharacterTemplate.json').absolute()
-		with file_a_path.open() as file_a:
-			result = jsonref.load(file_a, base_uri=file_a_path.as_uri())
+		result = JsonUtils.loadJsonSchema(self.templatePath + '/CharacterTemplate.json')
 		return result
 
 	def saveCharacter(self, name):

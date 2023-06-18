@@ -1,4 +1,6 @@
 import json
+from pathlib import Path
+import jsonref
 
 
 class CustomEncoder(json.JSONEncoder):
@@ -33,3 +35,10 @@ class JsonUtils:
 	@staticmethod
 	def convertToJson(item):
 		return json.dumps(item, cls=CustomEncoder)
+
+	@staticmethod
+	def loadJsonSchema(path):
+		file_a_path = Path(path).absolute()
+		with file_a_path.open() as file_a:
+			result = jsonref.load(file_a, base_uri=file_a_path.as_uri())
+			return result

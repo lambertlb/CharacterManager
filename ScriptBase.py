@@ -1,6 +1,6 @@
 class ScriptBase:
-    def register(self):
+    def register(self, entityWithProperties):
         pass
-    def update(self):
+    def update(self, entityWithProperties):
         pass
     

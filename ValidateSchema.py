@@ -5,7 +5,7 @@ import json
 
 from JsonUtils import JsonUtils
 
-schemaData = JsonUtils.loadJsonFile('./CharacterTemplates/CharacterTemplate.json')
+schemaData = JsonUtils.loadJsonSchema('./CharacterTemplates/CharacterTemplate.json')
 Draft7Validator.check_schema(schemaData)
 data = JsonUtils.loadJsonFile('./SavedCharacters/Fred.json')
 validate(data,schemaData)
