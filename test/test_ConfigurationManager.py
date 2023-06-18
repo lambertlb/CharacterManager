@@ -36,5 +36,6 @@ class TestConfigurationManager(TestCase):
 		if os.path.exists(TestConfigurationManager.testIni):
 			os.remove(TestConfigurationManager.testIni)
 
+
 if __name__ == '__main__':
-    unittest.main()
+	unittest.main()

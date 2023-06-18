@@ -7,6 +7,7 @@ class Logger:
 	def log(self, whatToLog):
 		print(whatToLog)
 
+	# noinspection PyMethodMayBeStatic
 	def logException(self, whatToLog, exception: Exception):
 		print(whatToLog)
 		print(exception)

@@ -1,10 +1,8 @@
-import json
 import os
-from unittest import TestCase
 import unittest
+from unittest import TestCase
 
 from ConfigurationManager import ConfigurationManager
-from JsonUtils import JsonUtils
 from Services import Services
 from main import CharacterManager
 from test.TestLogger import TestLogger
@@ -34,7 +32,6 @@ class TestCharacterManager(TestCase):
 	def testLoadCharacter(self):
 		cm = CharacterManager('./test/TestSavedCharacters')
 		cm.loadCharacter('Character 1')
-		dump = JsonUtils.convertToJson(cm.character)
 		assert cm.character
 		assert cm.character.definition
 		assert cm.character.ParameterData.Name == 'Fred FlintStone'
@@ -46,5 +43,6 @@ class TestCharacterManager(TestCase):
 		assert cm.character.Skills[1].Sneak == 11
 		assert cm.character.Skills[2].Athletics == 12
 
+
 if __name__ == '__main__':
-    unittest.main()
+	unittest.main()

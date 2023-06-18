@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+
 import jsonref
 
 
@@ -7,7 +8,7 @@ class CustomEncoder(json.JSONEncoder):
 	def default(self, item):
 		itemCopy = item.__dict__.copy()
 		for key in item.__dict__.keys():
-			if key.startswith('_'): # don't dump private properties
+			if key.startswith('_'):  # don't dump private properties
 				itemCopy.pop(key)
 		return itemCopy
 
@@ -27,11 +28,6 @@ class JsonUtils:
 		with open(path, "wb") as f:
 			f.write(data.encode())
 
-	def loadScript(path):
-		with open(path) as f:
-			data = f.read()
-		return data
-	
 	@staticmethod
 	def convertToJson(item):
 		return json.dumps(item, cls=CustomEncoder)

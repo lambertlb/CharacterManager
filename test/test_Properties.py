@@ -21,7 +21,7 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("Name", "Fred FlintStone")
 		entity = Entity()
 		entity._definition = TestProperties.testSchema['properties']['ParameterData']
-		Property.loadData(entity,jsonPropertyData)
+		Property.loadData(entity, jsonPropertyData)
 		assert hasattr(entity, 'Name')
 		assert entity.Name == 'Fred FlintStone'
 

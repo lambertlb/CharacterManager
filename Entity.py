@@ -1,7 +1,6 @@
 import importlib
 import inspect
-from types import FunctionType, MethodType
-from ConfigurationManager import ConfigurationManager
+
 from JsonUtils import JsonUtils
 from Property import Property
 from ScriptBase import ScriptBase
@@ -70,15 +69,15 @@ class Entity:
 			except Exception as ex:
 				Services.getLogger().logException(f'Exception while calling register on {scriptProperty}', ex)
 	
-	def	getClassFromModule(self, module):
+	def getClassFromModule(self, module):
 		members = inspect.getmembers(module)
 		for member in members:
-			name , item = member
-			if inspect.isclass(item) and issubclass(item,ScriptBase):
+			name, item = member
+			if inspect.isclass(item) and issubclass(item, ScriptBase):
 				if name != 'ScriptBase':
 					classToLoad = getattr(module, name)
 					alias = name + "Alias"
-					self._script = eval(alias + '()', { alias: classToLoad})
+					self._script = eval(alias + '()', {alias: classToLoad})
 					return True
 		return False
 

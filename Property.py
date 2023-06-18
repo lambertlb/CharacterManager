@@ -38,35 +38,37 @@ class Property:
 			propertyName (string): name of property
 			data (Any): data for the property
 		"""
-		definition = where.getPropertyDefinition(propertyName)
+		from Entity import Entity  # avoid circular reference
+		entity: Entity = where
+		definition = entity.getPropertyDefinition(propertyName)
 		dataType = 'string'
 		if definition:
 			# if there is a definition then use it for validation
 			dataType = list(definition.values())[0]
 			Property.validate(dataType, data)
 		if dataType == 'string':
-			setattr(where, propertyName, data)
+			setattr(entity, propertyName, data)
 			return
 		if dataType == 'integer':
-			setattr(where, propertyName, int(data))
+			setattr(entity, propertyName, int(data))
 			return
 		if dataType == 'number':
-			setattr(where, propertyName, float(data))
+			setattr(entity, propertyName, float(data))
 			return
 		if dataType == 'boolean':
-			setattr(where, propertyName, data)
+			setattr(entity, propertyName, data)
 			return
 		if dataType == 'null':
-			setattr(where, propertyName, None)
+			setattr(entity, propertyName, None)
 			return
 		if dataType == 'array':
 			array = []
-			setattr(where, propertyName, array)
+			setattr(entity, propertyName, array)
 			Property.addArrayData(array, definition, data)
 			return
 		if dataType == 'object':
 			dataObject = Property.createEntity(data, definition)
-			setattr(where, propertyName, dataObject)
+			setattr(entity, propertyName, dataObject)
 			return
 
 		assert False, f'Unsupported data type {dataType}'
@@ -89,6 +91,7 @@ class Property:
 		"""
 		if not data:
 			return
+		types = []
 		if definition and definition.get('items'):
 			types = definition['items'].get('type')
 			if not isinstance(types, list):
@@ -102,25 +105,25 @@ class Property:
 				array.append(element)
 
 	@staticmethod
-	def isValidType(types, data):
+	def isValidType(types: list, data):
 		"""
 		Is this valid data for property or array
 		Args:
 			types (array): valid json types
-			element (data): data to test and add
+			data (data): data to test and add
 
 		Returns:
 			boolean: True if valid type
 		"""
 		if not types:
-			return True	# default to true if no definition
+			return True	 # default to true if no definition
 		typeOfElement = type(data)
 		for typeToCheck in types:
 			allowedType = Property.typeMap.get(typeToCheck)
 			if typeOfElement == allowedType:
 				return True
 			# integer is ok if number is also allowed
-			if typeOfElement == type(int(0)) and allowedType == type(float(0)):
+			if isinstance(typeOfElement, int) and isinstance(allowedType, float):
 				return True
 		return False
 
