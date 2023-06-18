@@ -1,0 +1,5 @@
+[run]
+omit =
+    ValidateSchema.py
+    test\*
+    CharacterTemplates\*

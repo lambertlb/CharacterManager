@@ -43,8 +43,8 @@ class CharacterManager:
 		characterPath = path + '/' + name
 		try:
 			self.character = JsonUtils.saveJsonFile(characterPath, self.character)
-		except (Exception,):
-			Services.getLogger().log(traceback.format_exc())
+		except Exception as ex:
+			Services.getLogger().logException(f'Exception while saving character {name}', ex)
 
 
 if __name__ == "__main__":

@@ -57,24 +57,31 @@ class Entity:
 			return
 		scriptProperty = properties.get('$script')
 		if scriptProperty:
-			scriptName = scriptProperty.get('className')
-			if not scriptName:
-				return
-			module = importlib.import_module(scriptName)
-			members = inspect.getmembers(module)
-			for member in members:
-				name , item = member
-				if inspect.isclass(item) and issubclass(item,ScriptBase):
-					if name != 'ScriptBase':
-						klazz = getattr(module, name)
-						alias = name + "Alias"
-						self._script = eval(alias + '()', { alias: klazz})
-						try:
-							self._script.register(self)
-						except Exception as ex:
-							Services.getLogger().logException(f'Exception while calling register on {script}', ex)
-						break
+			self.loadScript(scriptProperty)
+
+	def loadScript(self, scriptProperty):
+		scriptName = scriptProperty.get('className')
+		if not scriptName:
+			return
+		module = importlib.import_module(scriptName)
+		if self.getClassFromModule(module):
+			try:
+				self._script.register(self)
+			except Exception as ex:
+				Services.getLogger().logException(f'Exception while calling register on {scriptProperty}', ex)
 	
+	def	getClassFromModule(self, module):
+		members = inspect.getmembers(module)
+		for member in members:
+			name , item = member
+			if inspect.isclass(item) and issubclass(item,ScriptBase):
+				if name != 'ScriptBase':
+					classToLoad = getattr(module, name)
+					alias = name + "Alias"
+					self._script = eval(alias + '()', { alias: classToLoad})
+					return True
+		return False
+
 	def getPropertyDefinition(self, propertyName):
 		if self._definition:
 			properties = self._definition.get('properties')
