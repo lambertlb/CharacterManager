@@ -26,7 +26,7 @@ class Entity:
 	"""
 	def __init__(self):
 		self._definition: dict | None = None
-		self._script = ScriptBase()
+		self._script = None
 
 	@property
 	def definition(self):
@@ -63,7 +63,8 @@ class Entity:
 		if not scriptName:
 			return
 		module = importlib.import_module(scriptName)
-		if self.getClassFromModule(module):
+		self.getClassFromModule(module)
+		if self._script:
 			try:
 				self._script.register(self)
 			except Exception as ex:
@@ -78,8 +79,7 @@ class Entity:
 					classToLoad = getattr(module, name)
 					alias = name + "Alias"
 					self._script = eval(alias + '()', {alias: classToLoad})
-					return True
-		return False
+					break
 
 	def getPropertyDefinition(self, propertyName):
 		if self._definition:

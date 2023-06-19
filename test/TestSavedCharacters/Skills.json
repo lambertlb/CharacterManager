@@ -1,0 +1,88 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"type": "object",
+	"properties": {
+		"Skills": {
+			"type": "object",
+			"properties": {
+				"Acrobatics": {
+					"type": "integer"
+				},
+				"AnimalHandling": {
+					"type": "integer"
+				},
+				"Arcana": {
+					"type": "integer"
+				},
+				"Athletics": {
+					"type": "integer"
+				},
+				"Deception": {
+					"type": "integer"
+				},
+				"History": {
+					"type": "integer"
+				},
+				"Insight": {
+					"type": "integer"
+				},
+				"Intimidation": {
+					"type": "integer"
+				},
+				"Investigation": {
+					"type": "integer"
+				},
+				"Medicine": {
+					"type": "integer"
+				},
+				"Nature": {
+					"type": "integer"
+				},
+				"Perception": {
+					"type": "integer"
+				},
+				"Performance": {
+					"type": "integer"
+				},
+				"Persuasion": {
+					"type": "integer"
+				},
+				"Religion": {
+					"type": "integer"
+				},
+				"SleightofHand": {
+					"type": "integer"
+				},
+				"Stealth": {
+					"type": "integer"
+				},
+				"Survival": {
+					"type": "integer"
+				},
+				"$script": {
+					"className": "test.TestSavedCharacters.scripts.Skills"
+				}
+			},
+			"required": [
+				"Acrobatics",
+				"AnimalHandling",
+				"Arcana",
+				"Athletics",
+				"Deception",
+				"History",
+				"Insight",
+				"Intimidation",
+				"Investigation",
+				"Medicine",
+				"Nature",
+				"Perception",
+				"Performance",
+				"Persuasion",
+				"Religion",
+				"SleightofHand",
+				"Stealth",
+				"Survival"
+			]
+		}
+	}
+}

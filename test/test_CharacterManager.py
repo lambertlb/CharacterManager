@@ -34,14 +34,12 @@ class TestCharacterManager(TestCase):
 		cm.loadCharacter('Character 1')
 		assert cm.character
 		assert cm.character.definition
-		assert cm.character.ParameterData.Name == 'Fred FlintStone'
-		assert cm.character.ParameterData.Age == 22
-		assert not cm.character.ParameterData.Dead
-		assert cm.character.ParameterData.Name == 'Fred FlintStone'
-		assert cm.character.ParameterData.Weight == 110.5
-		assert cm.character.Skills[0].Hide == 10
-		assert cm.character.Skills[1].Sneak == 11
-		assert cm.character.Skills[2].Athletics == 12
+		assert cm.character.PersonalInformation.Name == 'Fred FlintStone'
+		assert cm.character.PersonalInformation.Age == 22
+		assert cm.character.PersonalInformation.Weight == 110.5
+		assert cm.character.Skills.History == 10
+		assert cm.character.Skills.Stealth == 10
+		assert cm.character.Skills.Athletics == 10
 
 
 if __name__ == '__main__':

@@ -1,30 +1,53 @@
 {
-    "ParameterData": {
+    "PersonalInformation": {
         "Name": "Fred FlintStone",
+        "Race": "Human",
         "Age": 22,
-        "Dead": false,
-        "NullType": null,
-        "Weight": 110.5
-    },
-    "MixedArray": [
-        "a String",
-        33,
-        44.4,
-        null,
-        true
-    ],
-    "Skills": [
-        {
-            "Hide": 10,
-            "attributes": {
-                "AffectedByLight": true
-            }
-        },
-        {
-            "Sneak": 11
-        },
-        {
-            "Athletics": 12
+        "Alignment": "Neutral",
+        "Deity": "Sune",
+        "Weight": 110.5,
+        "Experience": 1000,
+        "Gender": "Male",
+        "Money": {
+            "Platinum": 5,
+            "Gold": 200,
+            "Electrum": 50,
+            "Silver": 40,
+            "Copper": 20
         }
-    ]
+    },
+    "Health": {
+        "TotalHp": 100,
+        "CurrentHp": 50,
+        "TemporaryHp": 10
+    },
+    "Defense": [
+        "Plate Mail",
+        "Tower Shield"
+    ],
+    "Offense": [
+        "Long Sword",
+        "Long Bow",
+        "Unarmed"
+    ],
+    "Skills": {
+        "Acrobatics": 10,
+        "AnimalHandling": 10,
+        "Arcana": 10,
+        "Athletics": 10,
+        "Deception": 10,
+        "History": 10,
+        "Insight": 10,
+        "Intimidation": 10,
+        "Investigation": 10,
+        "Medicine": 10,
+        "Nature": 10,
+        "Perception": 10,
+        "Performance": 10,
+        "Persuasion": 10,
+        "Religion": 10,
+        "SleightofHand": 10,
+        "Stealth": 10,
+        "Survival": 10
+    }
 }

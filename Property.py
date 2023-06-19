@@ -66,12 +66,10 @@ class Property:
 			setattr(entity, propertyName, array)
 			Property.addArrayData(array, definition, data)
 			return
-		if dataType == 'object':
-			dataObject = Property.createEntity(data, definition)
-			setattr(entity, propertyName, dataObject)
-			return
 
-		assert False, f'Unsupported data type {dataType}'
+		# must be object if got here
+		dataObject = Property.createEntity(data, definition)
+		setattr(entity, propertyName, dataObject)
 
 	@staticmethod
 	def createEntity(data, definition):
@@ -89,8 +87,6 @@ class Property:
 			definition (dict): used for validation
 			data (Any): data to add to array
 		"""
-		if not data:
-			return
 		types = []
 		if definition and definition.get('items'):
 			types = definition['items'].get('type')
@@ -115,15 +111,13 @@ class Property:
 		Returns:
 			boolean: True if valid type
 		"""
-		if not types:
-			return True	 # default to true if no definition
 		typeOfElement = type(data)
 		for typeToCheck in types:
 			allowedType = Property.typeMap.get(typeToCheck)
 			if typeOfElement == allowedType:
 				return True
 			# integer is ok if number is also allowed
-			if isinstance(typeOfElement, int) and isinstance(allowedType, float):
+			if typeOfElement == int and allowedType == float:
 				return True
 		return False
 
