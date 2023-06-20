@@ -72,6 +72,9 @@
 						"Platinum",
 						"Silver"
 					]
+				},
+				"$script": {
+					"className": "CharacterTemplates.scripts.PersonalInfo"
 				}
 			},
 			"required": [
@@ -108,13 +111,35 @@
 		"Defense": {
 			"type": "array",
 			"items": {
-				"type": "string"
+				"type": "object",
+				"properties": {
+					"Defense": {
+						"type": "string"
+					},
+					"$script": {
+						"className": "CharacterTemplates.scripts.Defense"
+					}
+				},
+				"required": [
+					"Defense"
+				]
 			}
 		},
 		"Offense": {
 			"type": "array",
 			"items": {
-				"type": "string"
+				"type": "object",
+				"properties": {
+					"Weapon": {
+						"type": "string"
+					},
+					"$script": {
+						"className": "CharacterTemplates.scripts.Offense"
+					}
+				},
+				"required": [
+					"Weapon"
+				]
 			}
 		},
 		"Skills": {

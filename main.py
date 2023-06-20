@@ -51,5 +51,5 @@ if __name__ == "__main__":
 	Services.setLogger(Logger())
 	characterManager = CharacterManager('./CharacterTemplates')
 	characterManager.loadCharacter('Fred')
-	# characterManager.saveCharacter('Fred Save')
+	characterManager.saveCharacter('Fred Save')
 	pass

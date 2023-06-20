@@ -1,5 +1,6 @@
 import importlib
 import inspect
+import re
 
 from JsonUtils import JsonUtils
 from Property import Property
@@ -74,6 +75,7 @@ class Entity:
 				Services.getLogger().logException(f'Exception while calling register on {scriptProperty}', ex)
 	
 	def loadScript(self, scriptName):
+		scriptName = re.sub("[^a-zA-Z0-9.]", "_", scriptName)
 		script = Entity.schemas.get(scriptName)
 		if not script:
 			module = importlib.import_module(scriptName)
