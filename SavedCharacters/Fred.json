@@ -1,4 +1,21 @@
 {
+    "Classes": [
+        {
+            "Class": "monk"
+        },
+        {
+            "Class": "monk"
+        },
+        {
+            "Class": "monk"
+        },
+        {
+            "Class": "monk"
+        },
+        {
+            "Class": "cleric"
+        }
+    ],
     "PersonalInformation": {
         "Name": "Fred FlintStone",
         "Race": "Human",
@@ -21,8 +38,15 @@
         "CurrentHp": 50,
         "TemporaryHp": 10
     },
-    "Defense": ["Plate Mail", "Tower Shield"],
-    "Offense": ["Long Sword", "Long Bow", "Unarmed"],
+    "Defense": [
+        "Plate Mail",
+        "Tower Shield"
+    ],
+    "Offense": [
+        "Long Sword",
+        "Long Bow",
+        "Unarmed"
+    ],
     "Skills": {
         "Acrobatics": 10,
         "AnimalHandling": 10,

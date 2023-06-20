@@ -24,6 +24,9 @@ class Entity:
 	1) The definitions are used to validate the data at load time.
 	2) The definitions can also be used as part of a GUI to validate input at runtime.
 	"""
+
+	schemas = {}
+
 	def __init__(self):
 		self._definition: dict | None = None
 		self._script = None
@@ -56,20 +59,29 @@ class Entity:
 			return
 		scriptProperty = properties.get('$script')
 		if scriptProperty:
-			self.loadScript(scriptProperty)
+			self.loadScriptProperty(scriptProperty)
 
-	def loadScript(self, scriptProperty):
+	def loadScriptProperty(self, scriptProperty):
 		scriptName = scriptProperty.get('className')
 		if not scriptName:
 			return
-		module = importlib.import_module(scriptName)
-		self.getClassFromModule(module)
-		if self._script:
+		script = self.loadScript(scriptName)
+		if script:
+			self._script = script
 			try:
 				self._script.register(self)
 			except Exception as ex:
 				Services.getLogger().logException(f'Exception while calling register on {scriptProperty}', ex)
 	
+	def loadScript(self, scriptName):
+		script = Entity.schemas.get(scriptName)
+		if not script:
+			module = importlib.import_module(scriptName)
+			script =  self.getClassFromModule(module)
+			if script:
+				Entity.schemas[scriptName] = script
+		return script
+
 	def getClassFromModule(self, module):
 		members = inspect.getmembers(module)
 		for member in members:
@@ -78,8 +90,7 @@ class Entity:
 				if name != 'ScriptBase':
 					classToLoad = getattr(module, name)
 					alias = name + "Alias"
-					self._script = eval(alias + '()', {alias: classToLoad})
-					break
+					return eval(alias + '()', {alias: classToLoad})
 
 	def getPropertyDefinition(self, propertyName):
 		if self._definition:

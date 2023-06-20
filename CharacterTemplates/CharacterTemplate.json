@@ -2,6 +2,23 @@
 	"$schema": "http://json-schema.org/schema#",
 	"type": "object",
 	"properties": {
+		"Classes": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"Class": {
+						"type": "string"
+					},
+					"$script": {
+						"className": "CharacterTemplates.scripts.Classes"
+					}
+				},
+				"required": [
+					"Class"
+				]
+			}
+		},
 		"PersonalInformation": {
 			"type": "object",
 			"properties": {
