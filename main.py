@@ -13,18 +13,16 @@ class CharacterManager:
 	def __init__(self, templatePath):
 		self.character = None
 		self.templatePath = templatePath
-		self.characterTemplate = self.loadTemplate()
-		pass
 
 	def loadCharacter(self, name):
-		path = Services.getConfigurationManager().getValue(ConfigurationManager.saveCharacterKey,
+		pathToSavedCharacters = Services.getConfigurationManager().getValue(ConfigurationManager.saveCharacterKey,
 										ConfigurationManager.saveCharacterDirectoryKey)
 		name = re.sub("[^a-zA-Z0-9]", "_", name)
 		if 'json' not in name:
 			name += '.json'
-		characterPath = path + '/' + name
+		characterPath = pathToSavedCharacters + '/' + name
 		try:
-			self.character = Entity.loadJsonFile(characterPath, self.characterTemplate)
+			self.character = Entity.loadJsonFile(characterPath, self.loadTemplate())
 		except (Exception,):
 			Services.getLogger().log(traceback.format_exc())
 

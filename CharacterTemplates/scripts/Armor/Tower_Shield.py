@@ -1,11 +1,11 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class TowerShieldScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(TowerShieldScript, self).register(entityWithProperties)
+class TowerShieldScript(Entity):
+    def register(self):
+        super(TowerShieldScript, self).register()
         print('Tower Shield registered')
 
-    def update(self, entityWithProperties):
-        super(TowerShieldScript, self).update(entityWithProperties)
+    def update(self):
+        super(TowerShieldScript, self).update()
         print('Tower Shield updated')

@@ -1,11 +1,11 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class LongBowScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(LongBowScript, self).register(entityWithProperties)
+class LongBowScript(Entity):
+    def register(self):
+        super(LongBowScript, self).register()
         print('Long Bow registered')
 
     def update(self, entityWithProperties):
-        super(LongBowScript, self).update(entityWithProperties)
+        super(LongBowScript, self).update()
         print('Long Bow updated')

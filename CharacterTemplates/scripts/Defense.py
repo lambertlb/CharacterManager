@@ -1,7 +1,7 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class DefenseScript(ScriptBase):
+class DefenseScript(Entity):
 	"""
 	This class will load in the appropriate script for
 	handling the specified armor. I assumes the following
@@ -15,15 +15,15 @@ class DefenseScript(ScriptBase):
 	Args:
 		ScriptBase (_type_): All scripts must subclass ScriptBase
 	"""
-	def register(self, entityWithProperties):
-		super(DefenseScript, self).register(entityWithProperties)
+	def register(self):
+		super(DefenseScript, self).register()
 		print('Defense Registered')
-		if not hasattr(entityWithProperties, '_armorScript'):
-			entityWithProperties._armorScript = entityWithProperties.loadScript('CharacterTemplates.scripts.Armor.' + entityWithProperties.Defense)
-		entityWithProperties._armorScript.register(entityWithProperties)
+		if not hasattr(self, '_armorScript'):
+			self._armorScript = Entity.instanceFromScript('CharacterTemplates.scripts.Armor.' + self.Defense)
+		self._armorScript.register()
 
-	def update(self, entityWithProperties):
-		super(DefenseScript, self).update(entityWithProperties)
+	def update(self):
+		super(DefenseScript, self).update()
 		print('Defense Updated')
-		if not hasattr(entityWithProperties, '_armorScript'):
-			entityWithProperties._armorScript.update(entityWithProperties)
+		if not hasattr(self, '_armorScript'):
+			self._armorScript.update()

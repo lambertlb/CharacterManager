@@ -1,19 +1,19 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class PersonalInfo(ScriptBase):
-    def register(self, entityWithProperties):
-        super(PersonalInfo, self).register(entityWithProperties)
+class PersonalInfo(Entity):
+    def register(self):
+        super(PersonalInfo, self).register()
         print('PersonalInfo registered')
-        if not hasattr(entityWithProperties, '_deityScript'):
-            entityWithProperties._deityScript = entityWithProperties.loadScript('CharacterTemplates.scripts.Deities.' + entityWithProperties.Deity)
-        entityWithProperties._deityScript.register(entityWithProperties)
-        if not hasattr(entityWithProperties, '_raceScript'):
-            entityWithProperties._raceScript = entityWithProperties.loadScript('CharacterTemplates.scripts.Races.' + entityWithProperties.Race)
-        entityWithProperties._raceScript.register(entityWithProperties)
+        if not hasattr(self, '_deityScript'):
+            self._deityScript = Entity.instanceFromScript('CharacterTemplates.scripts.Deities.' + self.Deity)
+        self._deityScript.register()
+        if not hasattr(self, '_raceScript'):
+            self._raceScript = Entity.instanceFromScript('CharacterTemplates.scripts.Races.' + self.Race)
+        self._raceScript.register()
 
-    def update(self, entityWithProperties):
-        super(PersonalInfo, self).register(entityWithProperties)
+    def update(self):
+        super(PersonalInfo, self).register()
         print('PersonalInfo updated')
-        if not hasattr(entityWithProperties, '_raceScript'):
-            entityWithProperties._raceScript.update(entityWithProperties)
+        if not hasattr(self, '_raceScript'):
+            self._raceScript.update()

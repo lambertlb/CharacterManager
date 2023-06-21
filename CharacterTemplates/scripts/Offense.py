@@ -1,7 +1,7 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class OffenseScript(ScriptBase):
+class OffenseScript(Entity):
 	"""
 	This class will load in the appropriate script for
 	handling the specified weapon. I assumes the following
@@ -15,15 +15,15 @@ class OffenseScript(ScriptBase):
 	Args:
 		ScriptBase (_type_): All scripts must subclass ScriptBase
 	"""
-	def register(self, entityWithProperties):
-		super(OffenseScript, self).register(entityWithProperties)
+	def register(self):
+		super(OffenseScript, self).register()
 		print('Offense Registered')
-		if not hasattr(entityWithProperties, '_weaponScript'):
-			entityWithProperties._weaponScript = entityWithProperties.loadScript('CharacterTemplates.scripts.Weapons.' + entityWithProperties.Weapon)
-		entityWithProperties._weaponScript.register(entityWithProperties)
+		if not hasattr(self, '_weaponScript'):
+			self._weaponScript = Entity.instanceFromScript('CharacterTemplates.scripts.Weapons.' + self.Weapon)
+		self._weaponScript.register()
 
-	def update(self, entityWithProperties):
-		super(OffenseScript, self).update(entityWithProperties)
+	def update(self):
+		super(OffenseScript, self).update()
 		print('Offense Updated')
-		if not hasattr(entityWithProperties, '_weaponScript'):
-			entityWithProperties._weaponScript.update(entityWithProperties)
+		if not hasattr(self, '_weaponScript'):
+			self._weaponScript.update()

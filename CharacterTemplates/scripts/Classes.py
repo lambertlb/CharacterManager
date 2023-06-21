@@ -1,7 +1,7 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class ClassesScript(ScriptBase):
+class ClassesScript(Entity):
 	"""
 	This class will load in the appropriate script for
 	handling the specified class. I assumes the following
@@ -15,13 +15,13 @@ class ClassesScript(ScriptBase):
 	Args:
 		ScriptBase (_type_): All scripts must subclass ScriptBase
 	"""
-	def register(self, entityWithProperties):
-		super(ClassesScript, self).register(entityWithProperties)
-		if not hasattr(entityWithProperties, '_classScript'):
-			entityWithProperties._classScript = entityWithProperties.loadScript('CharacterTemplates.scripts.ClassScripts.' + entityWithProperties.Class)
-		entityWithProperties._classScript.register(entityWithProperties)
+	def register(self):
+		super(ClassesScript, self).register()
+		if not hasattr(self, '_classScript'):
+			self._classScript = Entity.instanceFromScript('CharacterTemplates.scripts.ClassScripts.' + self.Class)
+		self._classScript.register()
 
-	def update(self, entityWithProperties):
-		super(ClassesScript, self).update(entityWithProperties)
-		if not hasattr(entityWithProperties, '_classScript'):
-			entityWithProperties._classScript.update(entityWithProperties)
+	def update(self):
+		super(ClassesScript, self).update()
+		if not hasattr(self, '_classScript'):
+			self._classScript.update()

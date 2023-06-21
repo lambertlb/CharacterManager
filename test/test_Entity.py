@@ -37,7 +37,6 @@ class TestEntities(TestCase):
 		assert not pi		
 
 	def test_EntityLoadScript(self):
-		entity = Entity()
 		definition = {
 			"properties": {
 				"$script": {
@@ -45,15 +44,13 @@ class TestEntities(TestCase):
 				}
 			}
 		}
-		entity.loadData({},definition)
+		entity = Entity.createEntityFromJsonData({}, definition)
 		assert hasattr(entity, 'registered')
-		assert hasattr(entity, '_script')
-		entity._script.update(entity)
+		entity.update()
 		assert hasattr(entity, 'updated')
 		pass
 
 	def test_EntityLoadScriptWithException(self):
-		entity = Entity()
 		definition = {
 			"properties": {
 				"$script": {
@@ -63,7 +60,7 @@ class TestEntities(TestCase):
 		}
 		logger = Services.getLogger()
 		assert not logger.lastLogged
-		entity.loadData({},definition)
+		entity = Entity.createEntityFromJsonData({}, definition)
 		assert logger.lastLogged
 
 	def test_EntityLoadData(self):

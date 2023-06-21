@@ -1,11 +1,11 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class ClericScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(ClericScript, self).register(entityWithProperties)
+class ClericScript(Entity):
+    def register(self):
+        super(ClericScript, self).register()
         print('    Cleric registered')
 
-    def update(self, entityWithProperties):
-        super(ClericScript, self).update(entityWithProperties)
+    def update(self):
+        super(ClericScript, self).update()
         print('    Cleric updated')

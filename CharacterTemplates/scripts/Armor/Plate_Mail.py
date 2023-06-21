@@ -1,11 +1,11 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class PlateMailScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(PlateMailScript, self).register(entityWithProperties)
+class PlateMailScript(Entity):
+    def register(self):
+        super(PlateMailScript, self).register()
         print('Plate Mail registered')
 
-    def update(self, entityWithProperties):
-        super(PlateMailScript, self).update(entityWithProperties)
+    def update(self):
+        super(PlateMailScript, self).update()
         print('Plate Mail updated')

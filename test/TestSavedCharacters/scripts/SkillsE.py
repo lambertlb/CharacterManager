@@ -1,11 +1,11 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class TestSkillsScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(TestSkillsScript, self).register(entityWithProperties)
+class TestSkillsScript(Entity):
+    def register(self):
+        super(TestSkillsScript, self).register()
         assert False
 
-    def update(self, entityWithProperties):
-        super(TestSkillsScript, self).update(entityWithProperties)
-        entityWithProperties.updated = True
+    def update(self):
+        super(TestSkillsScript, self).update(entityWitProperties)
+        self.updated = True

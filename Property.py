@@ -68,15 +68,13 @@ class Property:
 			return
 
 		# must be object if got here
-		dataObject = Property.createEntity(data, definition)
+		dataObject = Entity.createEntityFromJsonData(data, definition)
 		setattr(entity, propertyName, dataObject)
 
 	@staticmethod
 	def createEntity(data, definition):
 		from Entity import Entity
-		dataObject = Entity()
-		dataObject.loadData(data, definition)
-		return dataObject
+		return Entity.createEntityFromJsonData(data, definition)
 		
 	@staticmethod
 	def addArrayData(array: list, definition: dict, data):

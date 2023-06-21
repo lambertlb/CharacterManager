@@ -1,11 +1,11 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class HumanScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(HumanScript, self).register(entityWithProperties)
+class HumanScript(Entity):
+    def register(self):
+        super(HumanScript, self).register()
         print('Human registered')
 
-    def update(self, entityWithProperties):
-        super(HumanScript, self).update(entityWithProperties)
+    def update(self):
+        super(HumanScript, self).update()
         print('Human updated')

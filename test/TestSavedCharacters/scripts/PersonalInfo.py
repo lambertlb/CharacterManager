@@ -1,7 +1,7 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class PersonalInfo(ScriptBase):
+class PersonalInfo(Entity):
     def register(self):
         pass
     def update(self):

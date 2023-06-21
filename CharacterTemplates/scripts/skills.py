@@ -1,13 +1,13 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class SkillsScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(SkillsScript, self).register(entityWithProperties)
-        print('I am registered')
-        # raise Exception('Oh Oh')
+class SkillsScript(Entity):
+    def register(self):
+        super(SkillsScript, self).register()
+        print('Skills registered')
         pass
-    def update(self, entityWithProperties):
-        super(SkillsScript, self).update(entityWithProperties)
-        print('I am updated')
+
+    def update(self):
+        super(SkillsScript, self).update()
+        print('Skills updated')
         pass

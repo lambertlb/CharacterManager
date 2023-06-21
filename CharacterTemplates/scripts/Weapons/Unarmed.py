@@ -1,11 +1,11 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class UnarmedScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(UnarmedScript, self).register(entityWithProperties)
+class UnarmedScript(Entity):
+    def register(self):
+        super(UnarmedScript, self).register()
         print('Unarmed registered')
 
     def update(self, entityWithProperties):
-        super(UnarmedScript, self).update(entityWithProperties)
+        super(UnarmedScript, self).update()
         print('Unarmed updated')

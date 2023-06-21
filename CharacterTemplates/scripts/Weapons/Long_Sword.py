@@ -1,11 +1,11 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class LongSwordScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(LongSwordScript, self).register(entityWithProperties)
+class LongSwordScript(Entity):
+    def register(self):
+        super(LongSwordScript, self).register()
         print('Long Sword registered')
 
-    def update(self, entityWithProperties):
-        super(LongSwordScript, self).update(entityWithProperties)
+    def update(self):
+        super(LongSwordScript, self).update()
         print('Long Sword updated')

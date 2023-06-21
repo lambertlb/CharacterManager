@@ -1,11 +1,11 @@
-from ScriptBase import ScriptBase
+from Entity import Entity
 
 
-class SuneScript(ScriptBase):
-    def register(self, entityWithProperties):
-        super(SuneScript, self).register(entityWithProperties)
+class SuneScript(Entity):
+    def register(self):
+        super(SuneScript, self).register()
         print('Sune registered')
 
-    def update(self, entityWithProperties):
-        super(SuneScript, self).update(entityWithProperties)
+    def update(self):
+        super(SuneScript, self).update()
         print('Sune updated')
