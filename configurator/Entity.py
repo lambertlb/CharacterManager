@@ -27,7 +27,10 @@ class Entity:
 	This class is also the base class for any scripts referenced in a schema.
 	"""
 
+	# keep track of loaded classes from scripts
 	schemas = {}
+
+	# map types in json data to python types. Used for validation
 	typeMap = {
 		'string': type(''),
 		'integer': type(int(0)),
@@ -50,21 +53,76 @@ class Entity:
 		self._definition = value
 
 	def register(self):
+		"""
+		This should be overridden in derived classes
+		"""
 		pass
 
 	def update(self):
+		"""
+		This should be overridden in derived classes
+		"""
 		pass
 	
+	def loadInDataForProperties(self, jsonData, dataDefinition):
+		"""
+		Load in all property data defined in the json data
+		and attach it to this entity
+
+		Args:
+			jsonData (_type_): data defined in json file
+			dataDefinition (_type_): schema for data
+		"""
+		self.definition = dataDefinition
+		for parameter in list(jsonData.items()):
+			Entity.loadPropertyData(self, parameter)
+
+	def getPropertyDefinition(self, propertyName):
+		"""
+		Find this property name in the schema
+
+		Args:
+			propertyName (str): to look for
+
+		Returns:
+			schema defining this property
+		"""
+		if self._definition:
+			properties = self._definition.get('properties')
+			if properties:
+				return properties.get(propertyName)
+		return None
+
 	@staticmethod
 	def loadJsonFile(path, jsonSchema):
+		"""
+		Create an Entity based on the data in the json file
+
+		Args:
+			path (str): Path to json file
+			jsonSchema (dict): schema for data
+
+		Returns:
+			Entity: populated entity
+		"""
 		data = JsonUtils.loadJsonFile(path)
 		entity = Entity.createEntityFromJsonData(data, jsonSchema)
 		return entity
 
 	@staticmethod
 	def createEntityFromJsonData(jsonData, jsonSchema):
+		"""
+		Create entity with this json data
+
+		Args:
+			jsonData (dict): json data
+			jsonSchema (dict): schema for data
+
+		Returns:
+			Entity: populated entity
+		"""
 		entity = Entity.createEntity(jsonSchema)
-		entity.loadInData(jsonData, jsonSchema)
+		entity.loadInDataForProperties(jsonData, jsonSchema)
 		try:
 			entity.register()
 		except Exception as ex:
@@ -73,6 +131,17 @@ class Entity:
 
 	@staticmethod
 	def createEntity(jsonSchema):
+		"""
+		Create entity based on schema.
+		If the schema has a $schema tag the use that to lookup and
+		create the Entity
+
+		Args:
+			jsonSchema (dict): schema
+
+		Returns:
+			Entity: new Entity
+		"""
 		properties = jsonSchema.get('properties')
 		if properties:
 			scriptProperty = properties.get('$script')
@@ -82,14 +151,32 @@ class Entity:
 		
 	@staticmethod
 	def loadScriptFromProperty(scriptProperty):
+		"""
+		Load in the script from this property definition
+
+		Args:
+			scriptProperty (dict): property description
+
+		Returns:
+			Entity: new Entity
+		"""
 		scriptName = scriptProperty.get('className')
 		assert scriptName, '$script need key word "className"'
 		return Entity.instanceFromScript(scriptName)
 
 	@staticmethod
 	def instanceFromScript(scriptName):
+		"""
+		Create an instance of Entity from script name
+
+		Args:
+			scriptName (str): full name of script
+
+		Returns:
+			Entity: new Entity
+		"""
 		scriptName = re.sub("[^a-zA-Z0-9.]", "_", scriptName)
-		classToLoad = Entity.schemas.get(scriptName)
+		classToLoad = Entity.schemas.get(scriptName)  # use cached one
 		if not classToLoad:
 			module = importlib.import_module(scriptName)
 			classToLoad =  Entity.findClassFromModule(module)
@@ -101,6 +188,15 @@ class Entity:
 
 	@staticmethod
 	def findClassFromModule(module: ModuleType):
+		"""
+		Find subclass of Entity in the module
+
+		Args:
+			module (ModuleType): that holds the classes
+
+		Returns:
+			cls: subclass of Entity
+		"""
 		members = inspect.getmembers(module)
 		for member in members:
 			name, item = member
@@ -108,18 +204,6 @@ class Entity:
 				if name != 'Entity':
 					return getattr(module, name)
 		assert False, f'Found no class derived from Entity in module {module.__name__}'
-
-	def loadInData(self, entityData, dataDefinition):
-		self.definition = dataDefinition
-		for parameter in list(entityData.items()):
-			Entity.loadPropertyData(self, parameter)
-
-	def getPropertyDefinition(self, propertyName):
-		if self._definition:
-			properties = self._definition.get('properties')
-			if properties:
-				return properties.get(propertyName)
-		return None
 
 	@staticmethod
 	def loadPropertyData(where, propertyData):
@@ -134,17 +218,16 @@ class Entity:
 		Entity.getPropertyData(where, propertyName, data)
 
 	@staticmethod
-	def getPropertyData(where, propertyName, data):
+	def getPropertyData(entity, propertyName, data):
 		"""
 		Get data for property
 		Args:
-			where (Entity): where to place property
+			entity: where to place property
 			propertyName (string): name of property
 			data (Any): data for the property
 		"""
-		entity = where
 		definition = entity.getPropertyDefinition(propertyName)
-		dataType = 'string'
+		dataType = 'string'  # default to string if no definition
 		if definition:
 			# if there is a definition then use it for validation
 			dataType = list(definition.values())[0]
@@ -175,11 +258,6 @@ class Entity:
 		setattr(entity, propertyName, dataObject)
 
 	@staticmethod
-	def createEntityForProperty(data, definition):
-		from configurator.Entity import Entity
-		return Entity.createEntityFromJsonData(data, definition)
-		
-	@staticmethod
 	def addArrayData(array: list, definition: dict, data):
 		"""
 		Add data to array if it exists
@@ -195,8 +273,8 @@ class Entity:
 				types = [types]
 		for element in data:
 			assert Entity.isValidType(types, element)
-			if isinstance(element, dict):
-				dataObject = Entity.createEntityForProperty(element, definition['items'])
+			if isinstance(element, dict):  # adding Entity?
+				dataObject = Entity.createEntityFromJsonData(element, definition['items'])
 				array.append(dataObject)
 			else:
 				array.append(element)
@@ -224,4 +302,11 @@ class Entity:
 
 	@staticmethod
 	def validate(dataType, data):
+		"""
+		Is this valid data
+
+		Args:
+			dataType (_type_): type to test against
+			data (Any): data to test
+		"""
 		assert Entity.isValidType([dataType], data)
