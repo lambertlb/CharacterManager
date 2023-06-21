@@ -2,8 +2,8 @@ import os
 import unittest
 from unittest import TestCase
 
-from ConfigurationManager import ConfigurationManager
-from Services import Services
+from configurator.ConfigurationManager import ConfigurationManager
+from configurator.Services import Services
 from main import CharacterManager
 from test.TestLogger import TestLogger
 

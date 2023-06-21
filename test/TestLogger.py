@@ -1,4 +1,4 @@
-from Logger import Logger
+from configurator.Logger import Logger
 
 
 class TestLogger(Logger):

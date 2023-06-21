@@ -2,7 +2,7 @@
 
 from jsonschema import Draft7Validator, validate
 
-from JsonUtils import JsonUtils
+from configurator.JsonUtils import JsonUtils
 
 schemaData = JsonUtils.loadJsonSchema('./CharacterTemplates/CharacterTemplate.json')
 Draft7Validator.check_schema(schemaData)

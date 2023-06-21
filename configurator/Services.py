@@ -1,5 +1,5 @@
-from ConfigurationManager import ConfigurationManager
-from Logger import Logger
+from configurator.ConfigurationManager import ConfigurationManager
+from configurator.Logger import Logger
 
 
 class Services:

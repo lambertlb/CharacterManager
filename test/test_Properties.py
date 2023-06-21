@@ -2,10 +2,9 @@ from unittest import TestCase
 import unittest
 
 import pytest
-from Entity import Entity
+from configurator.Entity import Entity
 
-from JsonUtils import JsonUtils
-from Property import Property
+from configurator.JsonUtils import JsonUtils
 
 
 class TestProperties(TestCase):
@@ -22,7 +21,7 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("Name", "Fred FlintStone")
 		entity = Entity()
 		entity._definition = TestProperties.testSchema['properties']['PersonalInformation']
-		Property.loadData(entity, jsonPropertyData)
+		Entity.loadPropertyData(entity, jsonPropertyData)
 		assert hasattr(entity, 'Name')
 		assert entity.Name == 'Fred FlintStone'
 
@@ -30,7 +29,7 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("Age", 22)
 		entity = Entity()
 		entity._definition = TestProperties.testSchema['properties']['PersonalInformation']
-		Property.loadData(entity,jsonPropertyData)
+		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'Age')
 		assert entity.Age
 
@@ -38,7 +37,7 @@ class TestProperties(TestCase):
 		jsonPropertyData = ("Weight", 110.5)
 		entity = Entity()
 		entity._definition = TestProperties.testSchema['properties']['PersonalInformation']
-		Property.loadData(entity,jsonPropertyData)
+		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'Weight')
 		assert entity.Weight == 110.5
 
@@ -51,7 +50,7 @@ class TestProperties(TestCase):
 					"type": "boolean"
 				}
 			}}
-		Property.loadData(entity,jsonPropertyData)
+		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'Dead')
 		assert entity.Dead == False
 
@@ -64,7 +63,7 @@ class TestProperties(TestCase):
 					"type": "null"
 				}
 			}}
-		Property.loadData(entity,jsonPropertyData)
+		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'NullType')
 		assert entity.NullType == None
 		dump = JsonUtils.convertToJson(entity)
@@ -88,7 +87,7 @@ class TestProperties(TestCase):
 						{ "type": ["string", "integer", "number", "null", "boolean"] }
 				}
 			}}
-		Property.loadData(entity,jsonPropertyData)
+		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'MixedArray')
 		assert isinstance(entity.MixedArray, list)
 		assert len(entity.MixedArray) == 5
@@ -116,7 +115,7 @@ class TestProperties(TestCase):
 						{ "type": "integer" }
 				}
 			}}
-		Property.loadData(entity,jsonPropertyData)
+		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'SingleType')
 		assert isinstance(entity.SingleType, list)
 		assert len(entity.SingleType) == 5
@@ -161,7 +160,7 @@ class TestProperties(TestCase):
        						}
 					}
 			}}}
-		Property.loadData(entity,jsonPropertyData)
+		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'ObjectType')
 		assert isinstance(entity.ObjectType, list)
 		assert len(entity.ObjectType) == 5
@@ -181,7 +180,7 @@ class TestProperties(TestCase):
 			})
 		entity = Entity()
 		entity._definition = TestProperties.testSchema
-		Property.loadData(entity,jsonPropertyData)
+		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'PersonalInformation')
 		assert isinstance(entity.PersonalInformation, Entity)
 		assert hasattr(entity.PersonalInformation, 'Name')
@@ -197,11 +196,11 @@ class TestProperties(TestCase):
 		
 	def	test_ValidateRaisesException(self):
 		with pytest.raises(Exception):
-			Property.validate('boolean', 22)
+			Entity.validate('boolean', 22)
 
 		
 	def	test_ValidateIntegerIsNumber(self):
-		Property.validate('number', 22)
+		Entity.validate('number', 22)
 
 
 if __name__ == '__main__':

@@ -1,11 +1,11 @@
 import re
 import traceback
+from configurator.ConfigurationManager import ConfigurationManager
+from configurator.Entity import Entity
+from configurator.Logger import Logger
+from configurator.JsonUtils import JsonUtils
 
-from ConfigurationManager import ConfigurationManager
-from Entity import Entity
-from JsonUtils import JsonUtils
-from Logger import Logger
-from Services import Services
+from configurator.Services import Services
 
 
 class CharacterManager:

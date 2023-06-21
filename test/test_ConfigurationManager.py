@@ -2,7 +2,7 @@ import os
 from unittest import TestCase
 import unittest
 
-from ConfigurationManager import ConfigurationManager
+from configurator.ConfigurationManager import ConfigurationManager
 
 
 class TestConfigurationManager(TestCase):

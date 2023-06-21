@@ -1,4 +1,4 @@
-from Entity import Entity
+from configurator.Entity import Entity
 
 
 class SkillsScript(Entity):

@@ -1,10 +1,9 @@
 from unittest import TestCase
 import unittest
 
-from Entity import Entity
-from JsonUtils import JsonUtils
-from Property import Property
-from Services import Services
+from configurator.Entity import Entity
+from configurator.JsonUtils import JsonUtils
+from configurator.Services import Services
 from test.TestLogger import TestLogger
 	
 class TestEntities(TestCase):
