@@ -18,8 +18,7 @@ class DefenseScript(Entity):
 	def register(self):
 		super(DefenseScript, self).register()
 		print('Defense Registered')
-		if not hasattr(self, '_armorScript'):
-			self._armorScript = Entity.instanceFromScript('CharacterTemplates.scripts.Armor.' + self.Defense)
+		self._armorScript = Entity.instanceFromScript('CharacterTemplates.scripts.Armor#' + self.Defense)
 		self._armorScript.register()
 
 	def update(self):
