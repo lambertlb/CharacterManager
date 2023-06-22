@@ -18,8 +18,7 @@ class OffenseScript(Entity):
 	def register(self):
 		super(OffenseScript, self).register()
 		print('Offense Registered')
-		if not hasattr(self, '_weaponScript'):
-			self._weaponScript = Entity.instanceFromScript('CharacterTemplates.scripts.Weapons.' + self.Weapon)
+		self._weaponScript = Entity.instanceFromScript('CharacterTemplates.scripts.Weapons#' + self.Weapon)
 		self._weaponScript.register()
 
 	def update(self):

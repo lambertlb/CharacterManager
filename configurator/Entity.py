@@ -28,7 +28,9 @@ class Entity:
 	"""
 
 	# keep track of loaded classes from scripts
-	schemas = {}
+	scriptInModule = {}
+	# modules with entity classes
+	modules = {}
 
 	# map types in json data to python types. Used for validation
 	typeMap = {
@@ -175,16 +177,41 @@ class Entity:
 		Returns:
 			Entity: new Entity
 		"""
-		scriptName = re.sub("[^a-zA-Z0-9.]", "_", scriptName)
-		classToLoad = Entity.schemas.get(scriptName)  # use cached one
+		scriptName = re.sub("[^a-zA-Z0-9.#]", "_", scriptName)
+		classToLoad = Entity.scriptInModule.get(scriptName)
+		if classToLoad:
+			return Entity.createInstanceFromClass(classToLoad)
+		parts = scriptName.split('#')
+		if len(parts) == 2:
+			return Entity.nameFromScript(parts[0], parts[1], scriptName)
+		classToLoad = Entity.scriptInModule.get(scriptName)
 		if not classToLoad:
-			module = importlib.import_module(scriptName)
+			module = Entity.getModule(scriptName)
 			classToLoad =  Entity.findClassFromModule(module)
-			Entity.schemas[scriptName] = classToLoad
+			Entity.scriptInModule[scriptName] = classToLoad
 		
+		return Entity.createInstanceFromClass(classToLoad)
+
+	@staticmethod
+	def createInstanceFromClass(classToCreate):
 		# magic to create instance of class
 		alias = "SomeAlias"
-		return eval(alias + '()', {alias: classToLoad})
+		return eval(alias + '()', {alias: classToCreate})
+
+	@staticmethod
+	def nameFromScript(nameSpace, className, scriptName):
+		module = Entity.getModule(nameSpace)
+		classToLoad = getattr(module, className)
+		Entity.scriptInModule[scriptName] = classToLoad
+		return Entity.createInstanceFromClass(classToLoad)
+
+	@staticmethod
+	def getModule(scriptName):
+		module = Entity.modules.get(scriptName)  # use cached one
+		if not module:
+			module = importlib.import_module(scriptName)
+			Entity.modules[scriptName] = module
+		return module
 
 	@staticmethod
 	def findClassFromModule(module: ModuleType):
