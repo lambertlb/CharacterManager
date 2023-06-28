@@ -70,12 +70,17 @@ class TestEntities(TestCase):
 		entity = Entity.loadJsonFile('./test/TestSavedCharacters/Character_1.json', result)
 		assert entity
 
-	def test_ValidateSchemas(self):
+	def test_ValidateTestSchemas(self):
 		schemaData = JsonUtils.loadJsonSchema('./CharacterTemplates/CharacterTemplate.json')
 		Draft7Validator.check_schema(schemaData)
 		data = JsonUtils.loadJsonFile('./test/TestSavedCharacters/Character_1.json')
 		validate(data, schemaData)
 
+	def test_ValidateSchemas(self):
+		schemaData = JsonUtils.loadJsonSchema('./CharacterTemplates/CharacterTemplate.json')
+		Draft7Validator.check_schema(schemaData)
+		data = JsonUtils.loadJsonFile('./SavedCharacters/Fred.json')
+		validate(data, schemaData)
 
 if __name__ == '__main__':
 	unittest.main()
