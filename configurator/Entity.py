@@ -43,6 +43,8 @@ class Entity:
 		'object': type({})
 	}
 
+	allEntities = []
+
 	def __init__(self):
 		self._definition: dict | None = None
 
@@ -58,8 +60,12 @@ class Entity:
 		"""
 		This should be overridden in derived classes
 		"""
+		Entity.allEntities.append(self)
 		pass
 
+	def unRegister(self):
+		Entity.allEntities.pop(self)
+		
 	def update(self):
 		"""
 		This should be overridden in derived classes

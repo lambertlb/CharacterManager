@@ -58,9 +58,6 @@
 				},
 				"Survival": {
 					"type": "integer"
-				},
-				"$script": {
-					"className": "CharacterTemplates.scripts.skills"
 				}
 			},
 			"required": [

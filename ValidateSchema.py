@@ -8,3 +8,4 @@ schemaData = JsonUtils.loadJsonSchema('./CharacterTemplates/CharacterTemplate.js
 Draft7Validator.check_schema(schemaData)
 data = JsonUtils.loadJsonFile('./SavedCharacters/Fred.json')
 validate(data, schemaData)
+pass

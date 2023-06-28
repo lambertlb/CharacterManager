@@ -1,5 +1,8 @@
+import traceback
 from unittest import TestCase
 import unittest
+
+from jsonschema import Draft7Validator, validate
 
 from configurator.Entity import Entity
 from configurator.JsonUtils import JsonUtils
@@ -66,6 +69,12 @@ class TestEntities(TestCase):
 		result = JsonUtils.loadJsonSchema('./test/TestSavedCharacters/CharacterTemplate.json')
 		entity = Entity.loadJsonFile('./test/TestSavedCharacters/Character_1.json', result)
 		assert entity
+
+	def test_ValidateSchemas(self):
+		schemaData = JsonUtils.loadJsonSchema('./CharacterTemplates/CharacterTemplate.json')
+		Draft7Validator.check_schema(schemaData)
+		data = JsonUtils.loadJsonFile('./test/TestSavedCharacters/Character_1.json')
+		validate(data, schemaData)
 
 
 if __name__ == '__main__':

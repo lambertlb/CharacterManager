@@ -2,6 +2,26 @@
 	"$schema": "http://json-schema.org/schema#",
 	"type": "object",
 	"properties": {
+		"$script": {
+			"className": "CharacterTemplates.scripts.Character"
+		},
+		"Classes": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"Class": {
+						"type": "string"
+					},
+					"$script": {
+						"className": "CharacterTemplates.scripts.Classes"
+					}
+				},
+				"required": [
+					"Class"
+				]
+			}
+		},
 		"PersonalInformation": {
 			"type": "object",
 			"properties": {
@@ -55,6 +75,9 @@
 						"Platinum",
 						"Silver"
 					]
+				},
+				"$script": {
+					"className": "CharacterTemplates.scripts.PersonalInfo"
 				}
 			},
 			"required": [
@@ -91,13 +114,35 @@
 		"Defense": {
 			"type": "array",
 			"items": {
-				"type": "string"
+				"type": "object",
+				"properties": {
+					"Defense": {
+						"type": "string"
+					},
+					"$script": {
+						"className": "CharacterTemplates.scripts.Defense"
+					}
+				},
+				"required": [
+					"Defense"
+				]
 			}
 		},
 		"Offense": {
 			"type": "array",
 			"items": {
-				"type": "string"
+				"type": "object",
+				"properties": {
+					"Weapon": {
+						"type": "string"
+					},
+					"$script": {
+						"className": "CharacterTemplates.scripts.Offense"
+					}
+				},
+				"required": [
+					"Weapon"
+				]
 			}
 		},
 		"Skills": {
