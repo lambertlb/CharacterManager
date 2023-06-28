@@ -60,7 +60,7 @@
 					"type": "integer"
 				},
 				"$script": {
-					"className": "CharacterTemplates.scripts.Skills"
+					"className": "CharacterTemplates.scripts.skills"
 				}
 			},
 			"required": [
