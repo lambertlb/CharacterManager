@@ -1,7 +1,7 @@
 from configurator.Entity import Entity
 
 
-class DefenseScript(Entity):
+class Defense(Entity):
 	"""
 	This class will load in the appropriate script for
 	handling the specified armor. I assumes the following
@@ -15,14 +15,17 @@ class DefenseScript(Entity):
 	Args:
 		ScriptBase (_type_): All scripts must subclass ScriptBase
 	"""
+	def __init__(self):
+		super().__init__()
+
 	def register(self):
-		super(DefenseScript, self).register()
+		super().register()
 		print('Defense Registered')
 		self._armorScript = Entity.instanceFromScript('CharacterTemplates.scripts.Armor#' + self.Defense)
 		self._armorScript.register()
 
 	def update(self):
-		super(DefenseScript, self).update()
+		super().update()
 		print('Defense Updated')
 		if not hasattr(self, '_armorScript'):
 			self._armorScript.update()

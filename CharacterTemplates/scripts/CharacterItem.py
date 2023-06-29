@@ -1,3 +1,6 @@
+from uuid import uuid4
+
+
 class CharacterItem:
 	"""
 	This is the base class for all items that can affect
@@ -8,6 +11,7 @@ class CharacterItem:
 	so they don't get added to json save file
 	"""
 	def __init__(self):
+		self._uuid = str(uuid4())
 		self._description = ''
 		self._weight = 0
 		self._cost = 0
@@ -108,6 +112,9 @@ class CharacterItem:
 		self._levelOfIntelligenceSave = 0
 		self._levelOfWisdomSave = 0
 		self._levelOfCharismaSave = 0
+	
+	def register(self):
+		pass
 
 class RaceItem(CharacterItem):
 	def __init__(self):

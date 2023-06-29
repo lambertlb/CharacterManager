@@ -4,7 +4,8 @@ from configurator.Entity import Entity
 
 class SuneScript(Entity, CharacterItem):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		CharacterItem.__init__(self)
 
 	def register(self):
 		super(SuneScript, self).register()

@@ -1,9 +1,14 @@
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
 from configurator.Entity import Entity
 
-class Long_Sword(Entity, CharacterItem):
+class Weapon(CharacterItem):
 	def __init__(self):
 		super().__init__()
+
+class Long_Sword(Entity, Weapon):
+	def __init__(self):
+		Entity.__init__(self)
+		Weapon.__init__(self)
 		self._isWeapon = True
 		self._isVersatile = True
 		self._rollForDamage = '1d8'
@@ -17,9 +22,10 @@ class Long_Sword(Entity, CharacterItem):
 		super(Long_Sword, self).update()
 		print('Long Sword updated')
 
-class Unarmed(Entity, CharacterItem):
+class Unarmed(Entity, Weapon):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		Weapon.__init__(self)
 		self._isWeapon = True
 		self._rollForDamage = '1d3'
 
@@ -31,9 +37,10 @@ class Unarmed(Entity, CharacterItem):
 		super(Unarmed, self).update()
 		print('Unarmed updated')
 
-class Long_Bow(Entity, CharacterItem):
+class Long_Bow(Entity, Weapon):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		Weapon.__init__(self)
 		self._isRange = True
 		self._rollForDamage = '1d8'
 		self._weight = 2

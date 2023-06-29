@@ -4,7 +4,8 @@ from configurator.Entity import Entity
 
 class MonkScript(Entity, ClassItem):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		ClassItem.__init__(self)
 		self._HitDie = '1d8'
 
 	def register(self):

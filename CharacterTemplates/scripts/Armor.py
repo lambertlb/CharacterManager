@@ -1,9 +1,14 @@
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
 from configurator.Entity import Entity
 
-class Plate_Mail(Entity, CharacterItem):
+class Armor(CharacterItem):
 	def __init__(self):
 		super().__init__()
+
+class Plate_Mail(Entity, Armor):
+	def __init__(self):
+		Entity.__init__(self)
+		Armor.__init__(self)
 		self._isArmor = True
 		self._addToAc = 8
 		self._weight = 65
@@ -18,9 +23,10 @@ class Plate_Mail(Entity, CharacterItem):
 		super(Plate_Mail, self).update()
 		print('Plate Mail updated')
 
-class Tower_Shield(Entity, CharacterItem):
+class Tower_Shield(Entity, Armor):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		Armor.__init__(self)
 		self._isArmor = True
 		self._addToAc = 2
 		self._weight = 6

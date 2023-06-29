@@ -15,6 +15,9 @@ class ClassesScript(Entity):
 	Args:
 		ScriptBase (_type_): All scripts must subclass ScriptBase
 	"""
+	def __init__(self):
+		super().__init__()
+
 	def register(self):
 		super(ClassesScript, self).register()
 		if not hasattr(self, '_classScript'):

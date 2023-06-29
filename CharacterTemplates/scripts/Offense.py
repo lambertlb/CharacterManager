@@ -1,7 +1,7 @@
 from configurator.Entity import Entity
 
 
-class OffenseScript(Entity):
+class Offense(Entity):
 	"""
 	This class will load in the appropriate script for
 	handling the specified weapon. I assumes the following
@@ -16,13 +16,13 @@ class OffenseScript(Entity):
 		ScriptBase (_type_): All scripts must subclass ScriptBase
 	"""
 	def register(self):
-		super(OffenseScript, self).register()
+		super(Offense, self).register()
 		print('Offense Registered')
 		self._weaponScript = Entity.instanceFromScript('CharacterTemplates.scripts.Weapons#' + self.Weapon)
 		self._weaponScript.register()
 
 	def update(self):
-		super(OffenseScript, self).update()
+		super(Offense, self).update()
 		print('Offense Updated')
 		if not hasattr(self, '_weaponScript'):
 			self._weaponScript.update()
