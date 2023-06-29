@@ -47,6 +47,7 @@ class CharacterItem:
 		self._isShieldArmor = False
 		self._addToAc = 0
 		self._isWorn = False
+		self._hasMaxDexterityBonus= False
 		self._maxDexterityBonus = 0
 
 	def defineSkillProficiencies(self):

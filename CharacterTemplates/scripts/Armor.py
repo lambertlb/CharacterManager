@@ -12,6 +12,7 @@ class Plate_Mail(Entity, Armor):
 		self._isArmor = True
 		self._addToAc = 8
 		self._weight = 65
+		self._hasMaxDexterityBonus = True
 		self._maxDexterityBonus = 0
 		self._cost = 1500
 

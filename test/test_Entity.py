@@ -71,7 +71,7 @@ class TestEntities(TestCase):
 		assert entity
 
 	def test_ValidateTestSchemas(self):
-		schemaData = JsonUtils.loadJsonSchema('./CharacterTemplates/CharacterTemplate.json')
+		schemaData = JsonUtils.loadJsonSchema('./test/TestSavedCharacters/CharacterTemplate.json')
 		Draft7Validator.check_schema(schemaData)
 		data = JsonUtils.loadJsonFile('./test/TestSavedCharacters/Character_1.json')
 		validate(data, schemaData)
