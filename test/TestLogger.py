@@ -8,6 +8,9 @@ class TestLogger(Logger):
 	@property
 	def lastLogged(self):
 		return self._lastLogged
+	
+	def clear(self):
+		self._lastLogged = None
 
 	def log(self, whatToLog):
 		self._lastLogged = whatToLog

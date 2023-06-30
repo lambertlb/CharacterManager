@@ -1,3 +1,4 @@
+import json
 from unittest import TestCase
 import unittest
 
@@ -174,9 +175,10 @@ class TestProperties(TestCase):
 		jsonPropertyData = ( "PersonalInformation", {
 			"Name": "Fred FlintStone",
 			"Age": 22,
-			"Dead": False,
+			"Deity": "Sune",
 			"NullType": None,
-			"Weight": 110.5
+			"Weight": 110.5,
+			"Race": "Human"
 			})
 		entity = Entity()
 		entity._definition = TestProperties.testSchema
@@ -185,12 +187,12 @@ class TestProperties(TestCase):
 		assert isinstance(entity.PersonalInformation, Entity)
 		assert hasattr(entity.PersonalInformation, 'Name')
 		assert hasattr(entity.PersonalInformation, 'Age')
-		assert hasattr(entity.PersonalInformation, 'Dead')
+		assert hasattr(entity.PersonalInformation, 'Deity')
 		assert hasattr(entity.PersonalInformation, 'NullType')
 		assert hasattr(entity.PersonalInformation, 'Weight')
+		assert hasattr(entity.PersonalInformation, 'Race')
 		assert entity.PersonalInformation.Name == 'Fred FlintStone'
 		assert entity.PersonalInformation.Age == 22
-		assert not entity.PersonalInformation.Dead
 		assert not entity.PersonalInformation.NullType
 		assert entity.PersonalInformation.Weight == 110.5
 		
@@ -201,6 +203,102 @@ class TestProperties(TestCase):
 		
 	def	test_ValidateIntegerIsNumber(self):
 		Entity.validate('number', 22)
+
+	def test_PropertyModifiers(self):
+		jsonPropertyData = 	("Defense", 
+		{
+			"Defense": "Plate Mail",
+			"$modifiers": {
+				"isWorn": True
+			}
+		}
+		)
+
+		entity = Entity()
+		entity.definition = {
+			"properties": {
+				"Defense": {
+					"type": "object",
+						"properties": {
+							"Defense": {
+								"type": "string"
+							},
+							"$script": {
+								"className": "CharacterTemplates.scripts.Defense"
+							}
+						}
+				}
+			}
+		}
+		Entity.loadPropertyData(entity,jsonPropertyData)
+		assert entity.Defense._armorInfo._isWorn
+
+	def test_SavePropertyModifiers(self):
+		jsonPropertyData = 	("Defense", 
+		{
+			"Defense": "Plate Mail",
+			"$modifiers": {
+				"isWorn": True
+			}
+		}
+		)
+
+		entity = Entity()
+		entity.definition = {
+			"properties": {
+				"Defense": {
+					"type": "object",
+						"properties": {
+							"Defense": {
+								"type": "string"
+							},
+							"$script": {
+								"className": "CharacterTemplates.scripts.Defense"
+							}
+						}
+				}
+			}
+		}
+		Entity.loadPropertyData(entity,jsonPropertyData)
+		assert entity.Defense._armorInfo._isWorn
+		entity.Defense._armorInfo._isWorn = False
+		entity.Defense._armorInfo._weight = 77
+		entity.Defense._armorInfo.saveModifiers(entity.Defense)
+		sv = JsonUtils.convertToJson(entity)
+		assert sv == '{"Defense": {"Defense": "Plate Mail", "$modifiers": {"weight": 77}}}'
+
+	def test_SavePropertyModifiers2(self):
+		jsonPropertyData = 	("Defense", 
+		{
+			"Defense": "Plate Mail",
+			"$modifiers": {
+				"isWorn": True
+			}
+		}
+		)
+
+		entity = Entity()
+		entity.definition = {
+			"properties": {
+				"Defense": {
+					"type": "object",
+						"properties": {
+							"Defense": {
+								"type": "string"
+							},
+							"$script": {
+								"className": "CharacterTemplates.scripts.Defense"
+							}
+						}
+				}
+			}
+		}
+		Entity.loadPropertyData(entity,jsonPropertyData)
+		assert entity.Defense._armorInfo._isWorn
+		entity.Defense._armorInfo._isWorn = False
+		entity.Defense._armorInfo.saveModifiers(entity.Defense)
+		sv = JsonUtils.convertToJson(entity)
+		assert sv == '{"Defense": {"Defense": "Plate Mail"}}'
 
 
 if __name__ == '__main__':

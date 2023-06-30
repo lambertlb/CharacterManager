@@ -5,6 +5,40 @@
 		"$script": {
 			"className": "CharacterTemplates.scripts.Character"
 		},
+		"Attributes": {
+			"type": "object",
+			"properties": {
+				"Strength": {
+					"type": "integer"
+				},
+				"Dexterity": {
+					"type": "integer"
+				},
+				"Constitution": {
+					"type": "integer"
+				},
+				"Intelligence": {
+					"type": "integer"
+				},
+				"Wisdom": {
+					"type": "integer"
+				},
+				"Charisma": {
+					"type": "integer"
+				},
+				"$script": {
+					"className": "CharacterTemplates.scripts.Attributes"
+				}
+		},
+			"required": [
+				"Charisma",
+				"Constitution",
+				"Dexterity",
+				"Intelligence",
+				"Strength",
+				"Wisdom"
+			]
+		},
 		"Classes": {
 			"type": "array",
 			"items": {
@@ -150,6 +184,7 @@
 		}
 	},
 	"required": [
+		"Attributes",
 		"Defense",
 		"Health",
 		"Offense",

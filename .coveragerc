@@ -2,4 +2,4 @@
 omit =
     ValidateSchema.py
     test\*
-    CharacterTemplates\*
+    __*

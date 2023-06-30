@@ -1,4 +1,7 @@
+import re
 from uuid import uuid4
+
+from configurator.Entity import Entity
 
 
 class CharacterItem:
@@ -115,7 +118,34 @@ class CharacterItem:
 		self._levelOfCharismaSave = 0
 	
 	def register(self):
+		self.handleModifiers(self, self)
+	
+	def handleModifiers(self, itemWithModifiers):
+		if not hasattr(itemWithModifiers, '$modifiers'):
+			return
+		modifiers = getattr(itemWithModifiers, '$modifiers')
+		for property in list(modifiers.items()):
+			propertyName, data = property
+			propertyToSet = '_'+ propertyName
+			if hasattr(self, propertyToSet):
+				setattr(self, propertyToSet, data)
 		pass
+
+	def saveModifiers(self, itemWithModifiers):
+		newMods = {}
+		if hasattr(itemWithModifiers, '$modifiers'):
+			delattr(itemWithModifiers, '$modifiers')
+		modAdded = False
+		reference = Entity.createInstanceFromClass(type(self))
+		for item in reference.__dict__.items():
+			name, value = item
+			myvalue = getattr(self, name)
+			if name != '_uuid' and myvalue != value:
+				modName = re.sub("_", "", name)
+				newMods[modName] = myvalue
+				modAdded = True
+		if modAdded:
+			setattr(itemWithModifiers, '$modifiers', newMods)
 
 class RaceItem(CharacterItem):
 	def __init__(self):

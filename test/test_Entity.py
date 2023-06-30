@@ -3,6 +3,7 @@ from unittest import TestCase
 import unittest
 
 from jsonschema import Draft7Validator, validate
+import pytest
 
 from configurator.Entity import Entity
 from configurator.JsonUtils import JsonUtils
@@ -20,29 +21,36 @@ class TestEntities(TestCase):
 	def tearDownClass(cls):
 		pass
 
+	def setup_method(self, *args):
+		Services.getLogger().clear()
+
+
 	def test_EntityDefinitionSetterAndGetter(self):
 		entity = Entity()
 		entity.definition = {"Item": 1}
 		assert entity.definition
 		assert entity.definition['Item'] == 1
+		assert not Services.getLogger().lastLogged
 
 	def test_EntityGetPropertyDefinition(self):
 		entity = Entity()
 		entity.definition = TestEntities.testSchema
 		pi = entity.getPropertyDefinition('PersonalInformation')
 		assert pi
+		assert not Services.getLogger().lastLogged
 
 	def test_EntityGetPropertyDefinition2(self):
 		entity = Entity()
 		entity.definition = {}
 		pi = entity.getPropertyDefinition('PersonalInformationA')
 		assert not pi		
+		assert not Services.getLogger().lastLogged
 
 	def test_EntityLoadScript(self):
 		definition = {
 			"properties": {
 				"$script": {
-					"className": "test.TestSavedCharacters.scripts.Skills"
+					"className": "test.TestSavedCharacters.scripts.skills"
 				}
 			}
 		}
@@ -50,7 +58,7 @@ class TestEntities(TestCase):
 		assert hasattr(entity, 'registered')
 		entity.update()
 		assert hasattr(entity, 'updated')
-		pass
+		assert not Services.getLogger().lastLogged
 
 	def test_EntityLoadScriptWithException(self):
 		definition = {
@@ -69,18 +77,22 @@ class TestEntities(TestCase):
 		result = JsonUtils.loadJsonSchema('./test/TestSavedCharacters/CharacterTemplate.json')
 		entity = Entity.loadJsonFile('./test/TestSavedCharacters/Character_1.json', result)
 		assert entity
+		assert not Services.getLogger().lastLogged
 
 	def test_ValidateTestSchemas(self):
 		schemaData = JsonUtils.loadJsonSchema('./test/TestSavedCharacters/CharacterTemplate.json')
 		Draft7Validator.check_schema(schemaData)
 		data = JsonUtils.loadJsonFile('./test/TestSavedCharacters/Character_1.json')
 		validate(data, schemaData)
+		assert not Services.getLogger().lastLogged
 
 	def test_ValidateSchemas(self):
 		schemaData = JsonUtils.loadJsonSchema('./CharacterTemplates/CharacterTemplate.json')
 		Draft7Validator.check_schema(schemaData)
 		data = JsonUtils.loadJsonFile('./SavedCharacters/Fred.json')
 		validate(data, schemaData)
+		assert not Services.getLogger().lastLogged
+	
 
 if __name__ == '__main__':
 	unittest.main()

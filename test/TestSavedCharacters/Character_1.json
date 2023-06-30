@@ -48,15 +48,27 @@
 	},
 	"Defense": [
 		{
-			"Defense": "Plate Mail"
+			"Defense": "Plate Mail",
+			"$modifiers": {
+				"isWorn": true
+			}
 		},
 		{
-			"Defense": "Tower Shield"
+			"Defense": "Chain Mail"
+		},
+		{
+			"Defense": "Tower Shield",
+			"$modifiers": {
+				"isWorn": true
+			}
 		}
 	],
 	"Offense": [
 		{
-			"Weapon": "Long Sword"
+			"Weapon": "Long Sword",
+			"$modifiers": {
+				"isWorn": true
+			}
 		},
 		{
 			"Weapon": "Long Bow"

@@ -23,6 +23,7 @@ class Defense(Entity):
 		print('Defense Registered')
 		self._armorInfo = Entity.instanceFromScript('CharacterTemplates.scripts.Armor#' + self.Defense)
 		self._armorInfo.register()
+		self._armorInfo.handleModifiers(self)
 
 	def update(self):
 		super().update()
