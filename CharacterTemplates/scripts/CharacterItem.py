@@ -147,6 +147,14 @@ class CharacterItem:
 		if modAdded:
 			setattr(itemWithModifiers, '$modifiers', newMods)
 
+	def amountToAddToAC(self):
+		return self._addToAc
+
+	def computeMaxDexterityBonus(self, currentBonus):
+		if self._hasMaxDexterityBonus and self._isWorn and self._maxDexterityBonus < currentBonus:
+			return self._maxDexterityBonus
+		return currentBonus
+
 class RaceItem(CharacterItem):
 	def __init__(self):
 		super().__init__()

@@ -7,15 +7,8 @@ class ConfigurationManager:
 	Class to contain application configuration
 	"""
 
-	iniFile = './CharacterManager.ini'
-	sourcesKey = 'Sources'
-	characterTemplateDirectoryKey = 'CharacterTemplates'
-	saveCharacterKey = 'SavedCharacters'
-	saveCharacterDirectoryKey = 'SaveCharacterDirectory'
-	scriptsKey = 'Scripts'
-	scriptsDirectoryKey = 'ScriptsDirectory'
 
-	def __init__(self, configFile=iniFile):
+	def __init__(self, configFile='config.ini'):
 		self.filePath = configFile
 		self.config = configparser.ConfigParser()
 		self.setDefaultsIfNeeded()
@@ -23,14 +16,7 @@ class ConfigurationManager:
 		pass
 
 	def setDefaultsIfNeeded(self):
-		if not os.path.exists(self.filePath):
-			self.config.add_section(ConfigurationManager.sourcesKey)
-			self.config.set(self.sourcesKey, self.characterTemplateDirectoryKey, './CharacterTemplates')
-			self.config.add_section(ConfigurationManager.saveCharacterKey)
-			self.config.set(self.saveCharacterKey, self.saveCharacterDirectoryKey, './SavedCharacters')
-			self.config.add_section(ConfigurationManager.scriptsKey)
-			self.config.set(self.scriptsKey, self.scriptsDirectoryKey, './CharacterTemplates/scripts')
-			self.saveConfiguration()
+		pass
 
 	def saveConfiguration(self):
 		with open(self.filePath, 'w') as configfile:

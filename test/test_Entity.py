@@ -23,6 +23,7 @@ class TestEntities(TestCase):
 
 	def setup_method(self, *args):
 		Services.getLogger().clear()
+		Entity._allEntities = {} # get rid of garbage from old tests
 
 
 	def test_EntityDefinitionSetterAndGetter(self):
@@ -93,6 +94,14 @@ class TestEntities(TestCase):
 		validate(data, schemaData)
 		assert not Services.getLogger().lastLogged
 	
+	def test_AllEntities(self):
+		assert len(Entity.getEntities()) == 0
+		entity = Entity()
+		assert len(Entity.getEntities()) == 0
+		entity.register()
+		assert len(Entity.getEntities()) == 1
+		entity.unRegister()
+		assert len(Entity.getEntities()) == 0
 
 if __name__ == '__main__':
 	unittest.main()

@@ -43,7 +43,7 @@ class Entity:
 		'object': type({})
 	}
 
-	_allEntities = []
+	_allEntities = {}
 
 	def __init__(self):
 		self._definition: dict | None = None
@@ -58,13 +58,13 @@ class Entity:
 
 	@staticmethod
 	def getEntities():
-		return Entity._allEntities.copy()
+		return list(Entity._allEntities.values())
 	
 	def register(self):
 		"""
 		This should be overridden in derived classes
 		"""
-		Entity._allEntities.append(self)
+		Entity._allEntities[self] = self
 		pass
 
 	def unRegister(self):

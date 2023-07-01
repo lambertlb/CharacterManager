@@ -6,6 +6,7 @@ class CharacterScript(Entity):
 
 	def __init__(self):
 		super().__init__()
+		self._computedAC = 10
 
 	def register(self):
 		super().register()
@@ -18,26 +19,9 @@ class CharacterScript(Entity):
 
 	def computeAC(self):
 		self._computedAC = 10
-		self._computedAC += self.computeDexterityBonus()
+		self._computedAC += self.Attributes.computeDexterityBonusToAC()
 		for entity in Entity._allEntities:
 			if isinstance(entity, CharacterItem):
-				self._computedAC += entity._addToAc
+				self._computedAC += entity.amountToAddToAC()
 		pass
-
-	def computeDexterityBonus(self):
-		maxDexterity = 10
-		for entity in Entity._allEntities:
-			if isinstance(entity, CharacterItem):
-				if entity._hasMaxDexterityBonus and entity._maxDexterityBonus < maxDexterity:
-					maxDexterity = entity._maxDexterityBonus
-		if hasattr(self.Attributes, "_computedDexterity"):	# might be doing unit test
-			dexBonus = self.computeAttributeBonus(self.Attributes._computedDexterity)
-		else:
-			dexBonus = 0
-		if dexBonus < maxDexterity:
-			return dexBonus
-		return maxDexterity
-
-	def computeAttributeBonus(self, attribute):
-		stat = attribute - 10
-		return int(stat / 2)
+	

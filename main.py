@@ -1,5 +1,6 @@
 import re
 import traceback
+from CharacterManagerConfig import CharacterManagerConfig
 from configurator.ConfigurationManager import ConfigurationManager
 from configurator.Entity import Entity
 from configurator.Logger import Logger
@@ -15,8 +16,8 @@ class CharacterManager:
 		self.templatePath = templatePath
 
 	def loadCharacter(self, name):
-		pathToSavedCharacters = Services.getConfigurationManager().getValue(ConfigurationManager.saveCharacterKey,
-										ConfigurationManager.saveCharacterDirectoryKey)
+		pathToSavedCharacters = Services.getConfigurationManager().getValue(CharacterManagerConfig.saveCharacterKey,
+										CharacterManagerConfig.saveCharacterDirectoryKey)
 		name = re.sub("[^a-zA-Z0-9]", "_", name)
 		if 'json' not in name:
 			name += '.json'
@@ -32,8 +33,8 @@ class CharacterManager:
 		return result
 
 	def saveCharacter(self, name):
-		path = Services.getConfigurationManager().getValue(ConfigurationManager.saveCharacterKey,
-										ConfigurationManager.saveCharacterDirectoryKey)
+		path = Services.getConfigurationManager().getValue(CharacterManagerConfig.saveCharacterKey,
+										CharacterManagerConfig.saveCharacterDirectoryKey)
 		name = re.sub("[^a-zA-Z0-9]", "_", name)
 		if 'json' not in name:
 			name += '.json'
@@ -45,9 +46,9 @@ class CharacterManager:
 
 
 if __name__ == "__main__":
-	Services.setConfigurationManager(ConfigurationManager())
+	Services.setConfigurationManager(CharacterManagerConfig())
 	Services.setLogger(Logger())
 	characterManager = CharacterManager('./CharacterTemplates')
 	characterManager.loadCharacter('Fred')
-	characterManager.saveCharacter('Fred Save')
+	# characterManager.saveCharacter('Fred Save')
 	pass

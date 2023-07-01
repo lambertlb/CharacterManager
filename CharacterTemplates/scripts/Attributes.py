@@ -24,11 +24,48 @@ class Attributes(Entity):
 
 		# find items that affect attributes
 		for entity in Entity._allEntities:
-			if isinstance(entity, CharacterItem):
+			if isinstance(entity, CharacterItem) and entity._isWorn:
 				self._computedStrength += entity._addToStrength
 				self._computedDexterity += entity._addToDexterity
 				self._computedConstitution += entity._addToConstitution
 				self._computedIntelligence += entity._addToIntelligence
 				self._computedWisdom += entity._addToWisdom
 				self._computedCharisma += entity._addToCharisma
-		pass
+
+	@property
+	def strengthBonus(self):
+		return self.computeAttributeBonus(self._computedStrength)
+	
+	@property
+	def dexterityBonus(self):
+		return self.computeAttributeBonus(self._computedDexterity)
+	
+	@property
+	def constitutionBonus(self):
+		return self.computeAttributeBonus(self._computedConstitution)
+	
+	@property
+	def intelligenceBonus(self):
+		return self.computeAttributeBonus(self._computedIntelligence)
+	
+	@property
+	def wisdomBonus(self):
+		return self.computeAttributeBonus(self._computedWisdom)
+	
+	@property
+	def charismaBonus(self):
+		return self.computeAttributeBonus(self._computedCharisma)
+	
+	def computeDexterityBonusToAC(self):
+		maxDexterity = 10
+		for entity in Entity._allEntities:
+			if isinstance(entity, CharacterItem):
+				maxDexterity = entity.computeMaxDexterityBonus(maxDexterity)
+		dexBonus = self.dexterityBonus
+		if dexBonus < maxDexterity:
+			return dexBonus
+		return maxDexterity
+
+	def computeAttributeBonus(self, attribute):
+		stat = attribute - 10
+		return int(stat / 2)

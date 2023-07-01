@@ -5,6 +5,11 @@ class Armor(CharacterItem):
 	def __init__(self):
 		super().__init__()
 
+	def amountToAddToAC(self):
+		if self._isWorn:
+			return self._addToAc
+		return 0
+
 class Plate_Mail(Entity, Armor):
 	def __init__(self):
 		Entity.__init__(self)
