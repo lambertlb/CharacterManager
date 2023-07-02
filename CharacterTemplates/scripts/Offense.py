@@ -20,12 +20,10 @@ class Offense(Entity):
 
 	def register(self):
 		super(Offense, self).register()
-		print('Offense Registered')
 		self._weaponInfo = Entity.instanceFromScript('CharacterTemplates.scripts.Weapons#' + self.Weapon)
 		self._weaponInfo.register()
 
 	def update(self):
 		super(Offense, self).update()
-		print('Offense Updated')
 		if self._weaponInfo:
 			self._weaponInfo.update()

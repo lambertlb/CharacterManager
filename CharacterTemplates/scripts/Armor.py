@@ -45,11 +45,11 @@ class Chain_Mail(Entity, Armor):
 
 	def register(self):
 		super().register()
-		print('Plate Mail registered')
+		print('Chain Mail registered')
 
 	def update(self):
 		super().update()
-		print('Plate Mail updated')
+		print('Chain Mail updated')
 
 
 class Tower_Shield(Entity, Armor):

@@ -17,6 +17,9 @@ class CharacterScript(Entity):
 		super().update()
 		self.Attributes.update()
 		self.computeAC()
+		self.Skills.update()
+		self.updateOffense()
+		self.updateDefense()
 
 	def computeAC(self):
 		self._computedAC = 10
@@ -26,3 +29,10 @@ class CharacterScript(Entity):
 				self._computedAC += entity.amountToAddToAC()
 		pass
 	
+	def updateOffense(self):
+		for offense in self.Offense:
+			offense.update()
+
+	def updateDefense(self):
+		for defense in self.Defense:
+			defense.update()
