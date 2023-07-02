@@ -7,6 +7,7 @@ class CharacterScript(Entity):
 	def __init__(self):
 		super().__init__()
 		self._computedAC = 10
+		self.Attributes = None
 
 	def register(self):
 		super().register()

@@ -1,8 +1,8 @@
 import os
 import unittest
 from unittest import TestCase
+from CharacterManagerConfig import CharacterManagerConfig
 
-from configurator.ConfigurationManager import ConfigurationManager
 from configurator.Services import Services
 from main import CharacterManager
 from test.TestLogger import TestLogger
@@ -16,11 +16,11 @@ class TestCharacterManager(TestCase):
 		Services.setLogger(TestLogger())
 		if os.path.exists(TestCharacterManager.testIni):
 			os.remove(TestCharacterManager.testIni)
-		config = ConfigurationManager(TestCharacterManager.testIni)
+		config = CharacterManagerConfig(TestCharacterManager.testIni)
 		Services.setConfigurationManager(config)
-		config.setValue(ConfigurationManager.saveCharacterKey, ConfigurationManager.saveCharacterDirectoryKey,
+		config.setValue(CharacterManagerConfig.saveCharacterKey, CharacterManagerConfig.saveCharacterDirectoryKey,
 						'./test/TestSavedCharacters')
-		config.setValue(ConfigurationManager.sourcesKey, ConfigurationManager.characterTemplateDirectoryKey,
+		config.setValue(CharacterManagerConfig.sourcesKey, CharacterManagerConfig.characterTemplateDirectoryKey,
 						'./test/TestSavedCharacters')
 
 	@classmethod

@@ -1,12 +1,10 @@
 import configparser
-import os
 
 
 class ConfigurationManager:
 	"""
 	Class to contain application configuration
 	"""
-
 
 	def __init__(self, configFile='config.ini'):
 		self.filePath = configFile

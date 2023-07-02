@@ -145,7 +145,7 @@ class Entity:
 	def createEntity(jsonSchema):
 		"""
 		Create entity based on schema.
-		If the schema has a $schema tag the use that to lookup and
+		If the schema has a $schema tag the use that to look up and
 		create the Entity
 
 		Args:
@@ -197,7 +197,7 @@ class Entity:
 		classToLoad = Entity.scriptInModule.get(scriptName)
 		if not classToLoad:
 			module = Entity.getModule(scriptName)
-			classToLoad =  Entity.findClassFromModule(module)
+			classToLoad = Entity.findClassFromModule(module)
 			Entity.scriptInModule[scriptName] = classToLoad
 		
 		return Entity.createInstanceFromClass(classToLoad)

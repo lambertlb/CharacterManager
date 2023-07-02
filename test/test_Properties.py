@@ -1,10 +1,9 @@
-import json
-from unittest import TestCase
 import unittest
+from unittest import TestCase
 
 import pytest
-from configurator.Entity import Entity
 
+from configurator.Entity import Entity
 from configurator.JsonUtils import JsonUtils
 
 

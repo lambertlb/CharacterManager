@@ -4,7 +4,7 @@ from configurator.Entity import Entity
 class Offense(Entity):
 	"""
 	This class will load in the appropriate script for
-	handling the specified weapon. I assumes the following
+	handling the specified weapon. It assumes the following
 	1)  The entity with this script has a property called 'Weapon'
 		that contains the name of the class
 	2)  The script resides in ./CharacterTemplates/scripts/Weapons folder
@@ -12,9 +12,12 @@ class Offense(Entity):
 	4)  It will then load the script and add it to the entity as _weaponScript property
 	5)  It will then delegate to the script
 
-	Args:
-		ScriptBase (_type_): All scripts must subclass ScriptBase
 	"""
+	def __init__(self):
+		super().__init__()
+		self._weaponInfo = None
+		self.Weapon = None
+
 	def register(self):
 		super(Offense, self).register()
 		print('Offense Registered')
@@ -24,5 +27,5 @@ class Offense(Entity):
 	def update(self):
 		super(Offense, self).update()
 		print('Offense Updated')
-		if not hasattr(self, '_weaponScript'):
+		if self._weaponInfo:
 			self._weaponInfo.update()

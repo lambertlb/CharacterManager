@@ -1,6 +1,7 @@
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
 from configurator.Entity import Entity
 
+
 class Armor(CharacterItem):
 	def __init__(self):
 		super().__init__()
@@ -9,6 +10,7 @@ class Armor(CharacterItem):
 		if self._isWorn:
 			return self._addToAc
 		return 0
+
 
 class Plate_Mail(Entity, Armor):
 	def __init__(self):
@@ -29,6 +31,7 @@ class Plate_Mail(Entity, Armor):
 		super().update()
 		print('Plate Mail updated')
 
+
 class Chain_Mail(Entity, Armor):
 	def __init__(self):
 		Entity.__init__(self)
@@ -47,6 +50,7 @@ class Chain_Mail(Entity, Armor):
 	def update(self):
 		super().update()
 		print('Plate Mail updated')
+
 
 class Tower_Shield(Entity, Armor):
 	def __init__(self):

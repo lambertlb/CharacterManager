@@ -1,8 +1,7 @@
 import os
 from unittest import TestCase
 import unittest
-
-from configurator.ConfigurationManager import ConfigurationManager
+from CharacterManagerConfig import CharacterManagerConfig
 
 
 class TestConfigurationManager(TestCase):
@@ -14,19 +13,19 @@ class TestConfigurationManager(TestCase):
 			os.remove(TestConfigurationManager.testIni)
 
 	def testSetDefaultsIfNeeded(self):
-		config = ConfigurationManager(TestConfigurationManager.testIni)
+		config = CharacterManagerConfig(TestConfigurationManager.testIni)
 		assert os.path.exists(self.testIni)
-		assert config.getValue(ConfigurationManager.sourcesKey, ConfigurationManager.characterTemplateDirectoryKey,
+		assert config.getValue(CharacterManagerConfig.sourcesKey, CharacterManagerConfig.characterTemplateDirectoryKey,
 									'default') == './CharacterTemplates'
 
 	def testSaveValue(self):
-		config = ConfigurationManager(TestConfigurationManager.testIni)
+		config = CharacterManagerConfig(TestConfigurationManager.testIni)
 		config.setValue('TestSection', 'TestKey', 'Test Value')
-		config2 = ConfigurationManager(self.testIni)
+		config2 = CharacterManagerConfig(self.testIni)
 		assert config2.getValue('TestSection', 'TestKey', 'fail') == 'Test Value'
 
 	def testGetValue(self):
-		config = ConfigurationManager(TestConfigurationManager.testIni)
+		config = CharacterManagerConfig(TestConfigurationManager.testIni)
 		config.setValue('TestSection2', 'TestKey2', 'Test Value2')
 		assert config.getValue('TestSection2', 'TestKey2', 'fail') == 'Test Value2'
 		assert config.getValue('TestSection2', 'TestKey3', 'fail') == 'fail'

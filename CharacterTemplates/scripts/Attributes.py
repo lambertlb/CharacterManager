@@ -6,6 +6,18 @@ class Attributes(Entity):
 
 	def __init__(self):
 		super().__init__()
+		self.Strength = 0
+		self.Dexterity = 0
+		self.Constitution = 0
+		self.Intelligence = 0
+		self.Wisdom = 0
+		self.Charisma = 0
+		self._computedStrength = 0
+		self._computedDexterity = 0
+		self._computedConstitution = 0
+		self._computedIntelligence = 0
+		self._computedWisdom = 0
+		self._computedCharisma = 0
 
 	def register(self):
 		super().register()

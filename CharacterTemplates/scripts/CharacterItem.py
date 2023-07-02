@@ -10,7 +10,7 @@ class CharacterItem:
 	things on a character. Specific items can subclass
 	this and change its properties to add specific
 	effects
-	All properties added here should have _ in front
+	All properties added here should have _ in front,
 	so they don't get added to json save file
 	"""
 	def __init__(self):
@@ -35,7 +35,7 @@ class CharacterItem:
 		self._isSpecial = False
 		self._isThrown = False
 		self._isTwoHanded = False
-		self._isVersatile =False
+		self._isVersatile = False
 		self._addToAttack = 0
 		self._rollForDamage = '1d6'
 		self._addToDamage = 0
@@ -50,7 +50,7 @@ class CharacterItem:
 		self._isShieldArmor = False
 		self._addToAc = 0
 		self._isWorn = False
-		self._hasMaxDexterityBonus= False
+		self._hasMaxDexterityBonus = False
 		self._maxDexterityBonus = 0
 
 	def defineSkillProficiencies(self):
@@ -124,9 +124,9 @@ class CharacterItem:
 		if not hasattr(itemWithModifiers, '$modifiers'):
 			return
 		modifiers = getattr(itemWithModifiers, '$modifiers')
-		for property in list(modifiers.items()):
-			propertyName, data = property
-			propertyToSet = '_'+ propertyName
+		for propertyList in list(modifiers.items()):
+			propertyName, data = propertyList
+			propertyToSet = '_' + propertyName
 			if hasattr(self, propertyToSet):
 				setattr(self, propertyToSet, data)
 		pass
@@ -139,10 +139,10 @@ class CharacterItem:
 		reference = Entity.createInstanceFromClass(type(self))
 		for item in reference.__dict__.items():
 			name, value = item
-			myvalue = getattr(self, name)
-			if name != '_uuid' and myvalue != value:
+			myValue = getattr(self, name)
+			if name != '_uuid' and myValue != value:
 				modName = re.sub("_", "", name)
-				newMods[modName] = myvalue
+				newMods[modName] = myValue
 				modAdded = True
 		if modAdded:
 			setattr(itemWithModifiers, '$modifiers', newMods)
@@ -155,11 +155,13 @@ class CharacterItem:
 			return self._maxDexterityBonus
 		return currentBonus
 
+
 class RaceItem(CharacterItem):
 	def __init__(self):
 		super().__init__()
 		self._speed = 30
 		self._size = 2
+
 
 class ClassItem(CharacterItem):
 	def __init__(self):

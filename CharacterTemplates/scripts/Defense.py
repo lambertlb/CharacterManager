@@ -4,19 +4,18 @@ from configurator.Entity import Entity
 class Defense(Entity):
 	"""
 	This class will load in the appropriate script for
-	handling the specified armor. I assumes the following
+	handling the specified armor. It assumes the following
 	1)  The entity with this script has a property called 'Armor'
 		that contains the name of the class
 	2)  The script resides in ./CharacterTemplates/scripts/Armor folder
-	3)  The script as the same name as the class I.E. Platemail.py
+	3)  The script as the same name as the class I.E. PlateMail.py
 	4)  It will then load the script and add it to the entity as _armorScript property
 	5)  It will then delegate to the script
-
-	Args:
-		ScriptBase (_type_): All scripts must subclass ScriptBase
 	"""
 	def __init__(self):
 		super().__init__()
+		self._armorInfo = None
+		self.Defense = None
 
 	def register(self):
 		super().register()
@@ -28,5 +27,5 @@ class Defense(Entity):
 	def update(self):
 		super().update()
 		print('Defense Updated')
-		if not hasattr(self, '_armorScript'):
+		if self._armorInfo:
 			self._armorInfo.update()

@@ -12,6 +12,6 @@ class MonkScript(Entity, ClassItem):
 		super(MonkScript, self).register()
 		print('    Monk registered')
 
-	def update(self, entityWithProperties):
+	def update(self):
 		super(MonkScript, self).update()
 		print('    Monk updated')

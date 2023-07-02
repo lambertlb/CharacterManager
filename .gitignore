@@ -163,3 +163,4 @@ TestResults/
 *.user
 #.vscode/
 htmlcov/
+.run/
