@@ -347,3 +347,52 @@ class Entity:
 			data (Any): data to test
 		"""
 		assert Entity.isValidType([dataType], data)
+
+	@staticmethod
+	def createFromTemplate(schema):
+		"""
+		Create a new entity based on template (schema) information
+
+		Args:
+			schema (_type_): schema for item
+
+		Returns:
+			Entity: Entity with properties based on schema
+		"""
+		entity = Entity.createEntity(schema)
+		entity.addRequiredProperties(schema)
+		return entity
+	
+	def addRequiredProperties(self, schema):
+		required = schema.get('required')
+		if not required:
+			return
+		properties = schema.get('properties')
+		for needed in required:
+			self.addNeededProperty(properties, needed)
+	
+	def addNeededProperty(self, properties, needed):
+		neededSchema = properties.get(needed)
+		neededType = neededSchema.get('type')
+		if neededType == 'string':
+			setattr(self, needed, '')
+			return
+		if neededType == 'integer':
+			setattr(self, needed, int(0))
+			return
+		if neededType == 'number':
+			setattr(self, needed, float(0.0))
+			return
+		if neededType == 'boolean':
+			setattr(self, needed, False)
+			return
+		if neededType == 'null':
+			setattr(self, needed, None)
+			return
+		if neededType == 'array':
+			array = []
+			setattr(self, needed, array)
+			return
+		if neededType == 'object':
+			setattr(self, needed, self.createFromTemplate(neededSchema))
+		pass

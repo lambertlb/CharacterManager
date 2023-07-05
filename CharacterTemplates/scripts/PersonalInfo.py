@@ -12,12 +12,14 @@ class PersonalInfo(Entity):
 	def register(self):
 		super(PersonalInfo, self).register()
 		print('PersonalInfo registered')
-		if not self._deityScript:
+		if not self._deityScript and self.Deity != '':
 			self._deityScript = Entity.instanceFromScript('CharacterTemplates.scripts.Deities.' + self.Deity)
-		self._deityScript.register()
-		if not self._raceScript:
+		if self.Deity != '':
+			self._deityScript.register()
+		if not self._raceScript and self.Race != '':
 			self._raceScript = Entity.instanceFromScript('CharacterTemplates.scripts.Races.' + self.Race)
-		self._raceScript.register()
+		if self.Race != '':
+			self._raceScript.register()
 
 	def update(self):
 		super(PersonalInfo, self).register()

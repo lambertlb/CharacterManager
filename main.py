@@ -1,5 +1,9 @@
+import os
 import re
+import sys
 import traceback
+
+from PySide6 import QtWidgets
 
 from CharacterManagerConfig import CharacterManagerConfig
 from configurator.Entity import Entity
@@ -10,9 +14,8 @@ from configurator.Services import Services
 
 class CharacterManager:
 
-	def __init__(self, templatePath):
+	def __init__(self):
 		self.character = None
-		self.templatePath = templatePath
 
 	def loadCharacter(self, name):
 		pathToSavedCharacters = Services.getConfigurationManager().getValue(CharacterManagerConfig.saveCharacterKey,
@@ -21,14 +24,20 @@ class CharacterManager:
 		if 'json' not in name:
 			name += '.json'
 		characterPath = pathToSavedCharacters + '/' + name
+		self.loadCharacterFromFile(characterPath)
+
+	def loadCharacterFromFile(self, path):
 		try:
-			self.character = Entity.loadJsonFile(characterPath, self.loadTemplate())
+			self.character = Entity.loadJsonFile(path, self.loadTemplate())
 		except (Exception,):
 			Services.getLogger().log(traceback.format_exc())
+		pass
 
 	# noinspection PyMethodMayBeStatic
 	def loadTemplate(self):
-		result = JsonUtils.loadJsonSchema(self.templatePath + '/CharacterTemplate.json')
+		templatePath = Services.getConfigurationManager().getValue(CharacterManagerConfig.sourcesKey,
+																	CharacterManagerConfig.characterTemplateDirectoryKey)
+		result = JsonUtils.loadJsonSchema(templatePath + '/CharacterTemplate.json')
 		return result
 
 	def saveCharacter(self, name):
@@ -38,16 +47,45 @@ class CharacterManager:
 		if 'json' not in name:
 			name += '.json'
 		characterPath = path + '/' + name
-		try:
-			self.character = JsonUtils.saveJsonFile(characterPath, self.character)
-		except Exception as ex:
-			Services.getLogger().logException(f'Exception while saving character {name}', ex)
+		# try:
+		# 	JsonUtils.saveJsonFile(characterPath, self.character)
+		# except Exception as ex:
+		# 	Services.getLogger().logException(f'Exception while saving character {name}', ex)
+		JsonUtils.saveJsonFile(characterPath, self.character)
 
+	def existingCharacters(self):
+		characters = []
+		path = Services.getConfigurationManager().getValue(CharacterManagerConfig.saveCharacterKey,
+															CharacterManagerConfig.saveCharacterDirectoryKey)
+		files = os.listdir(path)
+		for file in files:
+			fullPath = path + '/' + file
+			if os.path.isfile(fullPath):
+				characters.append(self.getCharacterInfo(fullPath))
+		return characters
+	
+	def getCharacterInfo(self, file):
+		self.loadCharacterFromFile(file)
+		return (self.character.PersonalInformation.Name, file, self.character)
+
+	def createNewCharacter(self, newName):
+		template = self.loadTemplate()
+		self.character = Entity.createFromTemplate(template)
+		self.character.PersonalInformation.Name = newName
+		self.saveCharacter(newName)
+
+	def deleteCharacter(self, file):
+		os.remove(file)
 
 if __name__ == "__main__":
-	Services.setConfigurationManager(CharacterManagerConfig())
-	Services.setLogger(Logger())
-	characterManager = CharacterManager('./CharacterTemplates')
-	characterManager.loadCharacter('Fred')
-	# characterManager.saveCharacter('Fred Save')
-	pass
+	from CharacterServices import CharacterServices
+	CharacterServices.setConfigurationManager(CharacterManagerConfig())
+	CharacterServices.setLogger(Logger())
+	CharacterServices.setCharacterManager(CharacterManager())
+	app = QtWidgets.QApplication(sys.argv)
+	from views.MainWindow import MainWindow
+	app.mainWindow = MainWindow()
+	app.mainWindow.show()
+	sys.exit(app.exec())
+	# CharacterServices.getCharacterManager().loadCharacter('Fred')
+	# CharacterServices.getCharacterManager().saveCharacter('Fred Save')

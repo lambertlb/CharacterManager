@@ -29,7 +29,7 @@
 				"$script": {
 					"className": "CharacterTemplates.scripts.Attributes"
 				}
-		},
+			},
 			"required": [
 				"Charisma",
 				"Constitution",
@@ -185,6 +185,7 @@
 	},
 	"required": [
 		"Attributes",
+		"Classes",
 		"Defense",
 		"Health",
 		"Offense",
