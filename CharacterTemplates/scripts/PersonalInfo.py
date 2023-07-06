@@ -11,7 +11,6 @@ class PersonalInfo(Entity):
 
 	def register(self):
 		super(PersonalInfo, self).register()
-		print('PersonalInfo registered')
 		if not self._deityScript and self.Deity != '':
 			self._deityScript = Entity.instanceFromScript('CharacterTemplates.scripts.Deities.' + self.Deity)
 		if self.Deity != '':
@@ -23,8 +22,15 @@ class PersonalInfo(Entity):
 
 	def update(self):
 		super(PersonalInfo, self).register()
-		print('PersonalInfo updated')
 		if self._raceScript:
 			self._raceScript.update()
 		if self._deityScript:
 			self._deityScript.update()
+
+	def getPropertyType(self, propertyName):
+		if propertyName == 'Deity':
+			return 'composite'
+		if propertyName == 'Race':
+			return 'composite'
+		property = self.definition.get('properties').get(propertyName)
+		return property.get('type')

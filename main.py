@@ -85,6 +85,7 @@ if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)
 	from views.MainWindow import MainWindow
 	app.mainWindow = MainWindow()
+	CharacterServices.setRootWindow(app.mainWindow)
 	app.mainWindow.show()
 	sys.exit(app.exec())
 	# CharacterServices.getCharacterManager().loadCharacter('Fred')

@@ -29,6 +29,7 @@ class CharacterManagementView(QtWidgets.QWidget, Ui_Form):
 			name, path, characterData = character
 			item = QtWidgets.QListWidgetItem(name, self.characterListWidget)
 			item.setData(1, path)
+		pass
 
 	def characterSelected(self, curr : QtWidgets.QListWidgetItem, prev):
 		self.fileToLoad = curr.data(1)
@@ -42,6 +43,7 @@ class CharacterManagementView(QtWidgets.QWidget, Ui_Form):
 
 	def loadCharacter(self):
 		CharacterServices.getCharacterManager().loadCharacterFromFile(self.fileToLoad)
+		CharacterServices.getRootWindow().editCharacter()
 	
 	def createCharacter(self):
 		CharacterServices.getCharacterManager().createNewCharacter(self.newCharacterNameText.text())
