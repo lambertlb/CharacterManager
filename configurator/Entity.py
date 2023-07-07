@@ -1,7 +1,9 @@
 import importlib
 import inspect
+import os
 import re
 from types import ModuleType
+from CharacterManagerConfig import CharacterManagerConfig
 from configurator.JsonUtils import JsonUtils
 
 from configurator.Services import Services
@@ -243,6 +245,49 @@ class Entity:
 		assert False, f'Found no class derived from Entity in module {module.__name__}'
 
 	@staticmethod
+	def getClassesFromScripts(listOfScripts):
+		classes = []
+		for script in listOfScripts:
+			classes.extend(Entity.getClassesFromScript(script))
+		return classes
+
+	@staticmethod
+	def getClassesFromScript(scriptName):
+		module = Entity.getModule(scriptName)
+		classes = Entity.getClassesFromModule(module)
+		return classes
+
+	@staticmethod
+	def getClassesFromModule(module):
+		classes = []
+		members = inspect.getmembers(module)
+		for member in members:
+			name, item = member
+			if isinstance(item, ModuleType):
+				classes.extend(Entity.getClassesFromModule(item))
+			if inspect.isclass(item) and issubclass(item, Entity):
+				if name != 'Entity':
+					classes.append(Entity.createInstanceFromClass(getattr(module, name)))
+		return classes
+
+	@staticmethod
+	def getListOfClassesFromDirectory(subPath):
+		foundScripts = []
+		templatePath = Services.getConfigurationManager().getValue(CharacterManagerConfig.sourcesKey,
+																	CharacterManagerConfig.characterTemplateDirectoryKey)
+		path = templatePath + '/scripts/' + subPath
+		files = os.listdir(path)
+		for file in files:
+			fullPath = path + '/' + file
+			if os.path.isfile(fullPath):
+				fullPath = re.sub("/", ".", fullPath)
+				fullPath = re.sub("\.\.", "", fullPath)
+				fullPath = re.sub("\.py", "", fullPath)
+				foundScripts.append(fullPath)
+
+		return Entity.getClassesFromScripts(foundScripts)
+
+	@staticmethod
 	def loadPropertyData(where, propertyData):
 		"""
 		Load the property defined in propertyData onto the
@@ -396,3 +441,23 @@ class Entity:
 		if neededType == 'object':
 			setattr(self, needed, self.createFromTemplate(neededSchema))
 		pass
+
+	def propertiesForDisplay(self):
+		displayData = []
+		properties = list(self.definition.get('properties').items())
+		for property in properties:
+			dd = self.addDisplayDataFromProperty(property)
+			if dd:
+				displayData.append(dd)
+		return displayData
+
+	def addDisplayDataFromProperty(self, property):
+		propertyName, type = property
+		if propertyName == '$script':
+			return None
+		propertyType = type.get('type')
+		return self.getDataForProperty(propertyName, propertyType)
+	
+	def getDataForProperty(self, propertyName, propertyType):
+		propertyData = getattr(self, propertyName)
+		return (propertyName, propertyType, propertyData, None)

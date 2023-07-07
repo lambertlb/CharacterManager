@@ -16,9 +16,9 @@ class PersonalInformationView(QtWidgets.QWidget, Ui_Form):
 	def setupView(self):
 		self.character = CharacterServices.getCharacterManager().character
 		self.personalInformation = self.character.PersonalInformation
-		self.schema = self.character.getPropertyDefinition('PersonalInformation')
+		displayData = self.personalInformation.propertiesForDisplay()
 		self.clearChildViews(self.frame)
-		self.addItems()
+		self.addDisplayItems(displayData)
 		# self.gridLayout.addWidget(self.verticalSpacer, self.row, 0)
 		pass
 
@@ -28,35 +28,48 @@ class PersonalInformationView(QtWidgets.QWidget, Ui_Form):
 			if child != self.textEdit and child != self.horizontalLayout:
 				child.deleteLater()
 
-	def addItems(self):
-		x = self.schema.get('properties')
-		properties = list(x.items())
-		for property in properties:
+	def addDisplayItems(self, displayData):
+		for property in displayData:
 			self.addItemFromProperty(property)
 			self.row += 1
 
-
 	def addItemFromProperty(self, property):
-		propertyName, type = property
-		if propertyName == '$script':
+		propertyName, propertyType, propertyData, optionalData = property
+		if propertyType == 'object':
 			return
-		propertyType = type.get('type')
 		self.addLabel(propertyName)
-		self.addEditor(propertyName)
+		self.addEditor(propertyType, propertyData, optionalData)
 
 	def addLabel(self, propertyName):
 		label = QtWidgets.QLabel(self.frame)
 		label.setText(propertyName + ':')
 		self.gridLayout.addWidget(label, self.row, 0, 1 ,1)
 
-	def addEditor(self, propertyName):
-		propertyType = self.personalInformation.getPropertyType(propertyName)
+	def addEditor(self, propertyType, propertyData, optionalData):
 		if propertyType == 'string':
 			editor = QtWidgets.QLineEdit(self.frame)
-			editor.setText(getattr(self.personalInformation,propertyName))
+			editor.setText(propertyData)
 			self.gridLayout.addWidget(editor, self.row, 1, 1 ,1)
-		if propertyType == 'integer' or propertyType == 'number':
+		elif propertyType == 'integer' or propertyType == 'number':
 			editor = QtWidgets.QLineEdit(self.frame)
-			editor.setText(str(getattr(self.personalInformation,propertyName)))
+			editor.setText(str(propertyData))
 			self.gridLayout.addWidget(editor, self.row, 1, 1 ,1)
-		pass
+		elif propertyType == 'composite':
+			editor = QtWidgets.QComboBox(self.frame)
+			if optionalData:
+				index = 0
+				foundIndex = 0
+				for data in optionalData:
+					if type(data) is str:
+						dataToAdd = data
+					else:
+						dataToAdd = data._name
+					editor.addItem(dataToAdd)
+					if dataToAdd == propertyData:
+						foundIndex = index
+					index += 1
+				editor.setCurrentIndex(foundIndex)
+			else:
+				editor.addItem(propertyData)
+			self.gridLayout.addWidget(editor, self.row, 1, 1 ,1)
+			pass

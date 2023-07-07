@@ -1,4 +1,8 @@
+import os
+import re
+from CharacterManagerConfig import CharacterManagerConfig
 from configurator.Entity import Entity
+from configurator.Services import Services
 
 
 class PersonalInfo(Entity):
@@ -27,10 +31,22 @@ class PersonalInfo(Entity):
 		if self._deityScript:
 			self._deityScript.update()
 
-	def getPropertyType(self, propertyName):
+	def getDataForProperty(self, propertyName, propertyType):
 		if propertyName == 'Deity':
-			return 'composite'
+			return self.getPropertyDataForDeity(propertyName, propertyType)
 		if propertyName == 'Race':
-			return 'composite'
-		property = self.definition.get('properties').get(propertyName)
-		return property.get('type')
+			return self.getPropertyDataForRace(propertyName, propertyType)
+		if propertyName == 'Gender':
+			return self.getPropertyDataForGender(propertyName, propertyType)
+		return super().getDataForProperty(propertyName, propertyType)
+
+	def getPropertyDataForDeity(self, propertyName, propertyType):
+		deities = Entity.getListOfClassesFromDirectory('Deities')
+		return (propertyName, 'composite', self.Deity, deities)
+
+	def getPropertyDataForRace(self, propertyName, propertyType):
+		races = Entity.getListOfClassesFromDirectory('Races')
+		return (propertyName, 'composite', self.Race, races)
+
+	def getPropertyDataForGender(self, propertyName, propertyType):
+		return (propertyName, 'composite', self.Gender, ['Male', 'Female', 'Neuter'])

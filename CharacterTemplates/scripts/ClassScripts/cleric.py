@@ -7,11 +7,11 @@ class ClericScript(Entity, ClassItem):
 		Entity.__init__(self)
 		ClassItem.__init__(self)
 		self._HitDie = '1d8'
+		self._name = 'Cleric'
+
 
 	def register(self):
 		super(ClericScript, self).register()
-		print('    Cleric registered')
 
 	def update(self):
 		super(ClericScript, self).update()
-		print('    Cleric updated')

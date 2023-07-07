@@ -16,6 +16,7 @@ class Plate_Mail(Entity, Armor):
 	def __init__(self):
 		Entity.__init__(self)
 		Armor.__init__(self)
+		self._name = 'Plate Mail'
 		self._isArmor = True
 		self._addToAc = 8
 		self._weight = 65
@@ -25,17 +26,16 @@ class Plate_Mail(Entity, Armor):
 
 	def register(self):
 		super().register()
-		print('Plate Mail registered')
 
 	def update(self):
 		super().update()
-		print('Plate Mail updated')
 
 
 class Chain_Mail(Entity, Armor):
 	def __init__(self):
 		Entity.__init__(self)
 		Armor.__init__(self)
+		self._name = 'Chain Mail'
 		self._isArmor = True
 		self._addToAc = 6
 		self._weight = 65
@@ -45,17 +45,16 @@ class Chain_Mail(Entity, Armor):
 
 	def register(self):
 		super().register()
-		print('Chain Mail registered')
 
 	def update(self):
 		super().update()
-		print('Chain Mail updated')
 
 
 class Tower_Shield(Entity, Armor):
 	def __init__(self):
 		Entity.__init__(self)
 		Armor.__init__(self)
+		self._name = 'Tower Shield'
 		self._isArmor = True
 		self._addToAc = 2
 		self._weight = 6
@@ -64,8 +63,6 @@ class Tower_Shield(Entity, Armor):
 
 	def register(self):
 		super().register()
-		print('Tower Shield registered')
 
 	def update(self):
 		super().update()
-		print('Tower Shield updated')

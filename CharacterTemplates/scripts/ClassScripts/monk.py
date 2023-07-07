@@ -7,11 +7,10 @@ class MonkScript(Entity, ClassItem):
 		Entity.__init__(self)
 		ClassItem.__init__(self)
 		self._HitDie = '1d8'
+		self._name = 'Monk'
 
 	def register(self):
 		super(MonkScript, self).register()
-		print('    Monk registered')
 
 	def update(self):
 		super(MonkScript, self).update()
-		print('    Monk updated')

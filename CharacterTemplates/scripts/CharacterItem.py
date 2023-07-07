@@ -15,6 +15,7 @@ class CharacterItem:
 	"""
 	def __init__(self):
 		self._uuid = str(uuid4())
+		self._name = ''
 		self._description = ''
 		self._weight = 0
 		self._cost = 0

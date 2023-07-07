@@ -6,6 +6,7 @@ class HumanScript(Entity, RaceItem):
 	def __init__(self):
 		Entity.__init__(self)
 		RaceItem.__init__(self)
+		self._name = 'Human'
 		self._addToStrength = 1
 		self._addToDexterity = 1
 		self._addToConstitution = 1
@@ -16,8 +17,6 @@ class HumanScript(Entity, RaceItem):
 
 	def register(self):
 		super(HumanScript, self).register()
-		print('Human registered')
 
 	def update(self):
 		super(HumanScript, self).update()
-		print('Human updated')

@@ -20,7 +20,7 @@ class Offense(Entity):
 
 	def register(self):
 		super(Offense, self).register()
-		self._weaponInfo = Entity.instanceFromScript('CharacterTemplates.scripts.Weapons#' + self.Weapon)
+		self._weaponInfo = Entity.instanceFromScript('CharacterTemplates.scripts.Weapons.Weapons#' + self.Weapon)
 		self._weaponInfo.register()
 
 	def update(self):
