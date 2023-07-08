@@ -19,7 +19,6 @@ class PersonalInformationView(QtWidgets.QWidget, Ui_Form):
 		displayData = self.personalInformation.propertiesForDisplay()
 		self.clearChildViews(self.frame)
 		self.addDisplayItems(displayData)
-		# self.gridLayout.addWidget(self.verticalSpacer, self.row, 0)
 		pass
 
 	def clearChildViews(self, what):
@@ -35,8 +34,6 @@ class PersonalInformationView(QtWidgets.QWidget, Ui_Form):
 
 	def addItemFromProperty(self, property):
 		propertyName, propertyType, propertyData, optionalData = property
-		if propertyType == 'object':
-			return
 		self.addLabel(propertyName)
 		self.addEditor(propertyType, propertyData, optionalData)
 
@@ -46,6 +43,7 @@ class PersonalInformationView(QtWidgets.QWidget, Ui_Form):
 		self.gridLayout.addWidget(label, self.row, 0, 1 ,1)
 
 	def addEditor(self, propertyType, propertyData, optionalData):
+		editor = None
 		if propertyType == 'string':
 			editor = QtWidgets.QLineEdit(self.frame)
 			editor.setText(propertyData)
@@ -55,21 +53,26 @@ class PersonalInformationView(QtWidgets.QWidget, Ui_Form):
 			editor.setText(str(propertyData))
 			self.gridLayout.addWidget(editor, self.row, 1, 1 ,1)
 		elif propertyType == 'composite':
-			editor = QtWidgets.QComboBox(self.frame)
-			if optionalData:
-				index = 0
-				foundIndex = 0
-				for data in optionalData:
-					if type(data) is str:
-						dataToAdd = data
-					else:
-						dataToAdd = data._name
-					editor.addItem(dataToAdd)
-					if dataToAdd == propertyData:
-						foundIndex = index
-					index += 1
-				editor.setCurrentIndex(foundIndex)
-			else:
-				editor.addItem(propertyData)
+			editor = self.addCompositeData(propertyData, optionalData)
+		elif propertyType == 'object':
+			self.row += 1
+			self.addDisplayItems(optionalData)
+		if editor:
 			self.gridLayout.addWidget(editor, self.row, 1, 1 ,1)
-			pass
+
+	def addCompositeData(self, propertyData, optionalData):
+		editor = QtWidgets.QComboBox(self.frame)
+		if optionalData:
+			index = 0
+			foundIndex = 0
+			for data in optionalData:
+				if type(data) is str:
+					dataToAdd = data
+				else:
+					dataToAdd = data._name
+				editor.addItem(dataToAdd)
+				if dataToAdd == propertyData:
+					foundIndex = index
+				index += 1
+			editor.setCurrentIndex(foundIndex)
+		return editor

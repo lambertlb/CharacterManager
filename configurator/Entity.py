@@ -459,5 +459,8 @@ class Entity:
 		return self.getDataForProperty(propertyName, propertyType)
 	
 	def getDataForProperty(self, propertyName, propertyType):
+		propertyInfo = None
 		propertyData = getattr(self, propertyName)
-		return (propertyName, propertyType, propertyData, None)
+		if propertyType == 'object':
+			propertyInfo = propertyData.propertiesForDisplay()
+		return (propertyName, propertyType, propertyData, propertyInfo)

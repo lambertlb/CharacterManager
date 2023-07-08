@@ -14,8 +14,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 	def __init__(self, *args):
 		super().__init__(*args)
 		self.setupUi(self)
-		self.characterManagement = CharacterManagementView()
-		self.personalInformationView = PersonalInformationView()
+		self.characterManagement = CharacterManagementView(self.frame)
+		self.characterManagement.setVisible(True)
+		self.verticalLayout.addWidget(self.characterManagement)
+		self.personalInformationView = PersonalInformationView(self.frame)
+		self.verticalLayout.addWidget(self.personalInformationView)
+		self.personalInformationView.setVisible(False)
+		self.currentView = None
 		self.setupCharacterManagement()
 		for i in range(20):
 			pushButton = QPushButton(self.scrollAreaWidgetContents)
@@ -25,22 +30,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			self.horizontalLayout.insertWidget(index, pushButton)
 
 	def buttonClicked(self, buttonData):
-		self.activateSubView(buttonData)
+		if self.currentView:
+			self.currentView.setVisible(False)
+		self.currentView = buttonData
+		self.currentView.setVisible(True)
 		buttonData.setupView()
+		self.update()
 		pass
 
 	def setupCharacterManagement(self):
-		self.activateSubView(self.characterManagement)
-
-	def activateSubView(self, subView):
-		self.clearChildViews(self.frame)
-		subView.setParent(self.frame)
-		self.verticalLayout.addWidget(subView)
-
-	def clearChildViews(self, what):
-		for child in what.children():
-			if child != self.verticalLayout:
-				child.deleteLater()
+		self.buttonClicked(self.characterManagement)
 
 	def clearButtonBar(self):
 		for child in self.scrollAreaWidgetContents.children():
@@ -48,7 +47,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 				child.deleteLater()
 
 	def editCharacter(self):
-		self.clearChildViews(self.frame)
 		self.clearButtonBar()
 		self.fillRibbonBar()
 

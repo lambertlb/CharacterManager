@@ -57,3 +57,6 @@ class CharacterManagementView(QtWidgets.QWidget, Ui_Form):
 	def deleteCharacter(self):
 		CharacterServices.getCharacterManager().deleteCharacter(self.fileToLoad)
 		self.findCharacters()
+
+	def setupView(self):
+		pass
