@@ -464,3 +464,7 @@ class Entity:
 		if propertyType == 'object':
 			propertyInfo = propertyData.propertiesForDisplay()
 		return (propertyName, propertyType, propertyData, propertyInfo)
+
+	def isValidPropertyChange(self, propertyName, propertyData):
+		return True
+	

@@ -50,3 +50,6 @@ class PersonalInfo(Entity):
 
 	def getPropertyDataForGender(self, propertyName, propertyType):
 		return (propertyName, 'composite', self.Gender, ['Male', 'Female', 'Neuter'])
+
+	def isValidPropertyChange(self, propertyName, propertyData):
+		return True
