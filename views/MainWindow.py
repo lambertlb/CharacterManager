@@ -7,6 +7,7 @@ from PySide6.QtWidgets import QMainWindow, QPushButton
 from builder.MainWindow_ui import Ui_MainWindow
 from views.CharacterManagementView import CharacterManagementView
 from views.PersonalInformationView import PersonalInformationView
+from views.SubView import SubView
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -14,53 +15,54 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 	def __init__(self, *args):
 		super().__init__(*args)
 		self.setupUi(self)
+		self.subViews = {}
+		self.startingSubView = None
+		self.currentView = None
 		self.characterManagement = CharacterManagementView(self.frame)
 		self.characterManagement.setVisible(True)
 		self.verticalLayout.addWidget(self.characterManagement)
-		self.personalInformationView = PersonalInformationView(self.frame)
-		self.verticalLayout.addWidget(self.personalInformationView)
-		self.personalInformationView.setVisible(False)
-		self.currentView = None
-		self.setupCharacterManagement()
-		for i in range(20):
-			pushButton = QPushButton(self.scrollAreaWidgetContents)
-			pushButton.setText(f'Btn{i}')
-			pushButton.setMaximumSize(QtCore.QSize(40, 30))
-			index = self.horizontalLayout.indexOf(self.horizontalSpacer)
-			self.horizontalLayout.insertWidget(index, pushButton)
-
-	def buttonClicked(self, buttonData):
-		if self.currentView:
-			self.currentView.setVisible(False)
-		self.currentView = buttonData
-		self.currentView.setVisible(True)
-		buttonData.setupView()
-		self.update()
-		pass
-
-	def setupCharacterManagement(self):
+		self.loadSubViews()
+		self.enableButtons(False)
 		self.buttonClicked(self.characterManagement)
 
-	def clearButtonBar(self):
-		for child in self.scrollAreaWidgetContents.children():
-			if child != self.horizontalSpacer:
-				child.deleteLater()
+	def buttonClicked(self, newSubView):
+		if self.currentView:
+			self.currentView.setVisible(False)
+		self.currentView = newSubView
+		self.currentView.setVisible(True)
+		newSubView.setupView()
+
+	def loadSubViews(self):
+		self.getSubViews()
+		keys = list(sorted(self.subViews.keys()))
+		self.startingSubView = self.subViews[keys[0]]
+		for subViewKey in keys:
+			subView: SubView = self.subViews[subViewKey]
+			subView.setVisible(False)
+			subView.setParent(self.frame)
+			self.verticalLayout.addWidget(subView)
+			self.addToButtonBar(subView)
+	
+	def getSubViews(self):
+		# make this dynamic
+		view = PersonalInformationView()
+		self.subViews[view.getOrderInBar()] = view
 
 	def editCharacter(self):
-		self.clearButtonBar()
-		self.fillRibbonBar()
+		self.enableButtons(True)
+		self.buttonClicked(self.startingSubView)
 
-	def fillRibbonBar(self):
-		self.addToButtonBar('Per', self.personalInformationView)
-		pass
-
-	def addToButtonBar(self, buttonText, buttonData):
-		pushButton = QPushButton(self.scrollAreaWidgetContents)
-		pushButton.setText(buttonText)
+	def enableButtons(self, state):
+		for subView in self.subViews.values():
+			subView.getButtonBarItem().setEnabled(state)
+	
+	def addToButtonBar(self, subView: SubView):
+		pushButton = subView.getButtonBarItem()
+		pushButton.setParent(self.scrollAreaWidgetContents)
 		pushButton.setMaximumSize(QtCore.QSize(40, 30))
 		index = self.horizontalLayout.indexOf(self.horizontalSpacer)
 		self.horizontalLayout.insertWidget(index, pushButton)
-		pushButton.clicked.connect(partial(self.buttonClicked, buttonData))
+		pushButton.clicked.connect(partial(self.buttonClicked, subView))
 
 
 

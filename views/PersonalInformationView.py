@@ -2,21 +2,22 @@ from PySide6 import QtWidgets
 
 from CharacterServices import CharacterServices
 from builder.PersonalInformation_ui import Ui_Form
+from views.SubView import SubView
 
 
-class PersonalInformationView(QtWidgets.QWidget, Ui_Form):
+class PersonalInformationView(SubView, Ui_Form):
 
 	def __init__(self, *args):
-		super().__init__(*args)
+		super().__init__(CharacterServices.getCharacterManager().character.PersonalInformation, 1, *args)
 		self.setupUi(self)
 		self.verticalSpacer = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-		self.gridLayout.addItem(self.verticalSpacer, 20, 1, 1, 1)
+		self.gridLayout.addItem(self.verticalSpacer, 40, 1, 1, 1)
 		self.row = 0
+		self.buttonBarItem.setText('Per')
 
 	def setupView(self):
 		self.character = CharacterServices.getCharacterManager().character
-		self.personalInformation = self.character.PersonalInformation
-		displayData = self.personalInformation.propertiesForDisplay()
+		displayData = self.entity.propertiesForDisplay()
 		self.clearChildViews(self.frame)
 		self.addDisplayItems(displayData)
 		pass
