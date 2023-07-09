@@ -18,15 +18,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		self.subViews = {}
 		self.startingSubView = None
 		self.currentView = None
-		self.characterManagement = CharacterManagementView(self.frame)
-		self.characterManagement.setVisible(True)
-		self.verticalLayout.addWidget(self.characterManagement)
 		self.loadSubViews()
 		self.enableButtons(False)
-		self.buttonClicked(self.characterManagement)
+		self.buttonClicked(self.startingSubView)
 
 	def buttonClicked(self, newSubView):
 		if self.currentView:
+			if self.currentView.isDirty:
+				return
 			self.currentView.setVisible(False)
 		self.currentView = newSubView
 		self.currentView.setVisible(True)
@@ -47,14 +46,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		# make this dynamic
 		view = PersonalInformationView()
 		self.subViews[view.getOrderInBar()] = view
+		view = CharacterManagementView()
+		self.subViews[view.getOrderInBar()] = view
 
 	def editCharacter(self):
 		self.enableButtons(True)
-		self.buttonClicked(self.startingSubView)
 
 	def enableButtons(self, state):
 		for subView in self.subViews.values():
-			subView.getButtonBarItem().setEnabled(state)
+			subView.enableButtonBarItem(state)
 	
 	def addToButtonBar(self, subView: SubView):
 		pushButton = subView.getButtonBarItem()

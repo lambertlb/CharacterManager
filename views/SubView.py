@@ -12,15 +12,22 @@ class ButtonBarItem(QtWidgets.QPushButton):
 
 class SubView(QtWidgets.QWidget):
 
-	def __init__(self, entity: Entity, orderInBar, *args):
+	def __init__(self, orderInBar, *args):
 		super().__init__(*args)
 		self.buttonBarItem = ButtonBarItem(self)
 		self.orderInBar = orderInBar
-		self.entity = entity
+		self.entity = None
+		self.isDirty = False
 
+	def setEntity(self, value):
+		self.entity = value
+	
 	def getButtonBarItem(self):
 		return self.buttonBarItem
 
+	def enableButtonBarItem(self, state):
+		self.buttonBarItem.setEnabled(state)
+		
 	def getOrderInBar(self):
 		return self.orderInBar
 	

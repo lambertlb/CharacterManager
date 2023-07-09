@@ -2,12 +2,13 @@ from PySide6 import QtWidgets
 
 from builder.CharacterManagement_ui import Ui_Form
 from CharacterServices import CharacterServices
+from views.SubView import SubView
 
 
-class CharacterManagementView(QtWidgets.QWidget, Ui_Form):
+class CharacterManagementView(SubView, Ui_Form):
 
 	def __init__(self, *args):
-		super().__init__(*args)
+		super().__init__(1, *args)
 		self.fileToLoad = None
 		self.setupUi(self)
 		self.findCharacters()
@@ -17,6 +18,7 @@ class CharacterManagementView(QtWidgets.QWidget, Ui_Form):
 		self.createCharacterButton.clicked.connect(self.createCharacter)
 		self.newCharacterNameText.textChanged.connect(self.characterNameChanged)
 		self.deleteCharacterButton.clicked.connect(self.deleteCharacter)
+		self.buttonBarItem.setText('Cha')
 
 	def findCharacters(self):
 		self.loadCharacterButton.setEnabled(False)
@@ -29,6 +31,9 @@ class CharacterManagementView(QtWidgets.QWidget, Ui_Form):
 			name, path, characterData = character
 			item = QtWidgets.QListWidgetItem(name, self.characterListWidget)
 			item.setData(1, path)
+		pass
+
+	def enableButtonBarItem(self, state):
 		pass
 
 	def characterSelected(self, curr : QtWidgets.QListWidgetItem, prev):

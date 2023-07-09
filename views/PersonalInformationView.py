@@ -8,7 +8,7 @@ from views.SubView import SubView
 class PersonalInformationView(SubView, Ui_Form):
 
 	def __init__(self, *args):
-		super().__init__(CharacterServices.getCharacterManager().character.PersonalInformation, 1, *args)
+		super().__init__(10, *args)
 		self.setupUi(self)
 		self.verticalSpacer = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
 		self.gridLayout.addItem(self.verticalSpacer, 40, 1, 1, 1)
@@ -16,6 +16,7 @@ class PersonalInformationView(SubView, Ui_Form):
 		self.buttonBarItem.setText('Per')
 
 	def setupView(self):
+		self.setEntity(CharacterServices.getCharacterManager().character.PersonalInformation)
 		self.character = CharacterServices.getCharacterManager().character
 		displayData = self.entity.propertiesForDisplay()
 		self.clearChildViews(self.frame)
