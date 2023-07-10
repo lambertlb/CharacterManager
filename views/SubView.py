@@ -12,12 +12,11 @@ class ButtonBarItem(QtWidgets.QPushButton):
 
 class SubView(QtWidgets.QWidget):
 
-	def __init__(self, orderInBar, *args):
+	def __init__(self, *args):
 		super().__init__(*args)
 		self.buttonBarItem = ButtonBarItem(self)
-		self.orderInBar = orderInBar
+		self.orderInBar = 0
 		self.entity = None
-		self.isDirty = False
 
 	def setEntity(self, value):
 		self.entity = value
@@ -34,5 +33,5 @@ class SubView(QtWidgets.QWidget):
 	def getEntity(self):
 		return self.entity
 	
-	def setupView(self):
-		pass
+	def setupView(self, orderInBar):
+		self.orderInBar = orderInBar

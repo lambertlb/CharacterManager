@@ -8,7 +8,7 @@ from views.SubView import SubView
 class CharacterManagementView(SubView, Ui_Form):
 
 	def __init__(self, *args):
-		super().__init__(1, *args)
+		super().__init__(*args)
 		self.fileToLoad = None
 		self.setupUi(self)
 		self.findCharacters()
@@ -69,4 +69,5 @@ class CharacterManagementView(SubView, Ui_Form):
 		self.findCharacters()
 
 	def setupView(self):
+		super().setupView(1)
 		pass

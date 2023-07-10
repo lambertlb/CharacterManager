@@ -1,4 +1,6 @@
+from CharacterManagerConfig import CharacterManagerConfig
 from configurator.Entity import Entity
+from configurator.Services import Services
 
 
 class PersonalInfo(Entity):
@@ -37,11 +39,17 @@ class PersonalInfo(Entity):
 		return super().getDataForProperty(propertyName, propertyType)
 
 	def getPropertyDataForDeity(self, propertyName, propertyType):
-		deities = Entity.getListOfClassesFromDirectory('Deities')
+		templatePath = Services.getConfigurationManager().getValue(CharacterManagerConfig.sourcesKey,
+																	CharacterManagerConfig.characterTemplateDirectoryKey)
+		path = templatePath + '/scripts/Deities'
+		deities = Entity.getListOfClassesFromDirectory(path, Entity)
 		return (propertyName, 'composite', self.Deity, deities)
 
 	def getPropertyDataForRace(self, propertyName, propertyType):
-		races = Entity.getListOfClassesFromDirectory('Races')
+		templatePath = Services.getConfigurationManager().getValue(CharacterManagerConfig.sourcesKey,
+																	CharacterManagerConfig.characterTemplateDirectoryKey)
+		path = templatePath + '/scripts/Races'
+		races = Entity.getListOfClassesFromDirectory(path, Entity)
 		return (propertyName, 'composite', self.Race, races)
 
 	def getPropertyDataForGender(self, propertyName, propertyType):

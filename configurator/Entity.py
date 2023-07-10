@@ -245,37 +245,8 @@ class Entity:
 		assert False, f'Found no class derived from Entity in module {module.__name__}'
 
 	@staticmethod
-	def getClassesFromScripts(listOfScripts):
-		classes = []
-		for script in listOfScripts:
-			classes.extend(Entity.getClassesFromScript(script))
-		return classes
-
-	@staticmethod
-	def getClassesFromScript(scriptName):
-		module = Entity.getModule(scriptName)
-		classes = Entity.getClassesFromModule(module)
-		return classes
-
-	@staticmethod
-	def getClassesFromModule(module):
-		classes = []
-		members = inspect.getmembers(module)
-		for member in members:
-			name, item = member
-			if isinstance(item, ModuleType):
-				classes.extend(Entity.getClassesFromModule(item))
-			if inspect.isclass(item) and issubclass(item, Entity):
-				if name != 'Entity':
-					classes.append(Entity.createInstanceFromClass(getattr(module, name)))
-		return classes
-
-	@staticmethod
-	def getListOfClassesFromDirectory(subPath):
+	def getListOfClassesFromDirectory(path, filter):
 		foundScripts = []
-		templatePath = Services.getConfigurationManager().getValue(CharacterManagerConfig.sourcesKey,
-																	CharacterManagerConfig.characterTemplateDirectoryKey)
-		path = templatePath + '/scripts/' + subPath
 		files = os.listdir(path)
 		for file in files:
 			fullPath = path + '/' + file
@@ -284,8 +255,29 @@ class Entity:
 				fullPath = re.sub("\.\.", "", fullPath)
 				fullPath = re.sub("\.py", "", fullPath)
 				foundScripts.append(fullPath)
+		classes = {}
+		Entity.getClassesFromScripts(foundScripts, filter, classes)
+		return(list(classes.values()))
 
-		return Entity.getClassesFromScripts(foundScripts)
+	@staticmethod
+	def getClassesFromScripts(listOfScripts, filter, classes):
+		for script in listOfScripts:
+			Entity.getClassesFromScript(script, filter, classes)
+
+	@staticmethod
+	def getClassesFromScript(scriptName, filter, classes):
+		module = Entity.getModule(scriptName)
+		Entity.getClassesFromModule(module, filter, classes)
+
+	@staticmethod
+	def getClassesFromModule(module, filter, classes):
+		members = inspect.getmembers(module)
+		for member in members:
+			name, item = member
+			if inspect.isclass(item) and issubclass(item, filter):
+				if name != filter.__name__:
+					if not classes.get(name):
+						classes[name] = Entity.createInstanceFromClass(getattr(module, name))
 
 	@staticmethod
 	def loadPropertyData(where, propertyData):

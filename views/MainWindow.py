@@ -1,17 +1,16 @@
 from functools import partial
-import sys
 
-from PySide6 import QtWidgets, QtCore
-from PySide6.QtWidgets import QMainWindow, QPushButton
-from CharacterServices import CharacterServices
+from PySide6 import QtCore, QtWidgets
 
 from builder.MainWindow_ui import Ui_MainWindow
+from CharacterServices import CharacterServices
+from configurator.Entity import Entity
 from views.CharacterManagementView import CharacterManagementView
 from views.PersonalInformationView import PersonalInformationView
 from views.SubView import SubView
 
 
-class MainWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 	def __init__(self, *args):
 		super().__init__(*args)
@@ -22,15 +21,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		self.loadSubViews()
 		self.enableButtons(False)
 		self.buttonClicked(self.startingSubView)
-
-	def buttonClicked(self, newSubView):
-		if self.currentView:
-			if self.currentView.isDirty:
-				return
-			self.currentView.setVisible(False)
-		self.currentView = newSubView
-		self.currentView.setVisible(True)
-		newSubView.setupView()
 
 	def loadSubViews(self):
 		self.getSubViews()
@@ -43,24 +33,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			self.verticalLayout.addWidget(subView)
 			self.addToButtonBar(subView)
 	
-	def getSubViews(self):
-		# make this dynamic
-		view = PersonalInformationView()
-		self.subViews[view.getOrderInBar()] = view
-		view = CharacterManagementView()
-		self.subViews[view.getOrderInBar()] = view
-
-	def editCharacter(self):
-		name = CharacterServices.getCharacterManager().character.PersonalInformation.Name
-		self.setWindowTitle(name)
-		self.enableButtons(True)
-
-	def enableButtons(self, state):
-		if not state:
-			self.setWindowTitle('Select Character To Edit')
-		for subView in self.subViews.values():
-			subView.enableButtonBarItem(state)
-	
 	def addToButtonBar(self, subView: SubView):
 		pushButton = subView.getButtonBarItem()
 		pushButton.setParent(self.scrollAreaWidgetContents)
@@ -69,10 +41,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		self.horizontalLayout.insertWidget(index, pushButton)
 		pushButton.clicked.connect(partial(self.buttonClicked, subView))
 
+	def editCharacter(self):
+		self.setWindowTitle(CharacterServices.getCharacterManager().character.PersonalInformation.Name)
+		self.enableButtons(True)
 
+	def enableButtons(self, state):
+		if not state:
+			self.setWindowTitle('Select Character To Edit')
+		for subView in self.subViews.values():
+			subView.enableButtonBarItem(state)
+	
+	def buttonClicked(self, newSubView):
+		if self.currentView:
+			self.currentView.setVisible(False)
+		self.currentView = newSubView
+		self.currentView.setVisible(True)
+		newSubView.setupView()
 
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	app.mainWindow = MainWindow()
-	app.mainWindow.show()
-	sys.exit(app.exec())
+	def getSubViews(self):
+		views = Entity.getListOfClassesFromDirectory('./views', SubView)
+		for newView in views:
+			self.subViews[newView.getOrderInBar()] = newView
