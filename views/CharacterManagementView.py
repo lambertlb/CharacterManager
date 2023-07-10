@@ -37,9 +37,12 @@ class CharacterManagementView(SubView, Ui_Form):
 		pass
 
 	def characterSelected(self, curr : QtWidgets.QListWidgetItem, prev):
-		self.fileToLoad = curr.data(1)
-		self.loadCharacterButton.setEnabled(True)
-		self.deleteCharacterButton.setEnabled(True)
+		somethingSelected = False
+		if curr:
+			self.fileToLoad = curr.data(1)
+			somethingSelected = True
+		self.loadCharacterButton.setEnabled(somethingSelected)
+		self.deleteCharacterButton.setEnabled(somethingSelected)
 
 	def doubleClicked(self):
 		items = self.characterListWidget.selectedItems()
@@ -52,6 +55,7 @@ class CharacterManagementView(SubView, Ui_Form):
 	
 	def createCharacter(self):
 		CharacterServices.getCharacterManager().createNewCharacter(self.newCharacterNameText.text())
+		CharacterServices.getRootWindow().enableButtons(False)
 		self.findCharacters()
 
 	def characterNameChanged(self):
@@ -61,6 +65,7 @@ class CharacterManagementView(SubView, Ui_Form):
 
 	def deleteCharacter(self):
 		CharacterServices.getCharacterManager().deleteCharacter(self.fileToLoad)
+		CharacterServices.getRootWindow().enableButtons(False)
 		self.findCharacters()
 
 	def setupView(self):

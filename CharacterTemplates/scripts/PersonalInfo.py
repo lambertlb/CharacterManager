@@ -1,8 +1,4 @@
-import os
-import re
-from CharacterManagerConfig import CharacterManagerConfig
 from configurator.Entity import Entity
-from configurator.Services import Services
 
 
 class PersonalInfo(Entity):

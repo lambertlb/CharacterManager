@@ -3,6 +3,7 @@ import sys
 
 from PySide6 import QtWidgets, QtCore
 from PySide6.QtWidgets import QMainWindow, QPushButton
+from CharacterServices import CharacterServices
 
 from builder.MainWindow_ui import Ui_MainWindow
 from views.CharacterManagementView import CharacterManagementView
@@ -50,9 +51,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		self.subViews[view.getOrderInBar()] = view
 
 	def editCharacter(self):
+		name = CharacterServices.getCharacterManager().character.PersonalInformation.Name
+		self.setWindowTitle(name)
 		self.enableButtons(True)
 
 	def enableButtons(self, state):
+		if not state:
+			self.setWindowTitle('Select Character To Edit')
 		for subView in self.subViews.values():
 			subView.enableButtonBarItem(state)
 	

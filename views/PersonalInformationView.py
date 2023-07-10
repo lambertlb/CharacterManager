@@ -52,15 +52,16 @@ class PersonalInformationView(SubView, Ui_Form):
 		editor = None
 		if propertyType == 'string':
 			editor = TextEditor(entity=entity, propertyName=propertyName, callback=self.editorDataChanged, parent=self.frame)
-			editor.setText(propertyData)
+			editor.setValue(propertyData)
 		elif propertyType == 'integer':
 			editor = IntegerEditor(entity=entity, propertyName=propertyName, callback=self.editorDataChanged, parent=self.frame)
-			editor.setText(str(propertyData))
+			editor.setValue(propertyData)
 		elif propertyType == 'number':
 			editor = NumberEditor(entity=entity, propertyName=propertyName, callback=self.editorDataChanged, parent=self.frame)
-			editor.setText(str(propertyData))
+			editor.setValue(propertyData)
 		elif propertyType == 'composite':
-			editor = CompositeEditor(entity=entity, propertyName=propertyName, callback=self.editorDataChanged, optionalData=optionalData, selectedData=propertyData, parent=self.frame)
+			editor = CompositeEditor(entity=entity, propertyName=propertyName, callback=self.editorDataChanged, optionalData=optionalData, parent=self.frame)
+			editor.setValue(propertyData)
 		elif propertyType == 'object':
 			self.row += 1
 			self.addDisplayItems(optionalData, getattr(entity, propertyName))
@@ -70,5 +71,5 @@ class PersonalInformationView(SubView, Ui_Form):
 	def editorDataChanged(self, editor: BaseEditor):
 		if self.loadingData:
 			return
-		editor.entity.isValidPropertyChange(editor._propertyName, editor.getNewData())
+		editor.entity.isValidPropertyChange(editor._propertyName, editor.getValue())
 		pass

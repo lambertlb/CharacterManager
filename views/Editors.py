@@ -7,7 +7,6 @@ class BaseEditor():
 		self._entity = entity
 		self._propertyName = propertyName
 		self.callback = callback
-		pass
 
 	@property
 	def entity(self):
@@ -17,8 +16,12 @@ class BaseEditor():
 	def propertyName(self):
 		return self._propertyName
 
-	def getNewData(self):
+	def getValue(self):
 		return None
+	
+	def setValue(self, value):
+		pass
+
 
 class TextEditor(QtWidgets.QLineEdit, BaseEditor):
 
@@ -29,8 +32,12 @@ class TextEditor(QtWidgets.QLineEdit, BaseEditor):
 	def onChanged(self, mewText):
 		self.callback(self)
 	
-	def getNewData(self):
+	def getValue(self):
 		return self.text()
+
+	def setValue(self, value):
+		self.setText(value)
+
 
 class IntegerEditor(TextEditor, BaseEditor):
 
@@ -38,32 +45,56 @@ class IntegerEditor(TextEditor, BaseEditor):
 		super().__init__(*args, **kwargs)
 		self.setValidator(QIntValidator())
 
+	def getValue(self):
+		return int(self.text())
+
+	def setValue(self, value):
+		self.setText(str(value))
+
 class NumberEditor(TextEditor, BaseEditor):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.setValidator(QDoubleValidator())
 
+	def getValue(self):
+		return float(self.text())
+
+	def setValue(self, value):
+		self.setText(str(value))
+
+
 class CompositeEditor(QtWidgets.QComboBox, BaseEditor):
-	def __init__(self, optionalData, selectedData, *args, **kwargs):
+	def __init__(self, optionalData, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.currentTextChanged.connect(self.onChanged)
+		self.optionalData = optionalData
 		if optionalData:
 			index = 0
-			foundIndex = 0
 			for data in optionalData:
 				if type(data) is str:
 					dataToAdd = data
 				else:
 					dataToAdd = data._name
 				self.addItem(dataToAdd)
-				if dataToAdd == selectedData:
+				index += 1
+
+	def getValue(self):
+		return self.currentText()
+
+	def setValue(self, value):
+		foundIndex = 0
+		if self.optionalData:
+			index = 0
+			for data in self.optionalData:
+				if type(data) is str:
+					dataToAdd = data
+				else:
+					dataToAdd = data._name
+				if dataToAdd == value:
 					foundIndex = index
 				index += 1
-			self.setCurrentIndex(foundIndex)
-
-	def getNewData(self):
-		return self.currentText()
+		self.setCurrentIndex(foundIndex)
 
 	def onChanged(self, mewText):
 		self.callback(self)
