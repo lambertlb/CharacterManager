@@ -40,6 +40,10 @@ class CharacterManager:
 		result = JsonUtils.loadJsonSchema(templatePath + '/CharacterTemplate.json')
 		return result
 
+	def save(self):
+		if self.character and self.character.PersonalInformation.Name:
+			self.saveCharacter(self.character.PersonalInformation.Name)
+	
 	def saveCharacter(self, name):
 		path = Services.getConfigurationManager().getValue(CharacterManagerConfig.saveCharacterKey,
 															CharacterManagerConfig.saveCharacterDirectoryKey)

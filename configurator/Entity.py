@@ -460,3 +460,6 @@ class Entity:
 	def isValidPropertyChange(self, propertyName, propertyData):
 		return True
 	
+	def changeProperty(self, propertyName, propertyData):
+		if self.isValidPropertyChange(propertyName, propertyData):
+			setattr(self, propertyName, propertyData)

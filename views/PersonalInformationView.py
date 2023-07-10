@@ -72,5 +72,6 @@ class PersonalInformationView(SubView, Ui_Form):
 	def editorDataChanged(self, editor: BaseEditor):
 		if self.loadingData:
 			return
-		editor.entity.isValidPropertyChange(editor._propertyName, editor.getValue())
+		editor.entity.changeProperty(editor._propertyName, editor.getValue())
+		CharacterServices.getCharacterManager().save()
 		pass
