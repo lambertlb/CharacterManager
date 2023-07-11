@@ -8,6 +8,7 @@ class MonkScript(Entity, ClassItem):
 		ClassItem.__init__(self)
 		self._HitDie = '1d8'
 		self._name = 'Monk'
+		self._description = 'I am a little monkey boy'
 
 	def register(self):
 		super(MonkScript, self).register()

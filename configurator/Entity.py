@@ -61,7 +61,11 @@ class Entity:
 	@staticmethod
 	def getEntities():
 		return list(Entity._allEntities.values())
-	
+
+	@staticmethod
+	def clear():
+		Entity._allEntities.clear()
+
 	def register(self):
 		"""
 		This should be overridden in derived classes
@@ -195,7 +199,7 @@ class Entity:
 			return Entity.createInstanceFromClass(classToLoad)
 		parts = scriptName.split('#')
 		if len(parts) == 2:
-			return Entity.nameFromScript(parts[0], parts[1], scriptName)
+			return Entity.createInstanceFromName(parts[0], parts[1], scriptName)
 		classToLoad = Entity.scriptInModule.get(scriptName)
 		if not classToLoad:
 			module = Entity.getModule(scriptName)
@@ -211,7 +215,7 @@ class Entity:
 		return eval(alias + '()', {alias: classToCreate})
 
 	@staticmethod
-	def nameFromScript(nameSpace, className, scriptName):
+	def createInstanceFromName(nameSpace, className, scriptName):
 		module = Entity.getModule(nameSpace)
 		classToLoad = getattr(module, className)
 		Entity.scriptInModule[scriptName] = classToLoad

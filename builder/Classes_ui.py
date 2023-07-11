@@ -16,9 +16,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
-    QHBoxLayout, QLabel, QLineEdit, QListWidget,
-    QListWidgetItem, QPushButton, QSizePolicy, QTextEdit,
-    QVBoxLayout, QWidget)
+    QHBoxLayout, QLabel, QListWidget, QListWidgetItem,
+    QPushButton, QSizePolicy, QTextEdit, QVBoxLayout,
+    QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -40,37 +40,32 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.classesListWidget, 3, 0, 1, 2)
 
-        self.addClassButton = QPushButton(self.frame)
-        self.addClassButton.setObjectName(u"addClassButton")
+        self.label = QLabel(self.frame)
+        self.label.setObjectName(u"label")
 
-        self.gridLayout.addWidget(self.addClassButton, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+
+        self.deleteClassButton = QPushButton(self.frame)
+        self.deleteClassButton.setObjectName(u"deleteClassButton")
+
+        self.gridLayout.addWidget(self.deleteClassButton, 1, 0, 1, 1)
 
         self.classesComboBox = QComboBox(self.frame)
         self.classesComboBox.setObjectName(u"classesComboBox")
 
         self.gridLayout.addWidget(self.classesComboBox, 2, 1, 1, 1)
 
-        self.label = QLabel(self.frame)
-        self.label.setObjectName(u"label")
+        self.addClassButton = QPushButton(self.frame)
+        self.addClassButton.setObjectName(u"addClassButton")
 
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
-
-        self.pointsSpentLabel = QLabel(self.frame)
-        self.pointsSpentLabel.setObjectName(u"pointsSpentLabel")
-
-        self.gridLayout.addWidget(self.pointsSpentLabel, 1, 0, 1, 1)
-
-        self.pointsSpentEdit = QLineEdit(self.frame)
-        self.pointsSpentEdit.setObjectName(u"pointsSpentEdit")
-        self.pointsSpentEdit.setReadOnly(True)
-
-        self.gridLayout.addWidget(self.pointsSpentEdit, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.addClassButton, 2, 0, 1, 1)
 
 
         self.horizontalLayout.addLayout(self.gridLayout)
 
         self.textEdit = QTextEdit(self.frame)
         self.textEdit.setObjectName(u"textEdit")
+        self.textEdit.setReadOnly(True)
 
         self.horizontalLayout.addWidget(self.textEdit)
 
@@ -85,8 +80,8 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.addClassButton.setText(QCoreApplication.translate("Form", u"Add Class", None))
         self.label.setText(QCoreApplication.translate("Form", u"Classes", None))
-        self.pointsSpentLabel.setText(QCoreApplication.translate("Form", u"Points Spent", None))
+        self.deleteClassButton.setText(QCoreApplication.translate("Form", u"Delete Class", None))
+        self.addClassButton.setText(QCoreApplication.translate("Form", u"Add Class", None))
     # retranslateUi
 

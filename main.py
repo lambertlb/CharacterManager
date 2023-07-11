@@ -6,6 +6,7 @@ import traceback
 from PySide6 import QtWidgets
 
 from CharacterManagerConfig import CharacterManagerConfig
+from CharacterTemplates.scripts.Classes import ClassesScript
 from configurator.Entity import Entity
 from configurator.JsonUtils import JsonUtils
 from configurator.Logger import Logger
@@ -27,6 +28,7 @@ class CharacterManager:
 		self.loadCharacterFromFile(characterPath)
 
 	def loadCharacterFromFile(self, path):
+		Entity.clear()
 		try:
 			self.character = Entity.loadJsonFile(path, self.loadTemplate())
 		except (Exception,):
@@ -80,6 +82,31 @@ class CharacterManager:
 
 	def deleteCharacter(self, file):
 		os.remove(file)
+
+	def getListOfAllClasses(self):
+		templatePath = Services.getConfigurationManager().getValue(CharacterManagerConfig.sourcesKey,
+																	CharacterManagerConfig.characterTemplateDirectoryKey)
+		path = templatePath + '/scripts/ClassScripts'
+		classes = Entity.getListOfClassesFromDirectory(path, Entity)
+		return classes
+
+	def addClass(self, cls):
+		newCls = ClassesScript()
+		newCls.Class = cls._name.lower()
+		newCls.register()
+		self.character.Classes.append(newCls)
+		self.save()
+		pass
+
+	def deleteClass(self, cls):
+		for existing in self.character.Classes:
+			if cls == existing:
+				self.character.Classes.remove(cls)
+				cls.unRegister()
+				break
+		self.save()
+		pass
+
 
 if __name__ == "__main__":
 	from CharacterServices import CharacterServices
