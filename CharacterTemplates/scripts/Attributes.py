@@ -81,3 +81,29 @@ class Attributes(Entity):
 	def computeAttributeBonus(self, attribute):
 		stat = attribute - 10
 		return int(stat / 2)
+
+	def isValidPropertyChange(self, propertyName, propertyData):
+		data = int(propertyData)
+		if data > 15 or data < 8:
+			return False
+		return True
+
+	def getPointCost(self):
+		cost = 0
+		cost += self.costOfAPoint(self.Strength)
+		cost += self.costOfAPoint(self.Dexterity)
+		cost += self.costOfAPoint(self.Constitution)
+		cost += self.costOfAPoint(self.Intelligence)
+		cost += self.costOfAPoint(self.Wisdom)
+		cost += self.costOfAPoint(self.Charisma)
+		return cost
+	
+	def costOfAPoint(self, value):
+		if value <= 8:
+			return 0
+		if value < 14:
+			return value - 8
+		if value == 14:
+			return 7
+		return 9
+	

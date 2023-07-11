@@ -22,6 +22,13 @@ class BaseEditor():
 	def setValue(self, value):
 		pass
 
+	def	badValue(self, good):
+		pass
+
+class LabelEditor(QtWidgets.QLabel, BaseEditor):
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
 
 class TextEditor(QtWidgets.QLineEdit, BaseEditor):
 
@@ -37,6 +44,13 @@ class TextEditor(QtWidgets.QLineEdit, BaseEditor):
 
 	def setValue(self, value):
 		self.setText(value)
+
+	def	badValue(self, good):
+		if good:
+			self.setStyleSheet("QLineEdit" "{background : white; }")
+		else:
+			self.setStyleSheet("QLineEdit" "{background : red; }")
+		pass
 
 
 class IntegerEditor(TextEditor, BaseEditor):

@@ -12,7 +12,7 @@ class ClassesView(SubView, Ui_Form):
 		self.selectedClass = None
 		self.classToDelete = None
 		self.setupUi(self)
-		super().setupView(20)
+		super().setupView(30)
 		self.buttonBarItem.setText('Cla')
 		self.classesComboBox.currentTextChanged.connect(self.classComboSelected)
 		self.classesListWidget.itemClicked.connect(self.classSelected)
