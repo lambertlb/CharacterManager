@@ -6,4 +6,5 @@ pip install jsonref
 pip install pytest
 pip install jsonschema
 pip install pytest-cov
-
+pip install pyside6
+pip install pyqt6-tools
