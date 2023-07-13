@@ -12,7 +12,7 @@ class PersonalInfo(Entity):
 		self._raceScript = None
 
 	def register(self):
-		super(PersonalInfo, self).register()
+		super().register()
 		if not self._deityScript and self.Deity != '':
 			self._deityScript = Entity.instanceFromScript('CharacterTemplates.scripts.Deities.' + self.Deity)
 		if self.Deity != '':
@@ -23,7 +23,7 @@ class PersonalInfo(Entity):
 			self._raceScript.register()
 
 	def update(self):
-		super(PersonalInfo, self).register()
+		super().register()
 		if self._raceScript:
 			self._raceScript.update()
 		if self._deityScript:

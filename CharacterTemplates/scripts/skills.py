@@ -1,14 +1,14 @@
 from configurator.Entity import Entity
 
 
-class SkillsScript(Entity):
+class Skills(Entity):
 	def __init__(self):
 		super().__init__()
 
 	def register(self):
-		super(SkillsScript, self).register()
+		super().register()
 		pass
 
 	def update(self):
-		super(SkillsScript, self).update()
+		super().update()
 		pass

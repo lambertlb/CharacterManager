@@ -42,7 +42,7 @@ The files in this folder will manage data in such a way as to accomplish the goa
 
 - ConfigurationManager.py
 
-  Base class for managing configurations. The default implementation will manage configuration items in and .ini file. This files will contain sections with specific data in them. You need to subclass this add you system specific config data. Make sure to make it available by calling setLogger on Services.
+  Base class for managing configurations. The default implementation will manage configuration items in an .ini file. This files will contain sections with specific data in them. You need to subclass this add you system specific config data. Make sure to make it available by calling setLogger on Services.
 
 - JsonUtils.py
 
@@ -118,7 +118,7 @@ class Offense(Entity):
 This class is a subclass of Entity. It will end up holding one instance of data from the Offense array. For example the first element will have its self.Weapon property set to "Long Sword". Also note that we also need to manage code specific to that long sword. So in the register method we call Entity.instanceFromScript with the namespace for a class to handle the long sword data. This will look for a Long_Sword class in a file called Weapons.py in path ./CharacterTemplates/scripts.
 
 ## Schema Summary
-So you can see with by adding a simple custom tag ($script) to a schema I was able to do two levels of customization for handling the data. I.E. handling the offense array elements and custom code for each element in the array.
+So you can see that by adding a simple custom tag ($script) to a schema I was able to do two levels of customization for handling the data. I.E. handling the offense array elements and custom code for each element in the array.
 
 ## Data modifications
 Data modification can be added in many ways. I will show one way I did it. Following is a example of how i modified the previous example so the program can tell if a weapon is currently equipped. Following is the data with the modifications

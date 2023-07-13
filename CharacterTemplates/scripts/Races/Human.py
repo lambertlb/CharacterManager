@@ -2,10 +2,9 @@ from CharacterTemplates.scripts.CharacterItem import RaceItem
 from configurator.Entity import Entity
 
 
-class HumanScript(Entity, RaceItem):
+class Human(Entity, RaceItem):
 	def __init__(self):
-		Entity.__init__(self)
-		RaceItem.__init__(self)
+		super().__init__()
 		self._name = 'Human'
 		self._addToStrength = 1
 		self._addToDexterity = 1
@@ -16,7 +15,7 @@ class HumanScript(Entity, RaceItem):
 		self._size = 2
 
 	def register(self):
-		super(HumanScript, self).register()
+		super().register()
 
 	def update(self):
-		super(HumanScript, self).update()
+		super().update()
