@@ -6,7 +6,7 @@ import traceback
 from PySide6 import QtWidgets
 
 from CharacterManagerConfig import CharacterManagerConfig
-from CharacterTemplates.scripts.Classes import ClassesScript
+from CharacterTemplates.scripts.CharacterClass import CharacterClass
 from configurator.Entity import Entity
 from configurator.JsonUtils import JsonUtils
 from configurator.Logger import Logger
@@ -86,22 +86,22 @@ class CharacterManager:
 	def getListOfAllClasses(self):
 		templatePath = Services.getConfigurationManager().getValue(CharacterManagerConfig.sourcesKey,
 																	CharacterManagerConfig.characterTemplateDirectoryKey)
-		path = templatePath + '/scripts/ClassScripts'
+		path = templatePath + '/scripts/Classes'
 		classes = Entity.getListOfClassesFromDirectory(path, Entity)
 		return classes
 
 	def addClass(self, cls):
-		newCls = ClassesScript()
-		newCls.Class = cls._name.lower()
+		newCls = CharacterClass()
+		newCls.Class = cls._name
 		newCls.register()
-		self.character.Classes.append(newCls)
+		self.character.ClassInformation.Classes.append(newCls)
 		self.save()
 		pass
 
 	def deleteClass(self, cls):
-		for existing in self.character.Classes:
+		for existing in self.character.ClassInformation.Classes:
 			if cls == existing:
-				self.character.Classes.remove(cls)
+				self.character.ClassInformation.Classes.remove(cls)
 				cls.unRegister()
 				break
 		self.save()

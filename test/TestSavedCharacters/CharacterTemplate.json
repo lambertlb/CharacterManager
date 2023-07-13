@@ -29,7 +29,7 @@
 				"$script": {
 					"className": "CharacterTemplates.scripts.Attributes"
 				}
-		},
+			},
 			"required": [
 				"Charisma",
 				"Constitution",
@@ -39,22 +39,52 @@
 				"Wisdom"
 			]
 		},
-		"Classes": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"Class": {
-						"type": "string"
-					},
-					"$script": {
-						"className": "CharacterTemplates.scripts.Classes"
+		"ClassInformation": {
+			"type": "object",
+			"properties": {
+				"$script": {
+					"className": "CharacterTemplates.scripts.ClassInformation"
+				},
+				"Classes": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"$script": {
+								"className": "CharacterTemplates.scripts.CharacterClass"
+							},
+							"Class": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"Class"
+						]
 					}
 				},
-				"required": [
-					"Class"
-				]
-			}
+				"ClassAddition": {
+					"type": "object",
+					"properties": {
+						"$script": {
+							"className": "CharacterTemplates.scripts.ClassAdditions"
+						},
+						"Additions": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {}
+							}
+						}
+					},
+					"required": [
+						"Additions"
+					]
+				}
+			},
+			"required": [
+				"ClassAddition",
+				"Classes"
+			]
 		},
 		"PersonalInformation": {
 			"type": "object",
@@ -185,6 +215,7 @@
 	},
 	"required": [
 		"Attributes",
+		"ClassInformation",
 		"Defense",
 		"Health",
 		"Offense",

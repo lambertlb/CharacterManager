@@ -30,7 +30,7 @@ class TestCharacterManager(TestCase):
 		pass
 
 	def testLoadCharacter(self):
-		cm = CharacterManager('./test/TestSavedCharacters')
+		cm = CharacterManager()
 		cm.loadCharacter('Character 1')
 		assert cm.character
 		assert cm.character.definition

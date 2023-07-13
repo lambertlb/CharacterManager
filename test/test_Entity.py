@@ -51,7 +51,7 @@ class TestEntities(TestCase):
 		definition = {
 			"properties": {
 				"$script": {
-					"className": "test.TestSavedCharacters.scripts.skills"
+					"className": "test.TestSavedCharacters.scripts.Skills"
 				}
 			}
 		}
@@ -90,7 +90,7 @@ class TestEntities(TestCase):
 	def test_ValidateSchemas(self):
 		schemaData = JsonUtils.loadJsonSchema('./CharacterTemplates/CharacterTemplate.json')
 		Draft7Validator.check_schema(schemaData)
-		data = JsonUtils.loadJsonFile('./SavedCharacters/Fred.json')
+		data = JsonUtils.loadJsonFile('./SavedCharacters/Fred_FlintStone.json')
 		validate(data, schemaData)
 		assert not Services.getLogger().lastLogged
 	

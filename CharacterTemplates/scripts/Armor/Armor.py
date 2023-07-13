@@ -14,7 +14,8 @@ class Armor(CharacterItem):
 
 class Plate_Mail(Entity, Armor):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		Armor.__init__(self)
 		self._name = 'Plate Mail'
 		self._isArmor = True
 		self._addToAc = 8
@@ -32,7 +33,8 @@ class Plate_Mail(Entity, Armor):
 
 class Chain_Mail(Entity, Armor):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		Armor.__init__(self)
 		self._name = 'Chain Mail'
 		self._isArmor = True
 		self._addToAc = 6
@@ -50,7 +52,8 @@ class Chain_Mail(Entity, Armor):
 
 class Tower_Shield(Entity, Armor):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		Armor.__init__(self)
 		self._name = 'Tower Shield'
 		self._isArmor = True
 		self._addToAc = 2

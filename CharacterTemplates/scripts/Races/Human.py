@@ -4,7 +4,8 @@ from configurator.Entity import Entity
 
 class Human(Entity, RaceItem):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		RaceItem.__init__(self)
 		self._name = 'Human'
 		self._addToStrength = 1
 		self._addToDexterity = 1

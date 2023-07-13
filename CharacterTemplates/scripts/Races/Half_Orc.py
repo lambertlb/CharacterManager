@@ -4,7 +4,8 @@ from configurator.Entity import Entity
 
 class Half_Orc(Entity, RaceItem):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		RaceItem.__init__(self)
 		self._name = 'Half Orc'
 		self._addToStrength = 2
 		self._addToConstitution = 1

@@ -14,6 +14,7 @@ class TestLogger(Logger):
 
 	def log(self, whatToLog):
 		self._lastLogged = whatToLog
+		print(whatToLog)
 
 	def logException(self, whatToLog, exception: Exception):
 		self._lastLogged = whatToLog

@@ -1,35 +1,40 @@
 {
 	"Attributes": {
-		"Strength": 10,
+		"Strength": 15,
 		"Dexterity": 10,
-		"Constitution": 10,
-		"Intelligence": 10,
-		"Wisdom": 10,
-		"Charisma": 10
+		"Constitution": 14,
+		"Intelligence": 8,
+		"Wisdom": 8,
+		"Charisma": 15
 	},
-	"Classes": [
-		{
-			"Class": "monk"
-		},
-		{
-			"Class": "monk"
-		},
-		{
-			"Class": "monk"
-		},
-		{
-			"Class": "monk"
-		},
-		{
-			"Class": "cleric"
+	"ClassInformation": {
+		"Classes": [
+			{
+				"Class": "Monk"
+			},
+			{
+				"Class": "Monk"
+			},
+			{
+				"Class": "Monk"
+			},
+			{
+				"Class": "Monk"
+			},
+			{
+				"Class": "Cleric"
+			}
+		],
+		"ClassAddition": {
+			"Additions": []
 		}
-	],
+	},
 	"PersonalInformation": {
-		"Name": "Fred FlintStone",
+		"Deity": "Sune",
 		"Race": "Human",
+		"Name": "Fred FlintStone",
 		"Age": 22,
 		"Alignment": "Neutral",
-		"Deity": "Sune",
 		"Weight": 110.5,
 		"Experience": 1000,
 		"Gender": "Male",

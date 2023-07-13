@@ -23,7 +23,7 @@ class ClassesView(SubView, Ui_Form):
 		self.loadingData = True
 		self.addClassButton.setEnabled(False)
 		self.deleteClassButton.setEnabled(False)
-		self.setEntity(CharacterServices.getCharacterManager().character.Classes)
+		self.setEntity(CharacterServices.getCharacterManager().character.ClassInformation.Classes)
 		self.loadAllClasses()
 		self.loadClassesFromCharacter()
 		self.loadingData = False
@@ -38,7 +38,7 @@ class ClassesView(SubView, Ui_Form):
 	def loadClassesFromCharacter(self):
 		self.classesListWidget.clear()
 		for cls in self.entity:
-			item = QListWidgetItem(cls._classScript._name)
+			item = QListWidgetItem(cls.Class)
 			item.setData(1,cls)
 			self.classesListWidget.addItem(item)
 

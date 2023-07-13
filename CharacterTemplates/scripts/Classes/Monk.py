@@ -4,7 +4,8 @@ from configurator.Entity import Entity
 
 class Monk(Entity, ClassItem):
 	def __init__(self):
-		super().__init__()
+		Entity.__init__(self)
+		ClassItem.__init__(self)
 		self._HitDie = '1d8'
 		self._name = 'Monk'
 		self._description = """
