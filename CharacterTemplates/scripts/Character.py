@@ -2,7 +2,7 @@ from CharacterTemplates.scripts.CharacterItem import CharacterItem
 from configurator.Entity import Entity
 
 
-class CharacterScript(Entity):
+class Character(Entity):
 
 	def __init__(self):
 		super().__init__()

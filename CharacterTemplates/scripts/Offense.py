@@ -19,11 +19,11 @@ class Offense(Entity):
 		self.Weapon = None
 
 	def register(self):
-		super(Offense, self).register()
+		super().register()
 		self._weaponInfo = Entity.instanceFromScript('CharacterTemplates.scripts.Weapons.Weapons#' + self.Weapon)
 		self._weaponInfo.register()
 
 	def update(self):
-		super(Offense, self).update()
+		super().update()
 		if self._weaponInfo:
 			self._weaponInfo.update()

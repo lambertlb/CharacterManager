@@ -9,8 +9,7 @@ class Weapon(CharacterItem):
 
 class Long_Sword(Entity, Weapon):
 	def __init__(self):
-		Entity.__init__(self)
-		Weapon.__init__(self)
+		super().__init__()
 		self._name = 'Long Sword'
 		self._isWeapon = True
 		self._isVersatile = True
@@ -18,31 +17,29 @@ class Long_Sword(Entity, Weapon):
 		self._weight = 3
 	
 	def register(self):
-		super(Long_Sword, self).register()
+		super().register()
 
 	def update(self):
-		super(Long_Sword, self).update()
+		super().update()
 
 
 class Unarmed(Entity, Weapon):
 	def __init__(self):
-		Entity.__init__(self)
-		Weapon.__init__(self)
+		super().__init__()
 		self._name = 'Unarmed'
 		self._isWeapon = True
 		self._rollForDamage = '1d3'
 
 	def register(self):
-		super(Unarmed, self).register()
+		super().register()
 
 	def update(self):
-		super(Unarmed, self).update()
+		super().update()
 
 
 class Long_Bow(Entity, Weapon):
 	def __init__(self):
-		Entity.__init__(self)
-		Weapon.__init__(self)
+		super().__init__()
 		self._name = 'Long Bow'
 		self._isRange = True
 		self._rollForDamage = '1d8'
@@ -51,7 +48,7 @@ class Long_Bow(Entity, Weapon):
 		self._isTwoHanded = True
 
 	def register(self):
-		super(Long_Bow, self).register()
+		super().register()
 
 	def update(self):
-		super(Long_Bow, self).update()
+		super().update()

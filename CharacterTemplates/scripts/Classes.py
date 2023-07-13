@@ -1,7 +1,7 @@
 from configurator.Entity import Entity
 
 
-class ClassesScript(Entity):
+class Classes(Entity):
 	"""
 	This class will load in the appropriate script for
 	handling the specified class. It assumes the following
@@ -18,12 +18,12 @@ class ClassesScript(Entity):
 		self._classScript = None
 
 	def register(self):
-		super(ClassesScript, self).register()
+		super().register()
 		if not self._classScript:
 			self._classScript = Entity.instanceFromScript('CharacterTemplates.scripts.ClassScripts.' + self.Class)
 		self._classScript.register()
 
 	def update(self):
-		super(ClassesScript, self).update()
+		super().update()
 		if self._classScript:
 			self._classScript.update()

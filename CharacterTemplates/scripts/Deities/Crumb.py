@@ -4,8 +4,7 @@ from configurator.Entity import Entity
 
 class Crumb(Entity, CharacterItem):
 	def __init__(self):
-		Entity.__init__(self)
-		CharacterItem.__init__(self)
+		super().__init__()
 		self._name = 'Crumb'
 
 	def register(self):

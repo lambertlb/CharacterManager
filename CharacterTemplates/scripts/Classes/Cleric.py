@@ -2,10 +2,9 @@ from CharacterTemplates.scripts.CharacterItem import ClassItem
 from configurator.Entity import Entity
 
 
-class ClericScript(Entity, ClassItem):
+class Cleric(Entity, ClassItem):
 	def __init__(self):
-		Entity.__init__(self)
-		ClassItem.__init__(self)
+		super().__init__()
 		self._HitDie = '1d8'
 		self._name = 'Cleric'
 		self._description = """
@@ -213,7 +212,7 @@ Tasha's Cauldron of Everything</td>
 </div>"""
 
 	def register(self):
-		super(ClericScript, self).register()
+		super().register()
 
 	def update(self):
-		super(ClericScript, self).update()
+		super().update()
