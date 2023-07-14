@@ -20,7 +20,7 @@ class TestProperties(TestCase):
 	def test_LoadPropertyWithString(self):
 		jsonPropertyData = ("Name", "Fred FlintStone")
 		entity = Entity()
-		entity._definition = TestProperties.testSchema['properties']['PersonalInformation']
+		entity._schema = TestProperties.testSchema['properties']['PersonalInformation']
 		Entity.loadPropertyData(entity, jsonPropertyData)
 		assert hasattr(entity, 'Name')
 		assert entity.Name == 'Fred FlintStone'
@@ -28,7 +28,7 @@ class TestProperties(TestCase):
 	def test_LoadPropertyWithInteger(self):
 		jsonPropertyData = ("Age", 22)
 		entity = Entity()
-		entity._definition = TestProperties.testSchema['properties']['PersonalInformation']
+		entity._schema = TestProperties.testSchema['properties']['PersonalInformation']
 		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'Age')
 		assert entity.Age
@@ -36,7 +36,7 @@ class TestProperties(TestCase):
 	def test_LoadPropertyWithNumber(self):
 		jsonPropertyData = ("Weight", 110.5)
 		entity = Entity()
-		entity._definition = TestProperties.testSchema['properties']['PersonalInformation']
+		entity._schema = TestProperties.testSchema['properties']['PersonalInformation']
 		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'Weight')
 		assert entity.Weight == 110.5
@@ -44,7 +44,7 @@ class TestProperties(TestCase):
 	def test_LoadPropertyWithBoolean(self):
 		jsonPropertyData = ("Dead", False)
 		entity = Entity()
-		entity.definition = {
+		entity.schema = {
 			"properties": {
 				"Dead": {
 					"type": "boolean"
@@ -57,7 +57,7 @@ class TestProperties(TestCase):
 	def test_LoadPropertyWithNull(self):
 		jsonPropertyData = ("NullType", None)
 		entity = Entity()
-		entity.definition = {
+		entity.schema = {
 			"properties": {
 				"NullType": {
 					"type": "null"
@@ -79,7 +79,7 @@ class TestProperties(TestCase):
 		]
 		jsonPropertyData = ("MixedArray", data)
 		entity = Entity()
-		entity.definition = {
+		entity.schema = {
 			"properties": {
 				"MixedArray": {
 					"type": "array",
@@ -107,7 +107,7 @@ class TestProperties(TestCase):
 		]
 		jsonPropertyData = ("SingleType", data)
 		entity = Entity()
-		entity.definition = {
+		entity.schema = {
 			"properties": {
 				"SingleType": {
 					"type": "array",
@@ -135,7 +135,7 @@ class TestProperties(TestCase):
 		]
 		jsonPropertyData = ("ObjectType", data)
 		entity = Entity()
-		entity.definition = {
+		entity.schema = {
 			"properties": {
 				"ObjectType": {
 					"type": "array",
@@ -180,7 +180,7 @@ class TestProperties(TestCase):
 			"Race": "Human"
 			})
 		entity = Entity()
-		entity._definition = TestProperties.testSchema
+		entity._schema = TestProperties.testSchema
 		Entity.loadPropertyData(entity,jsonPropertyData)
 		assert hasattr(entity, 'PersonalInformation')
 		assert isinstance(entity.PersonalInformation, Entity)
@@ -214,7 +214,7 @@ class TestProperties(TestCase):
 		)
 
 		entity = Entity()
-		entity.definition = {
+		entity.schema = {
 			"properties": {
 				"Defense": {
 					"type": "object",
@@ -243,7 +243,7 @@ class TestProperties(TestCase):
 		)
 
 		entity = Entity()
-		entity.definition = {
+		entity.schema = {
 			"properties": {
 				"Defense": {
 					"type": "object",
@@ -277,7 +277,7 @@ class TestProperties(TestCase):
 		)
 
 		entity = Entity()
-		entity.definition = {
+		entity.schema = {
 			"properties": {
 				"Defense": {
 					"type": "object",

@@ -7,6 +7,7 @@ from PySide6 import QtWidgets
 
 from CharacterManagerConfig import CharacterManagerConfig
 from CharacterTemplates.scripts.CharacterClass import CharacterClass
+from CharacterTemplates.scripts.Enhancements import Enhancements
 from configurator.Entity import Entity
 from configurator.JsonUtils import JsonUtils
 from configurator.Logger import Logger
@@ -113,6 +114,7 @@ if __name__ == "__main__":
 	CharacterServices.setConfigurationManager(CharacterManagerConfig())
 	CharacterServices.setLogger(Logger())
 	CharacterServices.setCharacterManager(CharacterManager())
+	CharacterServices.setEnhancements(Enhancements())
 	app = QtWidgets.QApplication(sys.argv)
 	from views.MainWindow import MainWindow
 	app.mainWindow = MainWindow()

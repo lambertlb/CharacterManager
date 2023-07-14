@@ -33,7 +33,7 @@ class TestCharacterManager(TestCase):
 		cm = CharacterManager()
 		cm.loadCharacter('Character 1')
 		assert cm.character
-		assert cm.character.definition
+		assert cm.character.schema
 		assert cm.character.PersonalInformation.Name == 'Fred FlintStone'
 		assert cm.character.PersonalInformation.Age == 22
 		assert cm.character.PersonalInformation.Weight == 110.5

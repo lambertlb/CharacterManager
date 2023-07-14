@@ -67,18 +67,8 @@
 					"properties": {
 						"$script": {
 							"className": "CharacterTemplates.scripts.ClassAdditions"
-						},
-						"Additions": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {}
-							}
 						}
-					},
-					"required": [
-						"Additions"
-					]
+					}
 				}
 			},
 			"required": [

@@ -14,7 +14,6 @@ class ClassInformation(Entity):
 	"""
 	def __init__(self):
 		super().__init__()
-		self.Class = None
 		self._classScript = None
 
 	def register(self):

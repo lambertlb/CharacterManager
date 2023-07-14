@@ -26,14 +26,55 @@
 			}
 		],
 		"ClassAddition": {
-			"Additions": []
+			"Monk": {
+				"Enhancements": [
+					{
+						"AbilityEnhance": {
+							"Ability": "Dexterity",
+							"Amount": 2
+						}
+					},
+					{
+						"AbilityEnhance": {
+							"Ability": "Wisdom",
+							"Amount": 1
+						}
+					},
+					{
+						"ProficiencyEnhance": {
+							"Ability": "Stealth",
+							"Amount": "$DexterityBonus"
+						}
+					}
+				],
+				"Spells": []
+			},
+			"Cleric": {
+				"Enhancements": [
+					{
+						"AbilityEnhance": {
+							"Ability": "Wisdom",
+							"Amount": 2
+						}
+					},
+					{
+						"ProficiencyEnhance": {
+							"Ability": "Religion",
+							"Amount": "$WisdomBonusBonus"
+						}
+					}
+				],
+				"Spells": [
+					"Bless"
+				]
+			}
 		}
 	},
 	"PersonalInformation": {
 		"Deity": "Sune",
 		"Race": "Human",
 		"Name": "Fred FlintStone",
-		"Age": 22,
+		"Age": 23,
 		"Alignment": "Neutral",
 		"Weight": 110.5,
 		"Experience": 1000,

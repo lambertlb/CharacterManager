@@ -28,21 +28,21 @@ class TestEntities(TestCase):
 
 	def test_EntityDefinitionSetterAndGetter(self):
 		entity = Entity()
-		entity.definition = {"Item": 1}
-		assert entity.definition
-		assert entity.definition['Item'] == 1
+		entity.schema = {"Item": 1}
+		assert entity.schema
+		assert entity.schema['Item'] == 1
 		assert not Services.getLogger().lastLogged
 
 	def test_EntityGetPropertyDefinition(self):
 		entity = Entity()
-		entity.definition = TestEntities.testSchema
+		entity.schema = TestEntities.testSchema
 		pi = entity.getPropertyDefinition('PersonalInformation')
 		assert pi
 		assert not Services.getLogger().lastLogged
 
 	def test_EntityGetPropertyDefinition2(self):
 		entity = Entity()
-		entity.definition = {}
+		entity.schema = {}
 		pi = entity.getPropertyDefinition('PersonalInformationA')
 		assert not pi		
 		assert not Services.getLogger().lastLogged

@@ -48,15 +48,24 @@ class Entity:
 	_allEntities = {}
 
 	def __init__(self):
-		self._definition: dict | None = None
+		self._schema: dict | None = None
+		self._data: dict | None = None
 
 	@property
-	def definition(self):
-		return self._definition
+	def schema(self):
+		return self._schema
 
-	@definition.setter
-	def definition(self, value):
-		self._definition = value
+	@schema.setter
+	def schema(self, value):
+		self._schema = value
+
+	@property
+	def data(self):
+		return self._data
+		
+	@data.setter
+	def data(self, new_data):
+		self._data = new_data
 
 	@staticmethod
 	def getEntities():
@@ -91,7 +100,8 @@ class Entity:
 			jsonData (_type_): data defined in json file
 			dataDefinition (_type_): schema for data
 		"""
-		self.definition = dataDefinition
+		self.schema = dataDefinition
+		self.data = jsonData
 		for parameter in list(jsonData.items()):
 			Entity.loadPropertyData(self, parameter)
 
@@ -105,8 +115,8 @@ class Entity:
 		Returns:
 			schema defining this property
 		"""
-		if self._definition:
-			properties = self._definition.get('properties')
+		if self._schema:
+			properties = self._schema.get('properties')
 			if properties:
 				return properties.get(propertyName)
 		return None
@@ -259,6 +269,7 @@ class Entity:
 				fullPath = re.sub("\.\.", "", fullPath)
 				fullPath = re.sub("\.py", "", fullPath)
 				foundScripts.append(fullPath)
+
 		classes = {}
 		Entity.getClassesFromScripts(foundScripts, filter, classes)
 		return(list(classes.values()))
@@ -440,7 +451,7 @@ class Entity:
 
 	def propertiesForDisplay(self):
 		displayData = []
-		properties = list(self.definition.get('properties').items())
+		properties = list(self.schema.get('properties').items())
 		for property in properties:
 			dd = self.addDisplayDataFromProperty(property)
 			if dd:
