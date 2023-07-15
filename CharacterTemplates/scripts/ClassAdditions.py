@@ -11,16 +11,16 @@ class ClassAdditions(Entity):
 
 	def register(self):
 		super().register()
-		for key in self.data.keys():
-			prop = getattr(self, key)
-			if prop:
-				enhancements = prop.get('Enhancements')
-				if enhancements:
-					self.handleEnhancements(enhancements)
-				spells = prop.get('Spells')
-				if spells:
-					self.handleSpells(spells)
-		enhancementManager = CharacterServices.getEnhancements()
+		# for key in self.data.keys():
+		# 	prop = getattr(self, key)
+		# 	if prop:
+		# 		enhancements = prop.get('Enhancements')
+		# 		if enhancements:
+		# 			self.handleEnhancements(enhancements)
+		# 		spells = prop.get('Spells')
+		# 		if spells:
+		# 			self.handleSpells(spells)
+		# enhancementManager = CharacterServices.getEnhancements()
 		pass
 
 
