@@ -1,8 +1,10 @@
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
+from CharacterTemplates.scripts.Enhancements import Enhancements
 from configurator.Entity import Entity
 
 
-class Attributes(Entity):
+class Attributes(CharacterEntity):
 
 	def __init__(self):
 		super().__init__()
@@ -22,9 +24,36 @@ class Attributes(Entity):
 	def register(self):
 		super().register()
 
-	def update(self):
-		super().update()
-		self.updateAttributes()
+	def addEnhanceables(self, enhancements: Enhancements):
+		enhancements.addItemThatCanBeEnhanced(self, 'Strength', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Dexterity', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Constitution', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Intelligence', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Wisdom', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Charisma', 'integer')
+		pass
+
+	def addEnhancements(self, enhancements: Enhancements):
+		enhancements.addEnhancement(self, 'Strength', "Test", 2)
+		pass
+
+	def applyEnhancements(self, enhancements: Enhancements):
+		self.applyEnhancement(enhancements, 'Strength')
+		self.applyEnhancement(enhancements, 'Dexterity')
+		self.applyEnhancement(enhancements, 'Constitution')
+		self.applyEnhancement(enhancements, 'Intelligence')
+		self.applyEnhancement(enhancements, 'Wisdom')
+		self.applyEnhancement(enhancements, 'Charisma')
+		pass
+
+	def applyEnhancement(self, enhancements, whichEnhancement):
+		computed = '_computed' + whichEnhancement
+		attr = getattr(self, whichEnhancement)
+		enhances = enhancements.getEnhancements(whichEnhancement)
+		for enhance in enhances:
+			attr += enhance.value
+		setattr(self, computed, attr)
+		pass
 
 	def updateAttributes(self):
 		self._computedStrength = self.Strength

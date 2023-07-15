@@ -1,8 +1,9 @@
 from CharacterServices import CharacterServices
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from configurator.Entity import Entity
 
 
-class ClassAdditions(Entity):
+class ClassAdditions(CharacterEntity):
 	"""
 	"""
 	def __init__(self):

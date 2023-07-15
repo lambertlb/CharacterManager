@@ -32,9 +32,9 @@ class CharacterManager:
 		Entity.clear()
 		try:
 			self.character = Entity.loadJsonFile(path, self.loadTemplate())
+			self.character.update()
 		except (Exception,):
 			Services.getLogger().log(traceback.format_exc())
-		pass
 
 	# noinspection PyMethodMayBeStatic
 	def loadTemplate(self):
@@ -111,6 +111,8 @@ class CharacterManager:
 
 if __name__ == "__main__":
 	from CharacterServices import CharacterServices
+	# hack to allow subclassing of Enitiy
+	Entity.classToCreate = 'CharacterTemplates.scripts.CharacterEntity#CharacterEntity'
 	CharacterServices.setConfigurationManager(CharacterManagerConfig())
 	CharacterServices.setLogger(Logger())
 	CharacterServices.setCharacterManager(CharacterManager())
@@ -121,5 +123,3 @@ if __name__ == "__main__":
 	CharacterServices.setRootWindow(app.mainWindow)
 	app.mainWindow.show()
 	sys.exit(app.exec())
-	# CharacterServices.getCharacterManager().loadCharacter('Fred')
-	# CharacterServices.getCharacterManager().saveCharacter('Fred Save')

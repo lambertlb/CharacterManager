@@ -1,7 +1,7 @@
-from configurator.Entity import Entity
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 
 
-class ClassInformation(Entity):
+class ClassInformation(CharacterEntity):
 	"""
 	This class will load in the appropriate script for
 	handling the specified class. It assumes the following

@@ -1,9 +1,10 @@
 from CharacterManagerConfig import CharacterManagerConfig
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from configurator.Entity import Entity
 from configurator.Services import Services
 
 
-class PersonalInfo(Entity):
+class PersonalInfo(CharacterEntity):
 	def __init__(self):
 		super().__init__()
 		self.Deity = None

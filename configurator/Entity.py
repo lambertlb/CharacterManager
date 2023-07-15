@@ -3,9 +3,8 @@ import inspect
 import os
 import re
 from types import ModuleType
-from CharacterManagerConfig import CharacterManagerConfig
-from configurator.JsonUtils import JsonUtils
 
+from configurator.JsonUtils import JsonUtils
 from configurator.Services import Services
 
 
@@ -46,6 +45,9 @@ class Entity:
 	}
 
 	_allEntities = {}
+
+	# hack to allow subclassing of Entity
+	classToCreate = 'configurator.Entity#Entity'
 
 	def __init__(self):
 		self._schema: dict | None = None
@@ -175,7 +177,7 @@ class Entity:
 			scriptProperty = properties.get('$script')
 			if scriptProperty:
 				return Entity.loadScriptFromProperty(scriptProperty)
-		return Entity()
+		return Entity.instanceFromScript(Entity.classToCreate)
 		
 	@staticmethod
 	def loadScriptFromProperty(scriptProperty):
@@ -255,7 +257,8 @@ class Entity:
 			name, item = member
 			if inspect.isclass(item) and issubclass(item, Entity):
 				if name != 'Entity':
-					return getattr(module, name)
+					if module.__name__ == item.__module__:
+						return getattr(module, name)
 		assert False, f'Found no class derived from Entity in module {module.__name__}'
 
 	@staticmethod
@@ -292,7 +295,8 @@ class Entity:
 			if inspect.isclass(item) and issubclass(item, filter):
 				if name != filter.__name__:
 					if not classes.get(name):
-						classes[name] = Entity.createInstanceFromClass(getattr(module, name))
+						if module.__name__ == item.__module__:
+							classes[name] = Entity.createInstanceFromClass(getattr(module, name))
 
 	@staticmethod
 	def loadPropertyData(where, propertyData):

@@ -2,6 +2,7 @@ import unittest
 from unittest import TestCase
 
 import pytest
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 
 from configurator.Entity import Entity
 from configurator.JsonUtils import JsonUtils
@@ -204,6 +205,7 @@ class TestProperties(TestCase):
 		Entity.validate('number', 22)
 
 	def test_PropertyModifiers(self):
+		Entity.classToCreate = 'CharacterTemplates.scripts.CharacterEntity#CharacterEntity'
 		jsonPropertyData = 	("Defense", 
 		{
 			"Defense": "Plate Mail",
@@ -213,7 +215,7 @@ class TestProperties(TestCase):
 		}
 		)
 
-		entity = Entity()
+		entity = CharacterEntity()
 		entity.schema = {
 			"properties": {
 				"Defense": {
@@ -233,6 +235,7 @@ class TestProperties(TestCase):
 		assert entity.Defense._armorInfo._isWorn
 
 	def test_SavePropertyModifiers(self):
+		Entity.classToCreate = 'CharacterTemplates.scripts.CharacterEntity#CharacterEntity'
 		jsonPropertyData = 	("Defense", 
 		{
 			"Defense": "Plate Mail",
@@ -242,7 +245,7 @@ class TestProperties(TestCase):
 		}
 		)
 
-		entity = Entity()
+		entity = CharacterEntity()
 		entity.schema = {
 			"properties": {
 				"Defense": {
@@ -267,6 +270,7 @@ class TestProperties(TestCase):
 		assert sv == '{"Defense": {"Defense": "Plate Mail", "$modifiers": {"weight": 77}}}'
 
 	def test_SavePropertyModifiers2(self):
+		Entity.classToCreate = 'CharacterTemplates.scripts.CharacterEntity#CharacterEntity'
 		jsonPropertyData = 	("Defense", 
 		{
 			"Defense": "Plate Mail",
@@ -276,7 +280,7 @@ class TestProperties(TestCase):
 		}
 		)
 
-		entity = Entity()
+		entity = CharacterEntity()
 		entity.schema = {
 			"properties": {
 				"Defense": {

@@ -1,7 +1,7 @@
-from configurator.Entity import Entity
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 
 
-class Skills(Entity):
+class Skills(CharacterEntity):
 	def __init__(self):
 		super().__init__()
 

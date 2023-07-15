@@ -1,5 +1,5 @@
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
-from configurator.Entity import Entity
 
 
 class Armor(CharacterItem):
@@ -12,9 +12,9 @@ class Armor(CharacterItem):
 		return 0
 
 
-class Plate_Mail(Entity, Armor):
+class Plate_Mail(CharacterEntity, Armor):
 	def __init__(self):
-		Entity.__init__(self)
+		CharacterEntity.__init__(self)
 		Armor.__init__(self)
 		self._name = 'Plate Mail'
 		self._isArmor = True
@@ -31,9 +31,9 @@ class Plate_Mail(Entity, Armor):
 		super().update()
 
 
-class Chain_Mail(Entity, Armor):
+class Chain_Mail(CharacterEntity, Armor):
 	def __init__(self):
-		Entity.__init__(self)
+		CharacterEntity.__init__(self)
 		Armor.__init__(self)
 		self._name = 'Chain Mail'
 		self._isArmor = True
@@ -50,9 +50,9 @@ class Chain_Mail(Entity, Armor):
 		super().update()
 
 
-class Tower_Shield(Entity, Armor):
+class Tower_Shield(CharacterEntity, Armor):
 	def __init__(self):
-		Entity.__init__(self)
+		CharacterEntity.__init__(self)
 		Armor.__init__(self)
 		self._name = 'Tower Shield'
 		self._isArmor = True

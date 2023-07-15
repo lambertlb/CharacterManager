@@ -1,10 +1,10 @@
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import RaceItem
-from configurator.Entity import Entity
 
 
-class Human(Entity, RaceItem):
+class Human(CharacterEntity, RaceItem):
 	def __init__(self):
-		Entity.__init__(self)
+		CharacterEntity.__init__(self)
 		RaceItem.__init__(self)
 		self._name = 'Human'
 		self._addToStrength = 1

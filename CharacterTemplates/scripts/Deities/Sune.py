@@ -1,10 +1,10 @@
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
-from configurator.Entity import Entity
 
 
-class SuneScript(Entity, CharacterItem):
+class SuneScript(CharacterEntity, CharacterItem):
 	def __init__(self):
-		Entity.__init__(self)
+		CharacterEntity.__init__(self)
 		CharacterItem.__init__(self)
 		self._name = 'Sune'
 

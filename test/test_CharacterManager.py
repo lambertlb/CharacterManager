@@ -40,6 +40,7 @@ class TestCharacterManager(TestCase):
 		assert cm.character.Skills.History == 10
 		assert cm.character.Skills.Stealth == 10
 		assert cm.character.Skills.Athletics == 10
+		pass
 
 
 if __name__ == '__main__':

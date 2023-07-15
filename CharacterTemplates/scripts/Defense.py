@@ -1,7 +1,8 @@
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from configurator.Entity import Entity
 
 
-class Defense(Entity):
+class Defense(CharacterEntity):
 	"""
 	This class will load in the appropriate script for
 	handling the specified armor. It assumes the following

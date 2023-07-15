@@ -1,10 +1,10 @@
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import RaceItem
-from configurator.Entity import Entity
 
 
-class Half_Orc(Entity, RaceItem):
+class Half_Orc(CharacterEntity, RaceItem):
 	def __init__(self):
-		Entity.__init__(self)
+		CharacterEntity.__init__(self)
 		RaceItem.__init__(self)
 		self._name = 'Half Orc'
 		self._addToStrength = 2

@@ -1,8 +1,9 @@
-from CharacterTemplates.scripts.CharacterItem import CharacterItem
+from CharacterServices import CharacterServices
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from configurator.Entity import Entity
 
 
-class Character(Entity):
+class Character(CharacterEntity):
 
 	def __init__(self):
 		super().__init__()
@@ -11,28 +12,16 @@ class Character(Entity):
 
 	def register(self):
 		super().register()
-		self.update()
 
 	def update(self):
-		super().update()
-		self.Attributes.update()
-		self.computeAC()
-		self.Skills.update()
-		self.updateOffense()
-		self.updateDefense()
-
-	def computeAC(self):
-		self._computedAC = 10
-		self._computedAC += self.Attributes.computeDexterityBonusToAC()
+		enhancements = CharacterServices.getEnhancements()
+		enhancements.clear()
 		for entity in Entity._allEntities:
-			if isinstance(entity, CharacterItem):
-				self._computedAC += entity.amountToAddToAC()
+			entity.addEnhanceables(enhancements)
+		for entity in Entity._allEntities:
+			entity.addEnhancements(enhancements)
+		for entity in Entity._allEntities:
+			entity.applyEnhancements(enhancements)
+		for entity in Entity._allEntities:
+			entity.computeBasedOnEnhancements(enhancements)
 		pass
-	
-	def updateOffense(self):
-		for offense in self.Offense:
-			offense.update()
-
-	def updateDefense(self):
-		for defense in self.Defense:
-			defense.update()

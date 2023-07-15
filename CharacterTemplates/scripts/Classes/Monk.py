@@ -1,10 +1,10 @@
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import ClassItem
-from configurator.Entity import Entity
 
 
-class Monk(Entity, ClassItem):
+class Monk(CharacterEntity, ClassItem):
 	def __init__(self):
-		Entity.__init__(self)
+		CharacterEntity.__init__(self)
 		ClassItem.__init__(self)
 		self._HitDie = '1d8'
 		self._name = 'Monk'

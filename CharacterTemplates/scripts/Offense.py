@@ -1,7 +1,8 @@
+from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from configurator.Entity import Entity
 
 
-class Offense(Entity):
+class Offense(CharacterEntity):
 	"""
 	This class will load in the appropriate script for
 	handling the specified weapon. It assumes the following
