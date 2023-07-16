@@ -1,6 +1,6 @@
 from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
-from CharacterTemplates.scripts.Enhancements import Enhancements
+from CharacterTemplates.scripts.Enhancements import Enhancement, EnhancementType, Enhancements
 from configurator.Entity import Entity
 
 
@@ -34,7 +34,10 @@ class Attributes(CharacterEntity):
 		pass
 
 	def addEnhancements(self, enhancements: Enhancements):
-		enhancements.addEnhancement(self, 'Strength', "Test", 2)
+		# enhancements.addEnhancement(self, 'Strength', "Test", 2)
+		# enhancements.addEnhancement(self, 'Strength', "Test", 17, EnhancementType.Absolute)
+		# enhancements.addEnhancement(self, 'Strength', "Test", 19, EnhancementType.Absolute)
+		# enhancements.addEnhancement(self, 'Strength', "Test", 4)
 		pass
 
 	def applyEnhancements(self, enhancements: Enhancements):
@@ -50,28 +53,21 @@ class Attributes(CharacterEntity):
 		computed = '_computed' + whichEnhancement
 		attr = getattr(self, whichEnhancement)
 		enhances = enhancements.getEnhancements(whichEnhancement)
+		hadAbsoluteValue = False
+		absoluteValue = 0
 		for enhance in enhances:
-			attr += enhance.value
+			if enhance.enhancementType == EnhancementType.Absolute:
+				if hadAbsoluteValue:
+					if absoluteValue < enhance.value:
+						absoluteValue = enhance.value
+				else:
+					absoluteValue = enhance.value
+				attr = absoluteValue
+				hadAbsoluteValue = True
+			elif not hadAbsoluteValue:
+				attr += enhance.value
 		setattr(self, computed, attr)
 		pass
-
-	def updateAttributes(self):
-		self._computedStrength = self.Strength
-		self._computedDexterity = self.Dexterity
-		self._computedConstitution = self.Constitution
-		self._computedIntelligence = self.Intelligence
-		self._computedWisdom = self.Wisdom
-		self._computedCharisma = self.Charisma
-
-		# find items that affect attributes
-		for entity in Entity._allEntities:
-			if isinstance(entity, CharacterItem) and entity._isWorn:
-				self._computedStrength += entity._addToStrength
-				self._computedDexterity += entity._addToDexterity
-				self._computedConstitution += entity._addToConstitution
-				self._computedIntelligence += entity._addToIntelligence
-				self._computedWisdom += entity._addToWisdom
-				self._computedCharisma += entity._addToCharisma
 
 	@property
 	def strengthBonus(self):

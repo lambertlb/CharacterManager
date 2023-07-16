@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import pytest
 
-from CharacterTemplates.scripts.Enhancements import Enhancements
+from CharacterTemplates.scripts.Enhancements import EnhancementType, Enhancements
 
 from configurator.Entity import Entity
 
@@ -67,13 +67,15 @@ class TestEnhancements(TestCase):
 		enhancements = Enhancements()
 		entity = Entity()
 		enhanceable = enhancements.addItemThatCanBeEnhanced(entity, 'ArmorClass', 'integer')
-		enhancement = enhancements.addEnhancement(entity, 'ArmorClass', 'Monk Unarmored', 8)
+		enhancement = enhancements.addEnhancement(entity, 'ArmorClass', 'Monk Unarmored', 8, EnhancementType.Absolute)
 		enhancement2 = enhancements.addEnhancement(entity, 'ArmorClass', 'Bracers of armor', 2)
-		enhancements = enhancements.getEnhancements('ArmorClass')
-		assert enhancements
-		assert len(enhancements) == 2
-		assert enhancements[0] == enhancement
-		assert enhancements[1] == enhancement2
+		items = enhancements.getEnhancements('ArmorClass')
+		assert items
+		assert len(items) == 2
+		assert items[0] == enhancement
+		assert items[1] == enhancement2
+		assert enhancement.enhancementType == EnhancementType.Absolute
+		assert enhancement2.enhancementType == EnhancementType.Additive
 
 	def test_GetEnhancements2(self):
 		enhancements = Enhancements()
@@ -82,3 +84,43 @@ class TestEnhancements(TestCase):
 		enhancement = enhancements.addEnhancement(entity, 'ArmorClass', 'Monk Unarmored', 8)
 		with pytest.raises(Exception):
 			enhancements = enhancements.getEnhancements('Test')
+
+	def test_RemoveEnhancement(self):
+		enhancements = Enhancements()
+		entity = Entity()
+		enhanceable = enhancements.addItemThatCanBeEnhanced(entity, 'ArmorClass', 'integer')
+		enhancement = enhancements.addEnhancement(entity, 'ArmorClass', 'Monk Unarmored', 8)
+		enhancement2 = enhancements.addEnhancement(entity, 'ArmorClass', 'Bracers of armor', 2)
+		items = enhancements.getEnhancements('ArmorClass')
+		assert items
+		assert len(items) == 2
+		assert items[0] == enhancement
+		assert items[1] == enhancement2
+		enhancements.removeEnhancement(enhancement)
+		items = enhancements.getEnhancements('ArmorClass')
+		assert items
+		assert len(items) == 1
+		assert items[0] == enhancement2
+
+
+	def validator(self, enhancement):
+		self.enhancement = enhancement
+
+	def validatorFail(self, enhancement):
+		assert False
+
+	def test_Validator(self):
+		self.enhancement = None
+		enhancements = Enhancements()
+		entity = Entity()
+		enhanceable = enhancements.addItemThatCanBeEnhanced(entity, 'ArmorClass', 'integer', self.validator)
+		enhancement = enhancements.addEnhancement(entity, 'ArmorClass', 'Monk Unarmored', 8)
+		assert enhancement == self.enhancement
+
+	def test_Validator2(self):
+		self.enhancement = None
+		enhancements = Enhancements()
+		entity = Entity()
+		enhanceable = enhancements.addItemThatCanBeEnhanced(entity, 'ArmorClass', 'integer', self.validatorFail)
+		with pytest.raises(Exception):
+			enhancement = enhancements.addEnhancement(entity, 'ArmorClass', 'Monk Unarmored', 8)
