@@ -9,6 +9,12 @@ class Character(CharacterEntity):
 		super().__init__()
 		self._computedAC = 10
 		self.Attributes = None
+		self._skillProficiency = 2
+
+	@property
+	def skillProficiency(self):
+		return self._skillProficiency
+
 
 	def register(self):
 		super().register()

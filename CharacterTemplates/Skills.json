@@ -50,7 +50,7 @@
 				"Religion": {
 					"type": "integer"
 				},
-				"SleightofHand": {
+				"SleightOfHand": {
 					"type": "integer"
 				},
 				"Stealth": {
@@ -79,7 +79,7 @@
 				"Performance",
 				"Persuasion",
 				"Religion",
-				"SleightofHand",
+				"SleightOfHand",
 				"Stealth",
 				"Survival"
 			]

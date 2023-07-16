@@ -60,7 +60,7 @@
 					{
 						"ProficiencyEnhance": {
 							"Ability": "Religion",
-							"Amount": "$WisdomBonusBonus"
+							"Amount": "$WisdomBonus"
 						}
 					}
 				],
@@ -139,7 +139,7 @@
 		"Performance": 10,
 		"Persuasion": 10,
 		"Religion": 10,
-		"SleightofHand": 10,
+		"SleightOfHand": 10,
 		"Stealth": 10,
 		"Survival": 10
 	}
