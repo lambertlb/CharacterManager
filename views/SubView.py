@@ -57,16 +57,16 @@ class SubView(QtWidgets.QWidget):
 			self.row += 1
 
 	def addItemFromProperty(self, property, entity):
-		propertyName, propertyType, propertyData, optionalData = property
-		self.addLabel(propertyName)
-		self.addEditor(property, entity)
+		self.addLabel(property)
+		self.addEditor(property, entity, 1)
 
-	def addLabel(self, propertyName):
+	def addLabel(self, property):
+		propertyName, propertyType, propertyData, optionalData = property
 		label = LabelEditor(entity=None, propertyName=None, callback=None, parent=self.parentFrame)
 		label.setText(propertyName + ':')
 		self.gridToFill.addWidget(label, self.row, 0, 1 ,1)
 
-	def addEditor(self, property, entity):
+	def addEditor(self, property, entity, column):
 		propertyName, propertyType, propertyData, optionalData = property
 		editor = None
 		if propertyType == 'string':
@@ -85,7 +85,8 @@ class SubView(QtWidgets.QWidget):
 			self.row += 1
 			self.addDisplayItems(optionalData, getattr(entity, propertyName))
 		if editor:
-			self.gridToFill.addWidget(editor, self.row, 1, 1 ,1)
+			self.gridToFill.addWidget(editor, self.row, column, 1 ,1)
+		return editor
 
 	def editorDataChanged(self, editor: BaseEditor):
 		if self.loadingData:

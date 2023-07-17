@@ -113,3 +113,12 @@ class CompositeEditor(QtWidgets.QComboBox, BaseEditor):
 	def onChanged(self, mewText):
 		self.callback(self)
 	
+class RadialEditor(QtWidgets.QRadioButton, BaseEditor):
+	def __init__(self, propertyName, isSet, *args, **kwargs):
+		super().__init__(propertyName=propertyName, *args, **kwargs)
+		self.isSet = isSet
+		self.setText(propertyName)
+		self.setChecked(isSet)
+
+	def getValue(self):
+		return self.isChecked()

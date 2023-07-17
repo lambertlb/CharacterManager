@@ -36,9 +36,9 @@ class Skills(CharacterEntity):
 		enhancements.addItemThatCanBeEnhanced(self, 'SurvivalProficiency', 'integer')
 
 	def addEnhancements(self, enhancements: Enhancements):
-		# enhancements.addEnhancement(self, 'StealthProficiency', "Test", 1)
-		# enhancements.addEnhancement(self, 'ArcanaProficiency', "Test", 1)
-		# enhancements.addEnhancement(self, 'AcrobaticsProficiency', "Test", 1)
+		enhancements.addEnhancement(self, 'StealthProficiency', "Test", 1)
+		enhancements.addEnhancement(self, 'ArcanaProficiency', "Test", 1)
+		enhancements.addEnhancement(self, 'AcrobaticsProficiency', "Test", 1)
 		pass
 
 	def applyEnhancements(self, enhancements: Enhancements):
@@ -73,3 +73,12 @@ class Skills(CharacterEntity):
 		for enhance in enhances:
 			attr = (enhance.value * proficiencyBonus) + howMuch
 		setattr(self, computed, attr)
+
+	def getDataForProperty(self, propertyName, propertyType):
+		enhancements = CharacterServices.getEnhancements()
+		proficiencyName = propertyName + 'Proficiency'
+		enhances = enhancements.getEnhancements(proficiencyName)
+		propertyInfo = enhances
+		computed = '_computed' + proficiencyName
+		propertyData = getattr(self, computed)
+		return (propertyName, propertyType, propertyData, propertyInfo)
