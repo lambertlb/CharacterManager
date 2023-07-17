@@ -2,7 +2,6 @@ from PySide6 import QtWidgets
 
 from CharacterServices import CharacterServices
 from builder.PersonalInformation_ui import Ui_Form
-from views.Editors import BaseEditor
 from views.SubView import SubView
 
 
@@ -12,7 +11,8 @@ class PersonalInformationView(SubView, Ui_Form):
 		super().__init__(*args)
 		self.setupUi(self)
 		super().setupView(10)
-		self.verticalSpacer = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+		self.verticalSpacer = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum,
+													QtWidgets.QSizePolicy.Expanding)
 		self.gridLayout.addItem(self.verticalSpacer, 40, 1, 1, 1)
 		self.buttonBarItem.setText('Per')
 		self.setParentFrame = self.frame

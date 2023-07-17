@@ -1,11 +1,11 @@
 from CharacterServices import CharacterServices
 from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
-from configurator.Entity import Entity
 
 
 class ClassAdditions(CharacterEntity):
 	"""
 	"""
+
 	def __init__(self):
 		super().__init__()
 		self._enhancements = []
@@ -23,7 +23,6 @@ class ClassAdditions(CharacterEntity):
 		# 			self.handleSpells(spells)
 		# enhancementManager = CharacterServices.getEnhancements()
 		pass
-
 
 	def update(self):
 		super().update()

@@ -13,6 +13,7 @@ class CharacterItem:
 	All properties added here should have _ in front,
 	so they don't get added to json save file
 	"""
+
 	def __init__(self):
 		self._uuid = str(uuid4())
 		self._name = ''
@@ -24,7 +25,7 @@ class CharacterItem:
 		self.defineSkillProficiencies()
 		self.defineAttributeProperties()
 		self.defineSavingThrowProperties()
-	
+
 	def defineWeaponProperties(self):
 		self._isWeapon = False
 		self._isAmmunition = False
@@ -117,10 +118,10 @@ class CharacterItem:
 		self._levelOfIntelligenceSave = 0
 		self._levelOfWisdomSave = 0
 		self._levelOfCharismaSave = 0
-	
+
 	def register(self):
 		self.handleModifiers(self, self)
-	
+
 	def handleModifiers(self, itemWithModifiers):
 		if not hasattr(itemWithModifiers, '$modifiers'):
 			return

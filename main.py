@@ -111,7 +111,7 @@ class CharacterManager:
 
 if __name__ == "__main__":
 	from CharacterServices import CharacterServices
-	# hack to allow subclassing of Enitiy
+	# hack to allow subclassing of Entity
 	Entity.classToCreate = 'CharacterTemplates.scripts.CharacterEntity#CharacterEntity'
 	CharacterServices.setConfigurationManager(CharacterManagerConfig())
 	CharacterServices.setLogger(Logger())

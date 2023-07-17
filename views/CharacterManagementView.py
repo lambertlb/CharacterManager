@@ -1,7 +1,7 @@
 from PySide6 import QtWidgets
 
-from builder.CharacterManagement_ui import Ui_Form
 from CharacterServices import CharacterServices
+from builder.CharacterManagement_ui import Ui_Form
 from views.SubView import SubView
 
 
@@ -36,7 +36,7 @@ class CharacterManagementView(SubView, Ui_Form):
 	def enableButtonBarItem(self, state):
 		pass
 
-	def characterSelected(self, curr : QtWidgets.QListWidgetItem, prev):
+	def characterSelected(self, curr: QtWidgets.QListWidgetItem, prev):
 		somethingSelected = False
 		if curr:
 			self.fileToLoad = curr.data(1)
@@ -52,7 +52,7 @@ class CharacterManagementView(SubView, Ui_Form):
 	def loadCharacter(self):
 		CharacterServices.getCharacterManager().loadCharacterFromFile(self.fileToLoad)
 		CharacterServices.getRootWindow().editCharacter()
-	
+
 	def createCharacter(self):
 		CharacterServices.getCharacterManager().createNewCharacter(self.newCharacterNameText.text())
 		CharacterServices.getRootWindow().enableButtons(False)

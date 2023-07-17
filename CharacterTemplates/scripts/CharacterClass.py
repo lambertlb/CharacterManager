@@ -5,6 +5,7 @@ from configurator.Entity import Entity
 class CharacterClass(CharacterEntity):
 	"""
 	"""
+
 	def __init__(self):
 		super().__init__()
 		self.Class = None

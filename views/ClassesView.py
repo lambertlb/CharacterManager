@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import QListWidgetItem
+
 from CharacterServices import CharacterServices
 from builder.Classes_ui import Ui_Form
 from views.SubView import SubView
@@ -39,7 +40,7 @@ class ClassesView(SubView, Ui_Form):
 		self.classesListWidget.clear()
 		for cls in self.entity:
 			item = QListWidgetItem(cls.Class)
-			item.setData(1,cls)
+			item.setData(1, cls)
 			self.classesListWidget.addItem(item)
 
 	def classComboSelected(self, item):
@@ -78,4 +79,3 @@ class ClassesView(SubView, Ui_Form):
 		if self.classToDelete:
 			CharacterServices.getCharacterManager().deleteClass(self.classToDelete)
 			self.setupView()
-	

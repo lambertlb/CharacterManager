@@ -13,6 +13,7 @@ class Defense(CharacterEntity):
 	4)  It will then load the script and add it to the entity as _armorScript property
 	5)  It will then delegate to the script
 	"""
+
 	def __init__(self):
 		super().__init__()
 		self._armorInfo = None

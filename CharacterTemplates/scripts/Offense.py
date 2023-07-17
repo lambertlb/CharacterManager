@@ -14,6 +14,7 @@ class Offense(CharacterEntity):
 	5)  It will then delegate to the script
 
 	"""
+
 	def __init__(self):
 		super().__init__()
 		self._weaponInfo = None

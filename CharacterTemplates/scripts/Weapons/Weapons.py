@@ -16,7 +16,7 @@ class Long_Sword(CharacterEntity, Weapon):
 		self._isVersatile = True
 		self._rollForDamage = '1d8'
 		self._weight = 3
-	
+
 	def register(self):
 		super().register()
 

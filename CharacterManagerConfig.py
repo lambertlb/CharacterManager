@@ -11,7 +11,6 @@ class CharacterManagerConfig(ConfigurationManager):
 	scriptsKey = 'Scripts'
 	scriptsDirectoryKey = 'ScriptsDirectory'
 
-
 	def __init__(self, configFile=iniFile):
 		super().__init__(configFile)
 

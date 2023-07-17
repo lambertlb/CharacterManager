@@ -2,11 +2,9 @@ from functools import partial
 
 from PySide6 import QtCore, QtWidgets
 
-from builder.MainWindow_ui import Ui_MainWindow
 from CharacterServices import CharacterServices
+from builder.MainWindow_ui import Ui_MainWindow
 from configurator.Entity import Entity
-from views.CharacterManagementView import CharacterManagementView
-from views.PersonalInformationView import PersonalInformationView
 from views.SubView import SubView
 
 
@@ -32,7 +30,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 			subView.setParent(self.frame)
 			self.verticalLayout.addWidget(subView)
 			self.addToButtonBar(subView)
-	
+
 	def addToButtonBar(self, subView: SubView):
 		pushButton = subView.getButtonBarItem()
 		pushButton.setParent(self.scrollAreaWidgetContents)
@@ -50,7 +48,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 			self.setWindowTitle('Select Character To Edit')
 		for subView in self.subViews.values():
 			subView.enableButtonBarItem(state)
-	
+
 	def buttonClicked(self, newSubView):
 		if self.currentView:
 			self.currentView.setVisible(False)

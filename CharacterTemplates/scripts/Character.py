@@ -15,7 +15,6 @@ class Character(CharacterEntity):
 	def skillProficiency(self):
 		return self._skillProficiency
 
-
 	def register(self):
 		super().register()
 

@@ -1,6 +1,6 @@
 from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
-from CharacterTemplates.scripts.Enhancements import Enhancement, EnhancementType, Enhancements
+from CharacterTemplates.scripts.Enhancements import EnhancementType, Enhancements
 from configurator.Entity import Entity
 
 
@@ -72,27 +72,27 @@ class Attributes(CharacterEntity):
 	@property
 	def strengthBonus(self):
 		return self.computeAttributeBonus(self._computedStrength)
-	
+
 	@property
 	def dexterityBonus(self):
 		return self.computeAttributeBonus(self._computedDexterity)
-	
+
 	@property
 	def constitutionBonus(self):
 		return self.computeAttributeBonus(self._computedConstitution)
-	
+
 	@property
 	def intelligenceBonus(self):
 		return self.computeAttributeBonus(self._computedIntelligence)
-	
+
 	@property
 	def wisdomBonus(self):
 		return self.computeAttributeBonus(self._computedWisdom)
-	
+
 	@property
 	def charismaBonus(self):
 		return self.computeAttributeBonus(self._computedCharisma)
-	
+
 	def computeDexterityBonusToAC(self):
 		maxDexterity = 10
 		for entity in Entity._allEntities:
@@ -122,7 +122,7 @@ class Attributes(CharacterEntity):
 		cost += self.costOfAPoint(self.Wisdom)
 		cost += self.costOfAPoint(self.Charisma)
 		return cost
-	
+
 	def costOfAPoint(self, value):
 		if value <= 8:
 			return 0
@@ -131,4 +131,3 @@ class Attributes(CharacterEntity):
 		if value == 14:
 			return 7
 		return 9
-	

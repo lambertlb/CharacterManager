@@ -1,7 +1,8 @@
 from PySide6 import QtWidgets
 from PySide6.QtGui import QDoubleValidator, QIntValidator
 
-class BaseEditor():
+
+class BaseEditor:
 
 	def __init__(self, entity, propertyName, callback, *args, **kwargs):
 		self._entity = entity
@@ -11,24 +12,26 @@ class BaseEditor():
 	@property
 	def entity(self):
 		return self._entity
-	
+
 	@property
 	def propertyName(self):
 		return self._propertyName
 
 	def getValue(self):
 		return None
-	
+
 	def setValue(self, value):
 		pass
 
-	def	badValue(self, good):
+	def badValue(self, good):
 		pass
+
 
 class LabelEditor(QtWidgets.QLabel, BaseEditor):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
+
 
 class TextEditor(QtWidgets.QLineEdit, BaseEditor):
 
@@ -38,14 +41,14 @@ class TextEditor(QtWidgets.QLineEdit, BaseEditor):
 
 	def onChanged(self, mewText):
 		self.callback(self)
-	
+
 	def getValue(self):
 		return self.text()
 
 	def setValue(self, value):
 		self.setText(value)
 
-	def	badValue(self, good):
+	def badValue(self, good):
 		if good:
 			self.setStyleSheet("QLineEdit" "{background : white; }")
 		else:
@@ -64,6 +67,7 @@ class IntegerEditor(TextEditor, BaseEditor):
 
 	def setValue(self, value):
 		self.setText(str(value))
+
 
 class NumberEditor(TextEditor, BaseEditor):
 
@@ -112,7 +116,8 @@ class CompositeEditor(QtWidgets.QComboBox, BaseEditor):
 
 	def onChanged(self, mewText):
 		self.callback(self)
-	
+
+
 class RadialEditor(QtWidgets.QRadioButton, BaseEditor):
 	def __init__(self, propertyName, isSet, *args, **kwargs):
 		super().__init__(propertyName=propertyName, *args, **kwargs)

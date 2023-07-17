@@ -275,7 +275,7 @@ class Entity:
 
 		classes = {}
 		Entity.getClassesFromScripts(foundScripts, filter, classes)
-		return(list(classes.values()))
+		return list(classes.values())
 
 	@staticmethod
 	def getClassesFromScripts(listOfScripts, filter, classes):

@@ -1,4 +1,5 @@
 from PySide6 import QtCore
+
 from CharacterServices import CharacterServices
 from builder.Skills import Ui_Form
 from views.Editors import RadialEditor
@@ -26,10 +27,11 @@ class SkillsView(SubView, Ui_Form):
 	def addLabel(self, property):
 		propertyName, propertyType, propertyData, optionalData = property
 		isSet = len(optionalData) != 0
-		label = RadialEditor(entity=self.entity, propertyName=propertyName, isSet=isSet, callback=None, parent=self.parentFrame)
+		label = RadialEditor(entity=self.entity, propertyName=propertyName, isSet=isSet, callback=None,
+							 parent=self.parentFrame)
 		label.setText(propertyName + ':')
-		label.setAttribute(QtCore.Qt.WA_TransparentForMouseEvents)# ignore mouse events
-		self.gridToFill.addWidget(label, self.row, 0, 1 ,1)
+		label.setAttribute(QtCore.Qt.WA_TransparentForMouseEvents)  # ignore mouse events
+		self.gridToFill.addWidget(label, self.row, 0, 1, 1)
 
 	def addEditor(self, property, entity, column):
 		editor = super().addEditor(property, entity, column + 1)

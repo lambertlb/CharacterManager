@@ -1,4 +1,5 @@
 from PySide6 import QtWidgets
+
 from CharacterServices import CharacterServices
 from builder.Attributes_ui import Ui_Form
 from views.Editors import BaseEditor
@@ -14,7 +15,8 @@ class AttributeView(SubView, Ui_Form):
 		self.buttonBarItem.setText('Att')
 		self.setParentFrame = self.frame
 		self.setGridToFill(self.attributeGrid)
-		self.verticalSpacer = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+		self.verticalSpacer = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum,
+													QtWidgets.QSizePolicy.Expanding)
 		self.attributeGrid.addItem(self.verticalSpacer, 40, 1, 1, 1)
 
 	def setupView(self):
@@ -34,7 +36,7 @@ class AttributeView(SubView, Ui_Form):
 		if not goodValue:
 			print(f'{editor.propertyName} is bad')
 		self.computeBonuses()
-	
+
 	def computeBonuses(self):
 		self.strengthBonusEdit.setText(str(self.entity.computeAttributeBonus(self.entity.Strength)))
 		self.dexterityBonusEdit.setText(str(self.entity.computeAttributeBonus(self.entity.Dexterity)))

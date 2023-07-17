@@ -41,14 +41,14 @@ class PersonalInfo(CharacterEntity):
 
 	def getPropertyDataForDeity(self, propertyName, propertyType):
 		templatePath = Services.getConfigurationManager().getValue(CharacterManagerConfig.sourcesKey,
-																	CharacterManagerConfig.characterTemplateDirectoryKey)
+																CharacterManagerConfig.characterTemplateDirectoryKey)
 		path = templatePath + '/scripts/Deities'
 		deities = Entity.getListOfClassesFromDirectory(path, Entity)
 		return (propertyName, 'composite', self.Deity, deities)
 
 	def getPropertyDataForRace(self, propertyName, propertyType):
 		templatePath = Services.getConfigurationManager().getValue(CharacterManagerConfig.sourcesKey,
-																	CharacterManagerConfig.characterTemplateDirectoryKey)
+																CharacterManagerConfig.characterTemplateDirectoryKey)
 		path = templatePath + '/scripts/Races'
 		races = Entity.getListOfClassesFromDirectory(path, Entity)
 		return (propertyName, 'composite', self.Race, races)
