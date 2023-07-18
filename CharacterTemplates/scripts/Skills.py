@@ -44,10 +44,10 @@ class Skills(CharacterEntity):
 	def applyEnhancements(self, enhancements: Enhancements):
 		character = CharacterServices.getCharacterManager().character
 		attributes = character.Attributes
-		self.applyEnhancement(enhancements, 'AcrobaticsProficiency', attributes.strengthBonus)
+		self.applyEnhancement(enhancements, 'AcrobaticsProficiency', attributes.dexterityBonus)
 		self.applyEnhancement(enhancements, 'AnimalHandlingProficiency', attributes.wisdomBonus)
 		self.applyEnhancement(enhancements, 'ArcanaProficiency', attributes.intelligenceBonus)
-		self.applyEnhancement(enhancements, 'AthleticsProficiency', attributes.dexterityBonus)
+		self.applyEnhancement(enhancements, 'AthleticsProficiency', attributes.strengthBonus)
 		self.applyEnhancement(enhancements, 'DeceptionProficiency', attributes.charismaBonus)
 		self.applyEnhancement(enhancements, 'HistoryProficiency', attributes.intelligenceBonus)
 		self.applyEnhancement(enhancements, 'InsightProficiency', attributes.wisdomBonus)

@@ -16,7 +16,6 @@ class ClassInformation(CharacterEntity):
 
 	def __init__(self):
 		super().__init__()
-		self._classScript = None
 
 	def register(self):
 		super().register()
@@ -26,6 +25,7 @@ class ClassInformation(CharacterEntity):
 			return
 		for addition in self.ClassAddition:
 			for enhance in addition.Enhancements:
-				enhancements.addEnhancement(self, enhance.Enhancement, "descr", enhance.Amount)
+				enhancements.addEnhancement(self, enhance.Enhancement, addition.Class, enhance.Amount)
 	
+
 

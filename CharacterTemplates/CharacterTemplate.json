@@ -198,38 +198,60 @@
 			]
 		},
 		"Defense": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"$script": {
-					"className": "CharacterTemplates.scripts.Defense"
-				},
-				"properties": {
-					"Defense": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"Defense"
-				]
-			}
+			"type": "object",
+			"$script": {
+				"className": "CharacterTemplates.scripts.Defense"
+			},
+			"properties": {
+				"Armor": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$script": {
+							"className": "CharacterTemplates.scripts.DefensiveItem"
+						},
+						"properties": {
+							"Defense": {
+								"type": "string"
+							}
+						}
+					},
+					"required": [
+						"Defense"
+					]
+				}
+			},
+			"required": [
+				"Armor"
+			]
 		},
 		"Offense": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"$script": {
-					"className": "CharacterTemplates.scripts.Offense"
-				},
-				"properties": {
-					"Weapon": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"Weapon"
-				]
-			}
+			"type": "object",
+			"$script": {
+				"className": "CharacterTemplates.scripts.Offense"
+			},
+			"properties": {
+				"Weapons": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$script": {
+							"className": "CharacterTemplates.scripts.OffensiveItem"
+						},
+						"properties": {
+							"Weapon": {
+								"type": "string"
+							}
+						}
+					},
+					"required": [
+						"Weapon"
+					]
+				}
+			},
+			"required": [
+				"Weapons"
+			]
 		},
 		"Skills": {
 			"$ref": "Skills.json#/properties/Skills"

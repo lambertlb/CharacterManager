@@ -21,6 +21,7 @@ class Character(CharacterEntity):
 	def update(self):
 		enhancements = CharacterServices.getEnhancements()
 		enhancements.clear()
+		ents = Entity._allEntities
 		for entity in Entity._allEntities:
 			entity.addEnhanceables(enhancements)
 		for entity in Entity._allEntities:
