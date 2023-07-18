@@ -49,11 +49,9 @@ class TestEntities(TestCase):
 
 	def test_EntityLoadScript(self):
 		definition = {
-			"properties": {
 				"$script": {
 					"className": "test.TestSavedCharacters.scripts.Skills"
 				}
-			}
 		}
 		entity = Entity.createEntityFromJsonData({}, definition)
 		assert hasattr(entity, 'registered')
@@ -63,11 +61,9 @@ class TestEntities(TestCase):
 
 	def test_EntityLoadScriptWithException(self):
 		definition = {
-			"properties": {
 				"$script": {
 					"className": "test.TestSavedCharacters.scripts.SkillsE"
 				}
-			}
 		}
 		logger = Services.getLogger()
 		assert not logger.lastLogged

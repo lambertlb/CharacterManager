@@ -1,12 +1,15 @@
 {
 	"$schema": "http://json-schema.org/schema#",
 	"type": "object",
+	"$script": {
+		"className": "CharacterTemplates.scripts.Character"
+	},
 	"properties": {
-		"$script": {
-			"className": "CharacterTemplates.scripts.Character"
-		},
 		"Attributes": {
 			"type": "object",
+			"$script": {
+				"className": "CharacterTemplates.scripts.Attributes"
+			},
 			"properties": {
 				"Strength": {
 					"type": "integer"
@@ -25,9 +28,6 @@
 				},
 				"Charisma": {
 					"type": "integer"
-				},
-				"$script": {
-					"className": "CharacterTemplates.scripts.Attributes"
 				}
 			},
 			"required": [
@@ -41,18 +41,18 @@
 		},
 		"ClassInformation": {
 			"type": "object",
+			"$script": {
+				"className": "CharacterTemplates.scripts.ClassInformation"
+			},
 			"properties": {
-				"$script": {
-					"className": "CharacterTemplates.scripts.ClassInformation"
-				},
 				"Classes": {
 					"type": "array",
 					"items": {
 						"type": "object",
+						"$script": {
+							"className": "CharacterTemplates.scripts.CharacterClass"
+						},
 						"properties": {
-							"$script": {
-								"className": "CharacterTemplates.scripts.CharacterClass"
-							},
 							"Class": {
 								"type": "string"
 							}
@@ -63,11 +63,46 @@
 					}
 				},
 				"ClassAddition": {
-					"type": "object",
-					"properties": {
-						"$script": {
-							"className": "CharacterTemplates.scripts.ClassAdditions"
-						}
+					"type": "array",
+					"$script": {
+						"className": "CharacterTemplates.scripts.ClassAdditions"
+					},
+					"items": {
+						"type": "object",
+						"properties": {
+							"Class": {
+								"type": "string"
+							},
+							"Enhancements": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"Enhancement": {
+											"type": "string"
+										},
+										"Amount": {
+											"type": "integer"
+										}
+									},
+									"required": [
+										"Amount",
+										"Enhancement"
+									]
+								}
+							},
+							"Spells": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						},
+						"required": [
+							"Class",
+							"Enhancements",
+							"Spells"
+						]
 					}
 				}
 			},
@@ -78,20 +113,23 @@
 		},
 		"PersonalInformation": {
 			"type": "object",
+			"$script": {
+				"className": "CharacterTemplates.scripts.PersonalInfo"
+			},
 			"properties": {
-				"Name": {
+				"Deity": {
 					"type": "string"
 				},
 				"Race": {
+					"type": "string"
+				},
+				"Name": {
 					"type": "string"
 				},
 				"Age": {
 					"type": "integer"
 				},
 				"Alignment": {
-					"type": "string"
-				},
-				"Deity": {
 					"type": "string"
 				},
 				"Weight": {
@@ -129,9 +167,6 @@
 						"Platinum",
 						"Silver"
 					]
-				},
-				"$script": {
-					"className": "CharacterTemplates.scripts.PersonalInfo"
 				}
 			},
 			"required": [
@@ -169,12 +204,12 @@
 			"type": "array",
 			"items": {
 				"type": "object",
+				"$script": {
+					"className": "CharacterTemplates.scripts.Defense"
+				},
 				"properties": {
 					"Defense": {
 						"type": "string"
-					},
-					"$script": {
-						"className": "CharacterTemplates.scripts.Defense"
 					}
 				},
 				"required": [
@@ -186,12 +221,12 @@
 			"type": "array",
 			"items": {
 				"type": "object",
+				"$script": {
+					"className": "CharacterTemplates.scripts.Offense"
+				},
 				"properties": {
 					"Weapon": {
 						"type": "string"
-					},
-					"$script": {
-						"className": "CharacterTemplates.scripts.Offense"
 					}
 				},
 				"required": [

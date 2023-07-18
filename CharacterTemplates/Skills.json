@@ -4,6 +4,9 @@
 	"properties": {
 		"Skills": {
 			"type": "object",
+			"$script": {
+				"className": "CharacterTemplates.scripts.Skills"
+			},
 			"properties": {
 				"Acrobatics": {
 					"type": "integer"
@@ -58,9 +61,6 @@
 				},
 				"Survival": {
 					"type": "integer"
-				},
-				"$script": {
-					"className": "CharacterTemplates.scripts.Skills"
 				}
 			},
 			"required": [

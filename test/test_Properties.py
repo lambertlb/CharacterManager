@@ -220,12 +220,12 @@ class TestProperties(TestCase):
 			"properties": {
 				"Defense": {
 					"type": "object",
+					"$script": {
+						"className": "CharacterTemplates.scripts.Defense"
+					},
 						"properties": {
 							"Defense": {
 								"type": "string"
-							},
-							"$script": {
-								"className": "CharacterTemplates.scripts.Defense"
 							}
 						}
 				}
@@ -250,12 +250,12 @@ class TestProperties(TestCase):
 			"properties": {
 				"Defense": {
 					"type": "object",
+						"$script": {
+							"className": "CharacterTemplates.scripts.Defense"
+						},
 						"properties": {
 							"Defense": {
 								"type": "string"
-							},
-							"$script": {
-								"className": "CharacterTemplates.scripts.Defense"
 							}
 						}
 				}
@@ -285,12 +285,12 @@ class TestProperties(TestCase):
 			"properties": {
 				"Defense": {
 					"type": "object",
+						"$script": {
+							"className": "CharacterTemplates.scripts.Defense"
+						},
 						"properties": {
 							"Defense": {
 								"type": "string"
-							},
-							"$script": {
-								"className": "CharacterTemplates.scripts.Defense"
 							}
 						}
 				}

@@ -172,11 +172,9 @@ class Entity:
 		Returns:
 			Entity: new Entity
 		"""
-		properties = jsonSchema.get('properties')
-		if properties:
-			scriptProperty = properties.get('$script')
-			if scriptProperty:
-				return Entity.loadScriptFromProperty(scriptProperty)
+		scriptProperty = jsonSchema.get('$script')
+		if scriptProperty:
+			return Entity.loadScriptFromProperty(scriptProperty)
 		return Entity.instanceFromScript(Entity.classToCreate)
 		
 	@staticmethod

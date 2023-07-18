@@ -1,1 +1,138 @@
-{"Attributes": {"Strength": 15, "Dexterity": 10, "Constitution": 14, "Intelligence": 8, "Wisdom": 8, "Charisma": 15}, "ClassInformation": {"Classes": [{"Class": "Monk"}, {"Class": "Monk"}, {"Class": "Monk"}, {"Class": "Monk"}, {"Class": "Cleric"}], "ClassAddition": {"Monk": {"Enhancements": [{"AbilityEnhance": {"Ability": "Dexterity", "Amount": 2}}, {"AbilityEnhance": {"Ability": "Wisdom", "Amount": 1}}, {"ProficiencyEnhance": {"Ability": "Stealth", "Amount": "$DexterityBonus"}}], "Spells": []}, "Cleric": {"Enhancements": [{"AbilityEnhance": {"Ability": "Wisdom", "Amount": 2}}, {"ProficiencyEnhance": {"Ability": "Religion", "Amount": "$WisdomBonus"}}], "Spells": ["Bless"]}}}, "PersonalInformation": {"Deity": "Sune", "Race": "Human", "Name": "Fred FlintStone", "Age": 22, "Alignment": "Neutral", "Weight": 110.5, "Experience": 1000, "Gender": "Male", "Money": {"Platinum": 5, "Gold": 200, "Electrum": 50, "Silver": 40, "Copper": 20}}, "Health": {"TotalHp": 100, "CurrentHp": 50, "TemporaryHp": 10}, "Defense": [{"Defense": "Plate Mail", "$modifiers": {"isWorn": true}}, {"Defense": "Chain Mail"}, {"Defense": "Tower Shield", "$modifiers": {"isWorn": true}}], "Offense": [{"Weapon": "Long Sword", "$modifiers": {"isWorn": true}}, {"Weapon": "Long Bow"}, {"Weapon": "Unarmed"}], "Skills": {"Acrobatics": 10, "AnimalHandling": 10, "Arcana": 10, "Athletics": 10, "Deception": 10, "History": 10, "Insight": 10, "Intimidation": 10, "Investigation": 10, "Medicine": 10, "Nature": 10, "Perception": 1, "Performance": 10, "Persuasion": 10, "Religion": 10, "SleightOfHand": 10, "Stealth": 10, "Survival": 10}}
+{
+	"Attributes": {
+		"Strength": 15,
+		"Dexterity": 10,
+		"Constitution": 14,
+		"Intelligence": 8,
+		"Wisdom": 8,
+		"Charisma": 15
+	},
+	"ClassInformation": {
+		"Classes": [
+			{
+				"Class": "Monk"
+			},
+			{
+				"Class": "Monk"
+			},
+			{
+				"Class": "Monk"
+			},
+			{
+				"Class": "Monk"
+			},
+			{
+				"Class": "Cleric"
+			}
+		],
+		"ClassAddition": [
+			{
+				"Class": "Monk",
+				"Enhancements": [
+					{
+						"Enhancement": "Dexterity",
+						"Amount": 2
+					},
+					{
+						"Enhancement": "Wisdom",
+						"Amount": 1
+					},
+					{
+						"Enhancement": "StealthProficiency",
+						"Amount": 1
+					}
+				],
+				"Spells": []
+			},
+			{
+				"Class": "Cleric",
+				"Enhancements": [
+					{
+						"Enhancement": "Wisdom",
+						"Amount": 2
+					},
+					{
+						"Enhancement": "ReligionProficiency",
+						"Amount": 1
+					}
+				],
+				"Spells": [
+					"Bless"
+				]
+			}
+		]
+	},
+	"PersonalInformation": {
+		"Deity": "Sune",
+		"Race": "Human",
+		"Name": "Fred FlintStone",
+		"Age": 22,
+		"Alignment": "Neutral",
+		"Weight": 110.5,
+		"Experience": 1000,
+		"Gender": "Male",
+		"Money": {
+			"Platinum": 5,
+			"Gold": 200,
+			"Electrum": 50,
+			"Silver": 40,
+			"Copper": 20
+		}
+	},
+	"Health": {
+		"TotalHp": 100,
+		"CurrentHp": 50,
+		"TemporaryHp": 10
+	},
+	"Defense": [
+		{
+			"Defense": "Plate Mail",
+			"$modifiers": {
+				"isWorn": true
+			}
+		},
+		{
+			"Defense": "Chain Mail"
+		},
+		{
+			"Defense": "Tower Shield",
+			"$modifiers": {
+				"isWorn": true
+			}
+		}
+	],
+	"Offense": [
+		{
+			"Weapon": "Long Sword",
+			"$modifiers": {
+				"isWorn": true
+			}
+		},
+		{
+			"Weapon": "Long Bow"
+		},
+		{
+			"Weapon": "Unarmed"
+		}
+	],
+	"Skills": {
+		"Acrobatics": 10,
+		"AnimalHandling": 10,
+		"Arcana": 10,
+		"Athletics": 10,
+		"Deception": 10,
+		"History": 10,
+		"Insight": 10,
+		"Intimidation": 10,
+		"Investigation": 10,
+		"Medicine": 10,
+		"Nature": 10,
+		"Perception": 1,
+		"Performance": 10,
+		"Persuasion": 10,
+		"Religion": 10,
+		"SleightOfHand": 10,
+		"Stealth": 10,
+		"Survival": 10
+	}
+}
