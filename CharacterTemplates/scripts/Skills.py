@@ -36,9 +36,9 @@ class Skills(CharacterEntity):
 		enhancements.addItemThatCanBeEnhanced(self, 'SurvivalProficiency', 'integer')
 
 	def addEnhancements(self, enhancements: Enhancements):
-		enhancements.addEnhancement(self, 'StealthProficiency', "Test", 1)
-		enhancements.addEnhancement(self, 'ArcanaProficiency', "Test", 1)
-		enhancements.addEnhancement(self, 'AcrobaticsProficiency', "Test", 1)
+		# enhancements.addEnhancement(self, 'StealthProficiency', "Test", 1)
+		# enhancements.addEnhancement(self, 'ArcanaProficiency', "Test", 1)
+		# enhancements.addEnhancement(self, 'AcrobaticsProficiency', "Test", 1)
 		pass
 
 	def applyEnhancements(self, enhancements: Enhancements):

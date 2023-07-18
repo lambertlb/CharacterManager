@@ -1,4 +1,5 @@
 from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
+from CharacterTemplates.scripts.Enhancements import Enhancements
 
 
 class ClassInformation(CharacterEntity):
@@ -20,11 +21,11 @@ class ClassInformation(CharacterEntity):
 	def register(self):
 		super().register()
 
-	# if not self._classScript:
-	# 	self._classScript = Entity.instanceFromScript('CharacterTemplates.scripts.ClassScripts.' + self.Class)
-	# self._classScript.register()
+	def addEnhancements(self, enhancements: Enhancements):
+		if not hasattr(self, 'ClassAddition'):
+			return
+		for addition in self.ClassAddition:
+			for enhance in addition.Enhancements:
+				enhancements.addEnhancement(self, enhance.Enhancement, "descr", enhance.Amount)
+	
 
-	def update(self):
-		super().update()
-	# if self._classScript:
-	# 	self._classScript.update()
