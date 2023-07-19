@@ -221,7 +221,7 @@ class TestProperties(TestCase):
 				"Defense": {
 					"type": "object",
 					"$script": {
-						"className": "CharacterTemplates.scripts.Defense"
+						"className": "CharacterTemplates.scripts.DefensiveItem"
 					},
 						"properties": {
 							"Defense": {
@@ -251,7 +251,7 @@ class TestProperties(TestCase):
 				"Defense": {
 					"type": "object",
 						"$script": {
-							"className": "CharacterTemplates.scripts.Defense"
+							"className": "CharacterTemplates.scripts.DefensiveItem"
 						},
 						"properties": {
 							"Defense": {
@@ -286,7 +286,7 @@ class TestProperties(TestCase):
 				"Defense": {
 					"type": "object",
 						"$script": {
-							"className": "CharacterTemplates.scripts.Defense"
+							"className": "CharacterTemplates.scripts.DefensiveItem"
 						},
 						"properties": {
 							"Defense": {

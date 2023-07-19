@@ -25,16 +25,7 @@ class CharacterItem:
 
 	def defineWeaponProperties(self):
 		self._isWeapon = False
-		self._isAmmunition = False
-		self._isFinesse = False
-		self._isHeavy = False
-		self._isLight = False
-		self._isRange = False
-		self._isReach = False
-		self._isSpecial = False
-		self._isThrown = False
-		self._isTwoHanded = False
-		self._isVersatile = False
+		self._weaponProperties = 0
 		self._addToAttack = 0
 		self._rollForDamage = '1d6'
 		self._addToDamage = 0
@@ -43,10 +34,7 @@ class CharacterItem:
 
 	def defineArmorProperties(self):
 		self._isArmor = False
-		self._isLightArmor = False
-		self._isHeavyArmor = False
-		self._isMediumArmor = False
-		self._isShieldArmor = False
+		self._armorProperties = 0
 		self._addToAc = 0
 		self._isWorn = False
 		self._hasMaxDexterityBonus = False

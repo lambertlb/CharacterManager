@@ -48,7 +48,7 @@
         <item row="0" column="2">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Proficiency</string>
+           <string>Skill Bonus</string>
           </property>
          </widget>
         </item>

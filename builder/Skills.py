@@ -66,6 +66,6 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label.setText(QCoreApplication.translate("Form", u"Skill", None))
-        self.label_2.setText(QCoreApplication.translate("Form", u"Proficiency", None))
+        self.label_2.setText(QCoreApplication.translate("Form", u"Skill Bonus", None))
     # retranslateUi
 

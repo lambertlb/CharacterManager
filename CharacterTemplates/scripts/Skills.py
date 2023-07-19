@@ -16,69 +16,66 @@ class Skills(CharacterEntity):
 		pass
 
 	def addEnhanceables(self, enhancements: Enhancements):
-		enhancements.addItemThatCanBeEnhanced(self, 'AcrobaticsProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'AnimalHandlingProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'ArcanaProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'AthleticsProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'DeceptionProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'HistoryProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'InsightProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'IntimidationProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'InvestigationProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'MedicineProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'NatureProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'PerceptionProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'PerformanceProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'PersuasionProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'ReligionProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'SleightOfHandProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'StealthProficiency', 'integer')
-		enhancements.addItemThatCanBeEnhanced(self, 'SurvivalProficiency', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Acrobatics', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'AnimalHandling', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Arcana', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Athletics', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Deception', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'History', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Insight', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Intimidation', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Investigation', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Medicine', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Nature', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Perception', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Performance', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Persuasion', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Religion', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'SleightOfHand', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Stealth', 'integer')
+		enhancements.addItemThatCanBeEnhanced(self, 'Survival', 'integer')
 
 	def addEnhancements(self, enhancements: Enhancements):
-		# enhancements.addEnhancement(self, 'StealthProficiency', "Test", 1)
-		# enhancements.addEnhancement(self, 'ArcanaProficiency', "Test", 1)
-		# enhancements.addEnhancement(self, 'AcrobaticsProficiency', "Test", 1)
+		# enhancements.addEnhancement(self, 'Stealth', "Test", 1)
+		# enhancements.addEnhancement(self, 'Arcana', "Test", 1)
+		# enhancements.addEnhancement(self, 'Acrobatics', "Test", 1)
 		pass
 
 	def applyEnhancements(self, enhancements: Enhancements):
 		character = CharacterServices.getCharacterManager().character
 		attributes = character.Attributes
-		self.applyEnhancement(enhancements, 'AcrobaticsProficiency', attributes.dexterityBonus)
-		self.applyEnhancement(enhancements, 'AnimalHandlingProficiency', attributes.wisdomBonus)
-		self.applyEnhancement(enhancements, 'ArcanaProficiency', attributes.intelligenceBonus)
-		self.applyEnhancement(enhancements, 'AthleticsProficiency', attributes.strengthBonus)
-		self.applyEnhancement(enhancements, 'DeceptionProficiency', attributes.charismaBonus)
-		self.applyEnhancement(enhancements, 'HistoryProficiency', attributes.intelligenceBonus)
-		self.applyEnhancement(enhancements, 'InsightProficiency', attributes.wisdomBonus)
-		self.applyEnhancement(enhancements, 'IntimidationProficiency', attributes.charismaBonus)
-		self.applyEnhancement(enhancements, 'InvestigationProficiency', attributes.intelligenceBonus)
-		self.applyEnhancement(enhancements, 'MedicineProficiency', attributes.wisdomBonus)
-		self.applyEnhancement(enhancements, 'NatureProficiency', attributes.intelligenceBonus)
-		self.applyEnhancement(enhancements, 'PerceptionProficiency', attributes.wisdomBonus)
-		self.applyEnhancement(enhancements, 'PerformanceProficiency', attributes.charismaBonus)
-		self.applyEnhancement(enhancements, 'PersuasionProficiency', attributes.charismaBonus)
-		self.applyEnhancement(enhancements, 'ReligionProficiency', attributes.wisdomBonus)
-		self.applyEnhancement(enhancements, 'SleightOfHandProficiency', attributes.dexterityBonus)
-		self.applyEnhancement(enhancements, 'StealthProficiency', attributes.dexterityBonus)
-		self.applyEnhancement(enhancements, 'SurvivalProficiency', attributes.wisdomBonus)
+		self.applyEnhancement(enhancements, 'Acrobatics', attributes.dexterityBonus)
+		self.applyEnhancement(enhancements, 'AnimalHandling', attributes.wisdomBonus)
+		self.applyEnhancement(enhancements, 'Arcana', attributes.intelligenceBonus)
+		self.applyEnhancement(enhancements, 'Athletics', attributes.strengthBonus)
+		self.applyEnhancement(enhancements, 'Deception', attributes.charismaBonus)
+		self.applyEnhancement(enhancements, 'History', attributes.intelligenceBonus)
+		self.applyEnhancement(enhancements, 'Insight', attributes.wisdomBonus)
+		self.applyEnhancement(enhancements, 'Intimidation', attributes.charismaBonus)
+		self.applyEnhancement(enhancements, 'Investigation', attributes.intelligenceBonus)
+		self.applyEnhancement(enhancements, 'Medicine', attributes.wisdomBonus)
+		self.applyEnhancement(enhancements, 'Nature', attributes.intelligenceBonus)
+		self.applyEnhancement(enhancements, 'Perception', attributes.wisdomBonus)
+		self.applyEnhancement(enhancements, 'Performance', attributes.charismaBonus)
+		self.applyEnhancement(enhancements, 'Persuasion', attributes.charismaBonus)
+		self.applyEnhancement(enhancements, 'Religion', attributes.wisdomBonus)
+		self.applyEnhancement(enhancements, 'SleightOfHand', attributes.dexterityBonus)
+		self.applyEnhancement(enhancements, 'Stealth', attributes.dexterityBonus)
+		self.applyEnhancement(enhancements, 'Survival', attributes.wisdomBonus)
 		pass
 
 	def applyEnhancement(self, enhancements, whichEnhancement, howMuch):
 		character = CharacterServices.getCharacterManager().character
 		proficiencyBonus = character.skillProficiency
-		computed = '_computed' + whichEnhancement
 		enhances = enhancements.getEnhancements(whichEnhancement)
 		attr = howMuch
 		for enhance in enhances:
 			attr = (enhance.value * proficiencyBonus) + howMuch
-		setattr(self, computed, attr)
+		setattr(self, whichEnhancement, attr)
 
 	def getDataForProperty(self, propertyName, propertyType):
 		enhancements = CharacterServices.getEnhancements()
-		proficiencyName = propertyName + 'Proficiency'
-		enhances = enhancements.getEnhancements(proficiencyName)
+		enhances = enhancements.getEnhancements(propertyName)
 		propertyInfo = enhances
-		computed = '_computed' + proficiencyName
-		propertyData = getattr(self, computed)
+		propertyData = getattr(self, propertyName)
 		return (propertyName, propertyType, propertyData, propertyInfo)

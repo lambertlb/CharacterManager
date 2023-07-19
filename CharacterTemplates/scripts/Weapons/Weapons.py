@@ -1,5 +1,6 @@
 from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
+from CharacterTemplates.scripts.Offense import WeaponProperties
 
 
 class Weapon(CharacterItem):
@@ -13,7 +14,7 @@ class Long_Sword(CharacterEntity, Weapon):
 		CharacterItem.__init__(self)
 		self._name = 'Long Sword'
 		self._isWeapon = True
-		self._isVersatile = True
+		self._weaponProperties = WeaponProperties.Versatile
 		self._rollForDamage = '1d8'
 		self._weight = 3
 
@@ -44,11 +45,9 @@ class Long_Bow(CharacterEntity, Weapon):
 		CharacterEntity.__init__(self)
 		CharacterItem.__init__(self)
 		self._name = 'Long Bow'
-		self._isRange = True
+		self._weaponProperties = WeaponProperties.Heavy & WeaponProperties.TwoHanded & WeaponProperties.Ranged
 		self._rollForDamage = '1d8'
 		self._weight = 2
-		self._isHeavy = True
-		self._isTwoHanded = True
 
 	def register(self):
 		super().register()

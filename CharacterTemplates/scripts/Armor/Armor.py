@@ -1,5 +1,6 @@
 from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.CharacterItem import CharacterItem
+from CharacterTemplates.scripts.Defense import ArmorProperties
 
 
 class Armor(CharacterItem):
@@ -18,6 +19,7 @@ class Plate_Mail(CharacterEntity, Armor):
 		Armor.__init__(self)
 		self._name = 'Plate Mail'
 		self._isArmor = True
+		self._armorProperties = ArmorProperties.Heavy
 		self._addToAc = 8
 		self._weight = 65
 		self._hasMaxDexterityBonus = True
@@ -37,6 +39,7 @@ class Chain_Mail(CharacterEntity, Armor):
 		Armor.__init__(self)
 		self._name = 'Chain Mail'
 		self._isArmor = True
+		self._armorProperties = ArmorProperties.Heavy
 		self._addToAc = 6
 		self._weight = 65
 		self._hasMaxDexterityBonus = True
@@ -56,6 +59,7 @@ class Tower_Shield(CharacterEntity, Armor):
 		Armor.__init__(self)
 		self._name = 'Tower Shield'
 		self._isArmor = True
+		self._armorProperties = ArmorProperties.Shield
 		self._addToAc = 2
 		self._weight = 6
 		self._maxDexterityBonus = 100
