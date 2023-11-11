@@ -42,7 +42,7 @@ The files in this folder will manage data in such a way as to accomplish the goa
 
 - ConfigurationManager.py
 
-  Base class for managing configurations. The default implementation will manage configuration items in an .ini file. This files will contain sections with specific data in them. You need to subclass this add you system specific config data. Make sure to make it available by calling setLogger on Services.
+  Base class for managing configurations. The default implementation will manage configuration items in an .ini file. This files will contain sections with specific data in them. You need to subclass this add you system specific config data. Make sure to make it available by calling setConfigurationManager on Services.
 
 - JsonUtils.py
 
@@ -55,21 +55,23 @@ The files in this folder will manage data in such a way as to accomplish the goa
 ## Scripts for customizing schema
 Scripts can be used to customize data handling. The $script tag is used to do this. This is a custom tag created specifically to allow the adding of custom python scripts to enhance data management. Following are some short examples on how it can be done.
 
-Let's assume we have some json data describing a fantasy warrior character and we want to add support for a handling weapons that didn't exist before. First we add some data into the warriors json data. This data will be an array called Offense that holds various weapons
+Let's assume we have some json data describing a fantasy warrior character and we want to add support for a handling weapons that didn't exist before. First we add some data into the warriors json data. This data will be an property called Offense that holds an array various weapons
 ```
 {
     "ExistingData": "old data",
-	"Offense": [
-		{
-			"Weapon": "Long Sword"
-		},
-		{
-			"Weapon": "Long Bow"
-		},
-		{
-			"Weapon": "Unarmed"
-		}
-	]
+	"Offense": {
+		"Weapons": [
+			{
+				"Weapon": "Long Sword",
+			},
+			{
+				"Weapon": "Long Bow"
+			},
+			{
+				"Weapon": "Unarmed"
+			}
+		]
+	}
 }
 ```
 Now we need the schema to make this valid and also add custom code to handle the weapons. Following is how that can be done.
@@ -82,36 +84,44 @@ Now we need the schema to make this valid and also add custom code to handle the
             "type": "string"
         },
 		"Offense": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"Weapon": {
-						"type": "string"
-					},
-					"$script": {
-						"className": "CharacterTemplates.scripts.Offense"
+			"type": "object",
+			"$script": {
+				"className": "CharacterTemplates.scripts.Offense"
+			},
+			"properties": {
+				"Weapons": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$script": {
+							"className": "CharacterTemplates.scripts.OffensiveItem"
+						},
+						"properties": {
+							"Weapon": {
+								"type": "string"
+							}
+						}
 					}
 				}
 			}
-		},
+		}
     }
 }
 ```
-As you can see the "Offense" property has been added declaring an array of objects. Also note the use of the $script tag. This means for every object in this array use the python script to create it. The className property uses python namespace nomenclature. In the example it means look in sub-folders CharacterTemplates then scripts to find file Offense.py. It will then look in that file for a class that is a subclass of Entity and use that to house the element of the array.
+As you can see the "Offense" property has been added declaring an array of objects. Also note the use of the $script tag. This means for every object in this array use the python script to create it. The className property uses python namespace nomenclature. In the example it means look in sub-folders CharacterTemplates then scripts to find file OffensiveItem.py. It will then look in that file for a class that is a subclass of Entity and use that to house the element of the array.
 
 Lets look at part this class.
 ```
 from configurator.Entity import Entity
 
-class Offense(Entity):
+class OffensiveItem(Entity):
 	def __init__(self):
 		super().__init__()
 		self._weaponInfo = None
 		self.Weapon = None
 
 	def register(self):
-		super(Offense, self).register()
+		super().register()
 		self._weaponInfo = Entity.instanceFromScript('CharacterTemplates.scripts.Weapons#' + self.Weapon)
 		self._weaponInfo.register()
 ```
@@ -125,20 +135,22 @@ Data modification can be added in many ways. I will show one way I did it. Follo
 ```
 {
     "ExistingData": "old data",
-	"Offense": [
-		{
-			"Weapon": "Long Sword"
-			"$modifiers": {
-				"isEquipped": true
+	"Offense": {
+		"Weapons": [
+			{
+				"Weapon": "Long Sword",
+				"$modifiers": {
+					"_isEquipped": true
+				}
+			},
+			{
+				"Weapon": "Long Bow"
+			},
+			{
+				"Weapon": "Unarmed"
 			}
-		},
-		{
-			"Weapon": "Long Bow"
-		},
-		{
-			"Weapon": "Unarmed"
-		}
-	]
+		]
+	}
 }
 ```
 Note that i added a custom tag called modifiers. It has a property call isEquipped set to true. Now i need code to handle this. From the previous example we assumed we have a Weapons.py file with a class called Long_Sword to handle that. This class is a subclass of Entity. Let's modify that to facilitate modifications. First we can create a class to define all possible modifications and how to handle them.
@@ -182,7 +194,7 @@ class Long_Sword(Entity, Weapon):
 	def register(self):
 		super().register()
 ```
-First we created a Weapon class to house weapon specific information. Then we created a Long_Sword class. This class uses multiple inheritance. It must inherit from Entity so it works with the $script tag then it also inherits from Weapon to get all the possible modifiers. Once the instance is created and the register method is called all the modifiers in the $modifiers tag will be applied. In this case self._isEquipped will be set to True
+First we created a Weapon class to house weapon specific information. All weapons should derive from this. Then we created a Long_Sword class. This class uses multiple inheritance. It must inherit from Entity so it works with the $script tag then it also inherits from Weapon to get all the possible modifiers. Once the instance is created and the register method is called all the modifiers in the $modifiers tag will be applied. In this case self._isEquipped will be set to True
 
 ## Conclusion
 Hopefully i have shown how I was able to add data and schema with code to support them without any changes at all to the base code. This should allow for complex management of data without the need for a lot of infrastructure support. Both the json data and schema files can be put under source code management to facilitate management of change.
