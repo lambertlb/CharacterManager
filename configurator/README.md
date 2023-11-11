@@ -77,7 +77,7 @@ Let's assume we have some json data describing a fantasy warrior character and w
 Now we need the schema to make this valid and also add custom code to handle the weapons. Following is how that can be done.
 ```
 {
-	"$schema": "http://json-schema.org/schema#",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"type": "object",
 	"properties": {
         "ExistingData": {
