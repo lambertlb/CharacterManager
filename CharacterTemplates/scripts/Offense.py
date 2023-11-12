@@ -1,9 +1,9 @@
-from enum import Enum
+from enum import IntEnum
 from CharacterServices import CharacterServices
 from CharacterTemplates.scripts.CharacterEntity import CharacterEntity
 from CharacterTemplates.scripts.Enhancements import Enhancements
 
-class WeaponProperties(Enum):
+class WeaponProperties(IntEnum):
 	Finesse = 0
 	Heavy = 1
 	Light = 2
