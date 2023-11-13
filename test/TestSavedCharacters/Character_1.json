@@ -38,6 +38,8 @@
 		"Weight": 110.5,
 		"Experience": 1000,
 		"Gender": "Male",
+		"BooleanTest": true,
+		"NoneTest": null,
 		"Money": {
 			"Platinum": 5,
 			"Gold": 200,

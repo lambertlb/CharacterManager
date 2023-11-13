@@ -7,6 +7,9 @@
 		},
 		"Attributes": {
 			"type": "object",
+			"$script": {
+				"className": "test.TestSavedCharacters.scripts.Attributes"
+			},
 			"properties": {
 				"Strength": {
 					"type": "integer"
@@ -88,6 +91,9 @@
 		},
 		"PersonalInformation": {
 			"type": "object",
+			"$script": {
+				"className": "test.TestSavedCharacters.scripts.PersonalInfo"
+			},
 			"properties": {
 				"Name": {
 					"type": "string"
@@ -112,6 +118,12 @@
 				},
 				"Gender": {
 					"type": "string"
+				},
+				"BooleanTest": {
+					"type": "boolean"
+				},
+				"NoneTest": {
+					"type": "null"
 				},
 				"Money": {
 					"type": "object",
@@ -153,7 +165,9 @@
 				"Money",
 				"Name",
 				"Race",
-				"Weight"
+				"Weight",
+				"BooleanTest",
+				"NoneTest"
 			]
 		},
 		"Health": {

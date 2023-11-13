@@ -98,6 +98,42 @@ class TestEntities(TestCase):
 		assert len(Entity.getEntities()) == 1
 		entity.unRegister()
 		assert len(Entity.getEntities()) == 0
+	
+	def test_DataProperty(self):
+		entity = Entity()
+		assert entity.data == None
+		entity.data = "Test"
+		assert entity.data == "Test"
+
+	def test_getListOfClassesFromDirectory(self):
+		classes = Entity.getListOfClassesFromDirectory("./test/TestSavedCharacters/scripts", Entity)
+		assert classes != None
+		assert len(classes) == 4
+
+	def test_createFromTemplate(self):
+		result = JsonUtils.loadJsonSchema('./test/TestSavedCharacters/CharacterTemplate.json')
+		item = Entity.createFromTemplate(result)
+		assert item != None
+	
+	def test_createFromTemplateNoRequired(self):
+		result = JsonUtils.loadJsonSchema('./test/TestSavedCharacters/CharacterTemplate.json')
+		del result['required']
+		item = Entity.createFromTemplate(result)
+		assert item != None
+	
+	def test_propertiesForDisplay(self):
+		result = JsonUtils.loadJsonSchema('./test/TestSavedCharacters/CharacterTemplate.json')
+		item = Entity.loadJsonFile('./test/TestSavedCharacters/Character_1.json', result)
+		attributes = item.Attributes
+		assert attributes != None
+		displayItems = attributes.propertiesForDisplay()
+		assert displayItems != None
+		assert len(displayItems) == 6
+		name, type, value, obj = displayItems[0]
+		assert name == 'Strength'
+		assert type == 'integer'
+		assert value == 15
+		assert obj == None
 
 if __name__ == '__main__':
 	unittest.main()
