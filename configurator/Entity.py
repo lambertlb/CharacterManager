@@ -4,7 +4,7 @@ import os
 import re
 from types import ModuleType
 
-from configurator.JsonUtils import JsonUtils
+from configurator.JsonUtils import JsonTypeHandlers, JsonUtils
 from configurator.Services import Services
 
 
@@ -308,6 +308,21 @@ class Entity:
 		propertyName, data = propertyData
 		Entity.getPropertyData(where, propertyName, data)
 
+	jsonHandlers = None
+	@staticmethod
+	def setupJsonTypeHandlers():
+		if Entity.jsonHandlers is not None:
+			return
+		Entity.jsonHandlers = JsonTypeHandlers()
+		Entity.jsonHandlers.stringTypeHandler(lambda propertyName, definition, data, entity: setattr(entity, propertyName, data))
+		Entity.jsonHandlers.integerTypeHandler(lambda propertyName, definition, data, entity: setattr(entity, propertyName, int(data)))
+		Entity.jsonHandlers.numberTypeHandler(lambda propertyName, definition, data, entity: setattr(entity, propertyName, float(data)))
+		Entity.jsonHandlers.booleanTypeHandler(lambda propertyName, definition, data, entity: setattr(entity, propertyName, data))
+		Entity.jsonHandlers.nullTypeHandler(lambda propertyName, definition, data, entity: setattr(entity, propertyName, None))
+		Entity.jsonHandlers.arrayTypeHandler(Entity.arrayTypeHandler)
+		Entity.jsonHandlers.objectTypeHandler(Entity.objectTypeHandler)
+		pass
+
 	@staticmethod
 	def getPropertyData(entity, propertyName, data):
 		"""
@@ -317,36 +332,28 @@ class Entity:
 			propertyName (string): name of property
 			data (Any): data for the property
 		"""
+		Entity.setupJsonTypeHandlers()
 		definition = entity.getPropertyDefinition(propertyName)
 		dataType = 'string'  # default to string if no definition
 		if definition:
 			# if there is a definition then use it for validation
 			dataType = list(definition.values())[0]
 			Entity.validate(dataType, data)
-		if dataType == 'string':
-			setattr(entity, propertyName, data)
-			return
-		if dataType == 'integer':
-			setattr(entity, propertyName, int(data))
-			return
-		if dataType == 'number':
-			setattr(entity, propertyName, float(data))
-			return
-		if dataType == 'boolean':
-			setattr(entity, propertyName, data)
-			return
-		if dataType == 'null':
-			setattr(entity, propertyName, None)
-			return
-		if dataType == 'array':
-			array = []
-			setattr(entity, propertyName, array)
-			Entity.addArrayData(array, definition, data)
-			return
+		Entity.jsonHandlers.handleType(dataType, propertyName, definition, data, entity)
+		pass
 
-		# must be object if got here
+	@staticmethod
+	def arrayTypeHandler(propertyName, definition, data, entity):
+		array = []
+		setattr(entity, propertyName, array)
+		Entity.addArrayData(array, definition, data)
+		pass
+
+	@staticmethod
+	def objectTypeHandler(propertyName, definition, data, entity):
 		dataObject = Entity.createEntityFromJsonData(data, definition)
 		setattr(entity, propertyName, dataObject)
+		pass
 
 	@staticmethod
 	def addArrayData(array: list, definition: dict, data):

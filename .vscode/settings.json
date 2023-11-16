@@ -21,13 +21,14 @@
 		"editor.insertSpaces": false,
 		"editor.tabSize": 4
 	},
+	"python.analysis.autoImportCompletions": true,
 	"python.analysis.indexing": true,
-	"python.analysis.packageIndexDepths": [
-		[
-			"PySide6",
-			10
-		],
-	],
 	"python.formatting.autopep8Path": "",
-	"python.formatting.provider": "none"
+	"python.formatting.provider": "none",
+	"python.analysis.packageIndexDepths": [
+		{
+			"name": "PySide6",
+			"depth": 10
+		}
+	]
 }

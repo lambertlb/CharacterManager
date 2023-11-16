@@ -38,3 +38,42 @@ class JsonUtils:
 		with file_a_path.open() as file_a:
 			result = jsonref.load(file_a, base_uri=file_a_path.as_uri())
 			return result
+
+class JsonTypeHandlers:
+	typeMap = {}
+
+	def __init__(self) -> None:
+		pass
+
+	def stringTypeHandler(self, handler):
+		self.typeMap['string'] = handler
+		pass
+
+	def numberTypeHandler(self, handler):
+		self.typeMap['number'] = handler
+		pass
+
+	def integerTypeHandler(self, handler):
+		self.typeMap['integer'] = handler
+		pass
+
+	def booleanTypeHandler(self, handler):
+		self.typeMap['boolean'] = handler
+		pass
+
+	def nullTypeHandler(self, handler):
+		self.typeMap['null'] = handler
+		pass
+
+	def arrayTypeHandler(self, handler):
+		self.typeMap['array'] = handler
+		pass
+
+	def objectTypeHandler(self, handler):
+		self.typeMap['object'] = handler
+		pass
+
+	def handleType(self, jsonType, propertyName, definition, data, entity):
+		handler = self.typeMap.get(jsonType)
+		assert handler, f'Handler for {jsonType} not found'
+		handler(propertyName, definition, data, entity)
