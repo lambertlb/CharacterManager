@@ -23,8 +23,6 @@
 	},
 	"python.analysis.autoImportCompletions": true,
 	"python.analysis.indexing": true,
-	"python.formatting.autopep8Path": "",
-	"python.formatting.provider": "none",
 	"python.analysis.packageIndexDepths": [
 		{
 			"name": "PySide6",
