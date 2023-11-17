@@ -40,38 +40,66 @@ class JsonUtils:
 			return result
 
 class JsonTypeHandlers:
-	typeMap = {}
 
 	def __init__(self) -> None:
+		self.typeMap = {}
 		pass
 
-	def stringTypeHandler(self, handler):
-		self.typeMap['string'] = handler
-		pass
+	@property
+	def stringHandler(self):
+		return self.typeMap.get('string')
 
-	def numberTypeHandler(self, handler):
-		self.typeMap['number'] = handler
-		pass
+	@stringHandler.setter
+	def stringHandler(self, value):
+		self.typeMap['string'] = value
 
-	def integerTypeHandler(self, handler):
-		self.typeMap['integer'] = handler
-		pass
+	@property
+	def integerHandler(self):
+		return self.typeMap.get('integer')
 
-	def booleanTypeHandler(self, handler):
-		self.typeMap['boolean'] = handler
-		pass
+	@integerHandler.setter
+	def integerHandler(self, value):
+		self.typeMap['integer'] = value
 
-	def nullTypeHandler(self, handler):
-		self.typeMap['null'] = handler
-		pass
+	@property
+	def numberHandler(self):
+		return self.typeMap.get('number')
 
-	def arrayTypeHandler(self, handler):
-		self.typeMap['array'] = handler
-		pass
+	@numberHandler.setter
+	def numberHandler(self, value):
+		self.typeMap['number'] = value
 
-	def objectTypeHandler(self, handler):
-		self.typeMap['object'] = handler
-		pass
+	@property
+	def booleanHandler(self):
+		return self.typeMap.get('boolean')
+
+	@booleanHandler.setter
+	def booleanHandler(self, value):
+		self.typeMap['boolean'] = value
+
+	@property
+	def nullHandler(self):
+		return self.typeMap.get('null')
+
+	@nullHandler.setter
+	def nullHandler(self, value):
+		self.typeMap['null'] = value
+
+	@property
+	def arrayHandler(self):
+		return self.typeMap.get('array')
+
+	@arrayHandler.setter
+	def arrayHandler(self, value):
+		self.typeMap['array'] = value
+
+	@property
+	def objectHandler(self):
+		return self.typeMap.get('object')
+
+	@objectHandler.setter
+	def objectHandler(self, value):
+		self.typeMap['object'] = value
 
 	def handleType(self, jsonType, propertyName, definition, data, entity):
 		handler = self.typeMap.get(jsonType)
