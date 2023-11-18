@@ -1,6 +1,7 @@
 from PySide6 import QtWidgets
 
 from CharacterServices import CharacterServices
+from configurator.JsonUtils import JsonTypeHandlers
 from views.Editors import BaseEditor, CompositeEditor, IntegerEditor, LabelEditor, NumberEditor, TextEditor
 
 
@@ -21,6 +22,7 @@ class SubView(QtWidgets.QWidget):
 		self.gridToFill = None
 		self.parentFrame = None
 		self.loadingData = True
+		self._dataHandlers: JsonTypeHandlers = None
 
 	def setEntity(self, value):
 		self.entity = value
@@ -66,31 +68,34 @@ class SubView(QtWidgets.QWidget):
 		label.setText(propertyName + ':')
 		self.gridToFill.addWidget(label, self.row, 0, 1, 1)
 
+	def setupJsonDataHandlers(self):
+		if self._dataHandlers is not None:
+			return
+		self._dataHandlers = JsonTypeHandlers()
+		self._dataHandlers.stringHandler = lambda propertyName, entity, propertyData, optionalData: TextEditor(
+			entity=entity, propertyName=propertyName, callback=self.editorDataChanged, parent=self.parentFrame).setValue(propertyData)
+		self._dataHandlers.integerHandler = lambda propertyName, entity, propertyData, optionalData: IntegerEditor(
+			entity=entity, propertyName=propertyName, callback=self.editorDataChanged, parent=self.parentFrame).setValue(propertyData)
+		self._dataHandlers.numberHandler = lambda propertyName, entity, propertyData, optionalData: NumberEditor(
+			entity=entity, propertyName=propertyName, callback=self.editorDataChanged, parent=self.parentFrame).setValue(propertyData)
+		self._dataHandlers.addCustomHandler('composite', lambda propertyName, entity, propertyData, optionalData: CompositeEditor(
+			entity=entity, propertyName=propertyName, callback=self.editorDataChanged, optionalData=optionalData, parent=self.parentFrame).setValue(propertyData))
+		self._dataHandlers.objectHandler = lambda propertyName, entity, propertyData, optionalData: self.addObjectEditor(
+			propertyName, entity, optionalData)
+		pass
+
 	def addEditor(self, property, entity, column):
+		self.setupJsonDataHandlers()
 		propertyName, propertyType, propertyData, optionalData = property
-		editor = None
-		if propertyType == 'string':
-			editor = TextEditor(entity=entity, propertyName=propertyName, callback=self.editorDataChanged,
-								parent=self.parentFrame)
-			editor.setValue(propertyData)
-		elif propertyType == 'integer':
-			editor = IntegerEditor(entity=entity, propertyName=propertyName, callback=self.editorDataChanged,
-								   parent=self.parentFrame)
-			editor.setValue(propertyData)
-		elif propertyType == 'number':
-			editor = NumberEditor(entity=entity, propertyName=propertyName, callback=self.editorDataChanged,
-								  parent=self.parentFrame)
-			editor.setValue(propertyData)
-		elif propertyType == 'composite':
-			editor = CompositeEditor(entity=entity, propertyName=propertyName, callback=self.editorDataChanged,
-									 optionalData=optionalData, parent=self.parentFrame)
-			editor.setValue(propertyData)
-		elif propertyType == 'object':
-			self.row += 1
-			self.addDisplayItems(optionalData, getattr(entity, propertyName))
+		editor = self._dataHandlers.getHandler(propertyType)(propertyName, entity, propertyData, optionalData)
 		if editor:
 			self.gridToFill.addWidget(editor, self.row, column, 1, 1)
 		return editor
+
+	def addObjectEditor(self, propertyName, entity, optionalData):
+		self.row += 1
+		self.addDisplayItems(optionalData, getattr(entity, propertyName))
+		return None
 
 	def editorDataChanged(self, editor: BaseEditor):
 		if self.loadingData:

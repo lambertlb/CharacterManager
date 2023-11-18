@@ -21,7 +21,7 @@ class BaseEditor:
 		return None
 
 	def setValue(self, value):
-		pass
+		return self
 
 	def badValue(self, good):
 		pass
@@ -47,6 +47,7 @@ class TextEditor(QtWidgets.QLineEdit, BaseEditor):
 
 	def setValue(self, value):
 		self.setText(value)
+		return self
 
 	def badValue(self, good):
 		if good:
@@ -67,6 +68,7 @@ class IntegerEditor(TextEditor, BaseEditor):
 
 	def setValue(self, value):
 		self.setText(str(value))
+		return self
 
 
 class NumberEditor(TextEditor, BaseEditor):
@@ -80,6 +82,7 @@ class NumberEditor(TextEditor, BaseEditor):
 
 	def setValue(self, value):
 		self.setText(str(value))
+		return self
 
 
 class CompositeEditor(QtWidgets.QComboBox, BaseEditor):
@@ -113,6 +116,7 @@ class CompositeEditor(QtWidgets.QComboBox, BaseEditor):
 					foundIndex = index
 				index += 1
 		self.setCurrentIndex(foundIndex)
+		return self
 
 	def onChanged(self, mewText):
 		self.callback(self)

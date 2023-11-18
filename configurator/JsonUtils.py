@@ -39,6 +39,7 @@ class JsonUtils:
 			result = jsonref.load(file_a, base_uri=file_a_path.as_uri())
 			return result
 
+
 class JsonTypeHandlers:
 
 	def __init__(self) -> None:
@@ -101,7 +102,10 @@ class JsonTypeHandlers:
 	def objectHandler(self, value):
 		self.typeMap['object'] = value
 
-	def handleType(self, jsonType, propertyName, definition, data, entity):
+	def addCustomHandler(self, customType, value):
+		self.typeMap[customType] = value
+
+	def getHandler(self, jsonType):
 		handler = self.typeMap.get(jsonType)
 		assert handler, f'Handler for {jsonType} not found'
-		handler(propertyName, definition, data, entity)
+		return handler
